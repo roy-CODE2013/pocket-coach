@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>האזור האישי · Pocket Coach</title>
+<meta name="description" content="האזור האישי שלך ב-Pocket Coach — ההתקדמות, התרגילים ויומן האימונים.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Rubik:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Assistant', 'system-ui', 'sans-serif'],
+        display: ['Rubik', 'Assistant', 'sans-serif']
+      },
+      colors: {
+        ink:    '#071633',
+        navy:   '#0E2A63',
+        navy2:  '#123A86',
+        blue:   '#2D5BFF',
+        bluelt: '#6E93FF',
+        gold:   '#FFD500',
+        goldsoft:'#FFEA80',
+        cloud:  '#F5F7FF',
+        muted:  '#5B6B95'
+      },
+      keyframes: {
+        fadeUp: { '0%':{opacity:'0',transform:'translateY(14px)'}, '100%':{opacity:'1',transform:'translateY(0)'} },
+        popIn:  { '0%':{opacity:'0',transform:'scale(.96)'}, '100%':{opacity:'1',transform:'scale(1)'} },
+        slideIn:{ '0%':{opacity:'0',transform:'translateX(-24px)'}, '100%':{opacity:'1',transform:'translateX(0)'} }
+      },
+      animation: {
+        fadeUp: 'fadeUp .45s cubic-bezier(.2,.8,.3,1) both',
+        popIn: 'popIn .24s ease-out both',
+        slideIn: 'slideIn .4s ease-out both'
+      }
+    }
+  }
+}
+</script>
+<link rel="stylesheet" href="styles.css">
+<script>
+// חזרה מגוגל — מציגים מסך המתנה במקום הבזק של טופס הכניסה
+(function () {
+  var u = new URL(location.href);
+  if (u.searchParams.get('code') || location.hash.indexOf('access_token') > -1) {
+    document.documentElement.setAttribute('data-returning', '1');
+  }
+})();
+</script>
+</head>
+<body class="bg-cloud font-sans text-ink antialiased">
+
+<!-- ═══════════════════ מסך התחברות ═══════════════════ -->
+<section id="authView">
+ <div class="grid min-h-screen lg:grid-cols-2">
+
+  <!-- צד תדמית -->
+  <div class="relative hidden overflow-hidden bg-gradient-to-bl from-navy2 via-navy to-ink p-12 text-white lg:flex lg:flex-col lg:justify-between">
+    <div class="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-blue/30 blur-3xl"></div>
+    <div class="absolute -bottom-40 -right-24 h-96 w-96 rounded-full bg-gold/15 blur-3xl"></div>
+    <svg class="pointer-events-none absolute -left-24 top-1/4 h-[420px] w-[420px] opacity-[.12]" viewBox="0 0 400 400" fill="none">
+      <circle cx="200" cy="200" r="150" stroke="#FFD500" stroke-width="2"/>
+      <path d="M200 50V350M50 200H350" stroke="#FFD500" stroke-width="1.6"/>
+      <path d="M70 80C110 140 110 260 70 320M330 80C290 140 290 260 330 320" stroke="#FFD500" stroke-width="1.6"/>
+    </svg>
+
+    <div class="relative flex items-center gap-3">
+      <svg class="h-11 w-11" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18" stroke="#FFD500" stroke-width="2.5"/>
+        <path d="M20 2V38M2 20H38" stroke="#FFD500" stroke-width="2" stroke-linecap="round"/>
+        <path d="M6 8C10 14 10 26 6 32M34 8C30 14 30 26 34 32" stroke="#FFD500" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <p class="font-display text-xl font-extrabold tracking-tight">Pocket Coach</p>
+        <p class="text-xs text-bluelt">מאמן אישי בכיס</p>
+      </div>
+    </div>
+
+    <div class="relative animate-slideIn">
+      <h1 class="font-display text-4xl font-extrabold leading-tight">האזור האישי שלך.<br><span class="text-gold">כל אימון נספר.</span></h1>
+      <p class="mt-5 max-w-md text-lg leading-relaxed text-bluelt">
+        כאן נשמרת ההתקדמות שלך — התרגילים שעשית, הרצף שבנית והתחומים שכדאי לחזק.
+      </p>
+      <ul class="mt-8 space-y-3 text-white/90">
+        <li class="flex items-center gap-3"><span class="grid h-6 w-6 place-items-center rounded-full bg-gold text-xs font-bold text-navy">✓</span> תרגיל מומלץ עם טיימר מובנה</li>
+        <li class="flex items-center gap-3"><span class="grid h-6 w-6 place-items-center rounded-full bg-gold text-xs font-bold text-navy">✓</span> מעקב אחרי רצף ימי אימון</li>
+        <li class="flex items-center gap-3"><span class="grid h-6 w-6 place-items-center rounded-full bg-gold text-xs font-bold text-navy">✓</span> יומן אימונים מלא</li>
+      </ul>
+    </div>
+
+    <p class="relative text-sm text-bluelt">© 2026 Pocket Coach · כל הזכויות שמורות</p>
+  </div>
+
+  <!-- טופס -->
+  <div class="flex items-center justify-center p-6 sm:p-10">
+    <div class="w-full max-w-md animate-fadeUp">
+
+      <div class="mb-8 text-center lg:text-right">
+        <svg class="mb-4 inline-block h-12 w-12 lg:hidden" viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="18" stroke="#0E2A63" stroke-width="2.5"/>
+          <path d="M20 2V38M2 20H38" stroke="#0E2A63" stroke-width="2" stroke-linecap="round"/>
+          <path d="M6 8C10 14 10 26 6 32M34 8C30 14 30 26 34 32" stroke="#0E2A63" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <h2 id="authTitle" class="font-display text-3xl font-extrabold text-ink">ברוכים השבים</h2>
+        <p id="authSubtitle" class="mt-2 text-muted">מייל וסיסמה, או כניסה מהירה עם Google</p>
+      </div>
+
+      <!-- התחברות -->
+      <form id="loginForm" class="space-y-4" novalidate>
+        <div>
+          <label class="mb-1.5 block text-sm font-bold text-ink" for="loginEmail">כתובת מייל</label>
+          <input id="loginEmail" type="email" class="field" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div>
+          <label class="mb-1.5 block text-sm font-bold text-ink" for="loginPassword">סיסמה</label>
+          <input id="loginPassword" type="password" class="field" placeholder="הסיסמה שבחרת" autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn-primary w-full"><span class="btn-label">כניסה לאזור האישי</span></button>
+
+        <div class="my-5 flex items-center gap-3">
+          <span class="h-px flex-1 bg-navy/10"></span>
+          <span class="text-[12px] font-bold text-muted">או</span>
+          <span class="h-px flex-1 bg-navy/10"></span>
+        </div>
+
+        <button type="button" class="google-btn" data-google>
+          <svg viewBox="0 0 48 48" aria-hidden="true">
+            <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.6l6.7-6.7C35.6 2.6 30.2.5 24 .5 14.6.5 6.5 5.8 2.6 13.6l7.8 6.1C12.3 13.7 17.6 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.6 24.5c0-1.6-.1-3.2-.4-4.7H24v9h12.7c-.5 3-2.2 5.5-4.7 7.2l7.4 5.7c4.3-4 6.8-9.9 6.8-17.2z"/>
+            <path fill="#FBBC05" d="M10.4 28.3c-.5-1.5-.8-3.1-.8-4.8s.3-3.3.8-4.8l-7.8-6.1C.9 15.9 0 19.8 0 23.5s.9 7.6 2.6 10.9l7.8-6.1z"/>
+            <path fill="#34A853" d="M24 47c6.2 0 11.5-2 15.4-5.6l-7.4-5.7c-2.1 1.4-4.8 2.2-8 2.2-6.4 0-11.7-4.2-13.6-10.1l-7.8 6.1C6.5 41.7 14.6 47 24 47z"/>
+          </svg>
+          <span data-google-label>המשך עם Google</span>
+        </button>
+
+        <p class="pt-1 text-center text-sm text-muted">
+          שחקן/ית חדש/ה?
+          <button type="button" data-auth="register" class="font-bold text-blue hover:underline">הרשמה מהירה</button>
+        </p>
+      </form>
+
+      <!-- הרשמה -->
+      <form id="registerForm" class="hidden space-y-4" novalidate>
+        <div>
+          <label class="mb-1.5 block text-sm font-bold text-ink" for="regName">שם מלא</label>
+          <input id="regName" type="text" class="field" placeholder="ישראל ישראלי" autocomplete="name">
+        </div>
+        <div>
+          <label class="mb-1.5 block text-sm font-bold text-ink" for="regEmail">כתובת מייל</label>
+          <input id="regEmail" type="email" class="field" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div>
+          <label class="mb-1.5 block text-sm font-bold text-ink" for="regPassword">סיסמה</label>
+          <input id="regPassword" type="password" class="field" placeholder="בחרו סיסמה" autocomplete="new-password">
+        </div>
+        <button type="submit" class="btn-primary w-full"><span class="btn-label">יצירת חשבון והתחלה</span></button>
+
+        <div class="my-5 flex items-center gap-3">
+          <span class="h-px flex-1 bg-navy/10"></span>
+          <span class="text-[12px] font-bold text-muted">או</span>
+          <span class="h-px flex-1 bg-navy/10"></span>
+        </div>
+
+        <button type="button" class="google-btn" data-google>
+          <svg viewBox="0 0 48 48" aria-hidden="true">
+            <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.6l6.7-6.7C35.6 2.6 30.2.5 24 .5 14.6.5 6.5 5.8 2.6 13.6l7.8 6.1C12.3 13.7 17.6 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.6 24.5c0-1.6-.1-3.2-.4-4.7H24v9h12.7c-.5 3-2.2 5.5-4.7 7.2l7.4 5.7c4.3-4 6.8-9.9 6.8-17.2z"/>
+            <path fill="#FBBC05" d="M10.4 28.3c-.5-1.5-.8-3.1-.8-4.8s.3-3.3.8-4.8l-7.8-6.1C.9 15.9 0 19.8 0 23.5s.9 7.6 2.6 10.9l7.8-6.1z"/>
+            <path fill="#34A853" d="M24 47c6.2 0 11.5-2 15.4-5.6l-7.4-5.7c-2.1 1.4-4.8 2.2-8 2.2-6.4 0-11.7-4.2-13.6-10.1l-7.8 6.1C6.5 41.7 14.6 47 24 47z"/>
+          </svg>
+          <span data-google-label>הרשמה עם Google</span>
+        </button>
+
+        <p class="pt-1 text-center text-sm text-muted">
+          כבר יש לך חשבון?
+          <button type="button" data-auth="login" class="font-bold text-blue hover:underline">לכניסה</button>
+        </p>
+      </form>
+
+      <button data-goto="site" class="mt-7 flex w-full items-center justify-center gap-2 text-sm font-bold text-muted transition hover:text-blue">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+        חזרה לאתר Pocket Coach
+      </button>
+
+    </div>
+  </div>
+ </div>
+</section>
+
+
+<!-- ═══════════════════ האזור האישי ═══════════════════ -->
+<section id="dashboardView" class="hidden min-h-screen">
+  <div class="flex min-h-screen">
+
+    <!-- ── סרגל צד ── -->
+    <aside id="sidebar" class="fixed inset-y-0 right-0 z-40 w-[17.5rem] translate-x-full flex-col bg-gradient-to-b from-navy2 via-navy to-ink text-white/75 transition-transform duration-300 lg:static lg:translate-x-0 lg:flex">
+
+      <div class="flex items-center gap-3 px-6 pb-5 pt-6">
+        <svg class="h-9 w-9 shrink-0" viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="18" stroke="#FFD500" stroke-width="2.5"/>
+          <path d="M20 2V38M2 20H38" stroke="#FFD500" stroke-width="2" stroke-linecap="round"/>
+          <path d="M6 8C10 14 10 26 6 32M34 8C30 14 30 26 34 32" stroke="#FFD500" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <div class="min-w-0">
+          <p class="font-display text-[15px] font-extrabold leading-tight text-white">Pocket Coach</p>
+          <p class="text-[11px] tracking-wide text-bluelt">האזור האישי</p>
+        </div>
+        <button id="sidebarClose" class="mr-auto text-white/50 transition hover:text-white lg:hidden" aria-label="סגירת תפריט">
+          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+
+      <!-- כרטיס שחקן -->
+      <div class="mx-4 rounded-2xl bg-white/[.07] p-4 ring-1 ring-white/10">
+        <div class="flex items-center gap-3">
+          <div id="sideAvatar" class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-gold font-display text-lg font-extrabold text-navy ring-4 ring-gold/20">ג</div>
+          <div class="min-w-0">
+            <p id="sideName" class="truncate text-[15px] font-bold leading-tight text-white">—</p>
+            <p id="sidePosition" class="truncate text-[11px] text-bluelt">—</p>
+          </div>
+        </div>
+
+        <div class="mt-4 grid grid-cols-2 gap-2">
+          <div class="rounded-xl bg-white/[.06] px-2 py-2.5 text-center">
+            <p class="font-display text-lg font-extrabold leading-none text-gold">
+              <span class="streak-flame inline-block align-middle">🔥</span>&nbsp;<span id="sideStreak">0</span>
+            </p>
+            <p class="mt-1.5 text-[10px] tracking-wide text-white/60">ימי רצף</p>
+          </div>
+          <div class="rounded-xl bg-white/[.06] px-2 py-2.5 text-center">
+            <p id="sideDrills" class="font-display text-lg font-extrabold leading-none text-white">0</p>
+            <p class="mt-1.5 text-[10px] tracking-wide text-white/60">תרגילים</p>
+          </div>
+        </div>
+        <p id="streakNote" class="mt-2.5 text-center text-[10px] text-bluelt"></p>
+      </div>
+
+      <nav class="mt-5 flex-1 space-y-0.5 overflow-y-auto px-4 pb-4">
+        <p class="px-3 pb-2 text-[10px] font-bold uppercase tracking-[.12em] text-white/35">האימון שלי</p>
+        <button class="nav-item nav-active" data-action="overview">
+          <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+          סקירה
+        </button>
+        <button class="nav-item" data-action="suggest">
+          <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg>
+          תרגיל עכשיו
+        </button>
+        <button class="nav-item" data-action="drills">
+          <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18M6 5.5C8.5 9 8.5 15 6 18.5M18 5.5C15.5 9 15.5 15 18 18.5"/></svg>
+          כל התרגילים
+        </button>
+        <button class="nav-item" data-action="progress">
+          <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+          ההתקדמות שלי
+        </button>
+        <button class="nav-item" data-action="schedule">
+          <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/><circle cx="8.5" cy="14.5" r="1.2" fill="currentColor" stroke="none"/><circle cx="15.5" cy="14.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+          היומן השבועי
+        </button>
+        <button class="nav-item" data-action="log">
+          <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18M8 15h8"/></svg>
+          יומן האימונים
+        </button>
+
+        <p class="px-3 pb-2 pt-5 text-[10px] font-bold uppercase tracking-[.12em] text-white/35">החשבון שלי</p>
+        <button class="nav-item" data-action="settings">
+          <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21a8 8 0 1 0-16 0"/><circle cx="12" cy="8" r="4"/></svg>
+          הפרופיל שלי
+        </button>
+        <a href="/" class="nav-item">
+          <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+          חזרה לאתר
+        </a>
+        <button data-action="logout" class="nav-item w-full text-rose-300/90 hover:bg-rose-500/10 hover:text-rose-200">
+          <svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>
+          התנתקות
+        </button>
+      </nav>
+    </aside>
+    <div id="sidebarOverlay" class="fixed inset-0 z-30 hidden bg-ink/60 backdrop-blur-sm lg:hidden"></div>
+
+    <!-- ── תוכן ── -->
+    <div class="flex min-w-0 flex-1 flex-col bg-cloud">
+
+      <header class="sticky top-0 z-20 flex items-center gap-4 border-b border-navy/[.07] bg-cloud/85 px-5 py-3.5 backdrop-blur-md lg:px-8">
+        <button id="sidebarOpen" class="text-muted transition hover:text-ink lg:hidden" aria-label="פתיחת תפריט">
+          <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <div class="min-w-0">
+          <h1 id="topGreeting" class="truncate font-display text-[17px] font-extrabold leading-tight text-ink">—</h1>
+          <p id="topSub" class="truncate text-xs text-muted">—</p>
+        </div>
+        <div class="mr-auto flex items-center gap-2">
+          <button data-action="suggest" class="hidden items-center gap-2 rounded-xl bg-gold px-4 py-2.5 text-sm font-extrabold text-navy shadow-md shadow-gold/25 transition hover:brightness-105 active:translate-y-px sm:flex">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/></svg>
+            תרגיל עכשיו
+          </button>
+          <button data-action="settings" class="flex items-center gap-2 rounded-xl bg-white py-1.5 pl-3 pr-1.5 ring-1 ring-navy/[.08] transition hover:ring-navy/20">
+            <div id="topAvatar" class="grid h-7 w-7 place-items-center rounded-full bg-navy text-xs font-bold text-gold">ג</div>
+            <span id="topName" class="hidden text-sm font-bold text-ink sm:block">—</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="mx-auto w-full max-w-6xl flex-1 space-y-5 p-5 lg:p-8">
+
+        <!-- ── כרטיס הרצף ── -->
+        <section class="relative overflow-hidden rounded-[1.75rem] bg-gradient-to-bl from-navy2 via-navy to-ink text-white shadow-xl shadow-navy/20">
+          <div class="absolute -top-24 -left-16 h-72 w-72 rounded-full bg-blue/25 blur-3xl"></div>
+          <div class="absolute -bottom-28 right-1/3 h-72 w-72 rounded-full bg-gold/10 blur-3xl"></div>
+          <svg class="pointer-events-none absolute -bottom-20 -left-12 h-64 w-64 opacity-[.10]" viewBox="0 0 200 200" fill="none">
+            <circle cx="100" cy="100" r="80" stroke="#FFD500" stroke-width="2"/>
+            <path d="M100 20v160M20 100h160" stroke="#FFD500" stroke-width="1.6"/>
+          </svg>
+
+          <div class="relative grid gap-6 p-7 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center">
+            <div class="min-w-0">
+              <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-[11px] font-bold tracking-wide text-gold ring-1 ring-gold/25">
+                <span class="h-1.5 w-1.5 rounded-full bg-gold"></span> מוכנים לאימון?
+              </span>
+              <h2 class="mt-4 font-display text-[27px] font-extrabold leading-[1.2] sm:text-[32px]">
+                תרגיל אחד. <span class="text-gold">עשר דקות.</span>
+              </h2>
+              <p id="bannerLine" class="mt-2.5 max-w-lg text-[15px] leading-relaxed text-bluelt">
+                בחרו תרגיל ממוקד ותתחילו — כל אימון נרשם ביומן.
+              </p>
+              <p id="nextTraining" class="mt-4 hidden w-fit rounded-full bg-white/10 px-4 py-1.5 text-[13px] font-bold text-gold ring-1 ring-gold/25">—</p>
+              <button data-action="suggest" class="mt-6 rounded-2xl bg-gold px-7 py-3.5 font-display text-[15px] font-extrabold text-navy shadow-lg shadow-gold/20 transition hover:brightness-105 active:translate-y-px">
+                קבלו תרגיל עכשיו
+              </button>
+            </div>
+
+            <!-- מונה הרצף -->
+            <div class="w-full rounded-2xl bg-white/[.08] p-6 text-center ring-1 ring-white/15 backdrop-blur-sm lg:w-56">
+              <div class="streak-flame text-5xl leading-none">🔥</div>
+              <p id="heroStreak" class="mt-3 font-display text-5xl font-extrabold leading-none text-gold">0</p>
+              <p class="mt-2 text-sm font-bold text-white">ימים ברצף</p>
+              <div class="mt-4 h-1.5 overflow-hidden rounded-full bg-white/15">
+                <div id="streakBar" class="h-full rounded-full bg-gold transition-all duration-700" style="width:0%"></div>
+              </div>
+              <p id="heroStreakLabel" class="mt-2 text-[11px] text-bluelt">—</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── מדדים ── -->
+        <div id="kpiRow" class="grid gap-4 sm:grid-cols-3"></div>
+
+        <!-- ── גרף ותחומים ── -->
+        <div class="grid gap-5 lg:grid-cols-5">
+          <section class="rounded-[1.5rem] bg-white p-6 shadow-sm ring-1 ring-navy/[.06] lg:col-span-3">
+            <div class="mb-1 flex flex-wrap items-center gap-3">
+              <h2 class="font-display text-[17px] font-extrabold text-ink">השבוע האחרון</h2>
+              <span id="weekTotal" class="rounded-full bg-cloud px-3 py-1 text-[11px] font-bold text-navy">—</span>
+            </div>
+            <p class="mb-6 text-[13px] text-muted">דקות אימון בכל יום</p>
+            <div id="weekChart" class="flex h-44 items-end gap-2"></div>
+          </section>
+
+          <section class="rounded-[1.5rem] bg-white p-6 shadow-sm ring-1 ring-navy/[.06] lg:col-span-2">
+            <h2 class="font-display text-[17px] font-extrabold text-ink">התחומים שלך</h2>
+            <p class="mb-6 text-[13px] text-muted">לפי דקות אימון מצטברות</p>
+            <div id="skillsList" class="space-y-4"></div>
+          </section>
+        </div>
+
+        <!-- ── פעולות ── -->
+        <section>
+          <h2 class="mb-3 px-1 text-[11px] font-bold uppercase tracking-[.12em] text-muted">מה בא לכם לעשות?</h2>
+          <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+
+            <button data-action="drills" class="action-card group">
+              <span class="action-icon bg-blue/10 text-blue group-hover:bg-blue"><svg class="h-[22px] w-[22px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18M6 5.5C8.5 9 8.5 15 6 18.5M18 5.5C15.5 9 15.5 15 18 18.5"/></svg></span>
+              <span class="action-body"><b>כל התרגילים</b><small>ספרייה לפי תחום, עם מועדפים</small></span>
+            </button>
+
+            <button data-action="progress" class="action-card group">
+              <span class="action-icon bg-gold/20 text-navy group-hover:bg-gold"><svg class="h-[22px] w-[22px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
+              <span class="action-body"><b>ההתקדמות שלי</b><small>רצף, דקות ופילוח תחומים</small></span>
+            </button>
+
+            <button data-action="log" class="action-card group">
+              <span class="action-icon bg-emerald-50 text-emerald-600 group-hover:bg-emerald-600"><svg class="h-[22px] w-[22px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18M8 15h8"/></svg></span>
+              <span class="action-body"><b>יומן האימונים</b><small>כל תרגיל שהשלמתם</small></span>
+            </button>
+
+            <button data-action="schedule" class="action-card group">
+              <span class="action-icon bg-violet-50 text-violet-600 group-hover:bg-violet-600"><svg class="h-[22px] w-[22px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></span>
+              <span class="action-body"><b>היומן השבועי</b><small>ימים, שעות ותזכורת שעה לפני</small></span>
+            </button>
+
+          </div>
+        </section>
+
+        <!-- ── אימונים אחרונים ── -->
+        <section class="overflow-hidden rounded-[1.5rem] bg-white shadow-sm ring-1 ring-navy/[.06]">
+          <div class="flex flex-wrap items-center gap-3 border-b border-navy/[.06] px-6 py-4">
+            <h2 class="font-display text-[17px] font-extrabold text-ink">האימונים האחרונים</h2>
+            <span id="logCount" class="rounded-full bg-cloud px-2.5 py-0.5 text-[11px] font-bold text-navy">0</span>
+            <button data-action="log" class="mr-auto text-[13px] font-bold text-blue transition hover:text-navy">ליומן המלא ←</button>
+          </div>
+          <div id="recentList" class="divide-y divide-navy/[.05]"></div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ מודאל ═══════════════════ -->
+<div id="modalRoot" class="fixed inset-0 z-50 hidden">
+  <div id="modalBackdrop" class="absolute inset-0 bg-ink/70 backdrop-blur-sm"></div>
+  <div class="absolute inset-0 flex items-center justify-center p-4">
+    <div id="modalBox" class="animate-popIn flex max-h-[88vh] w-full max-w-2xl flex-col overflow-hidden rounded-3xl bg-white shadow-2xl">
+      <div class="flex items-center gap-3 border-b border-navy/10 px-6 py-4">
+        <h3 id="modalTitle" class="font-display text-lg font-extrabold text-ink">כותרת</h3>
+        <button id="modalClose" class="mr-auto grid h-9 w-9 place-items-center rounded-xl text-muted transition hover:bg-cloud hover:text-ink" aria-label="סגירה">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <div id="modalBody" class="overflow-y-auto p-6"></div>
+    </div>
+  </div>
+</div>
+
+<!-- מסך המתנה בחזרה מגוגל -->
+<div id="authLoader" class="fixed inset-0 z-[70] hidden place-items-center bg-gradient-to-bl from-navy2 via-navy to-ink text-white">
+  <div class="text-center">
+    <svg class="mx-auto h-14 w-14 animate-pulse" viewBox="0 0 40 40" fill="none">
+      <circle cx="20" cy="20" r="18" stroke="#FFD500" stroke-width="2.5"/>
+      <path d="M20 2V38M2 20H38" stroke="#FFD500" stroke-width="2" stroke-linecap="round"/>
+      <path d="M6 8C10 14 10 26 6 32M34 8C30 14 30 26 34 32" stroke="#FFD500" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <p class="mt-6 font-display text-xl font-extrabold">מתחבר…</p>
+    <p class="mt-1.5 text-sm text-bluelt">רגע אחד, טוענים את האזור האישי</p>
+    <div class="mx-auto mt-6 h-1 w-40 overflow-hidden rounded-full bg-white/15">
+      <div class="loader-bar h-full w-1/3 rounded-full bg-gold"></div>
+    </div>
+  </div>
+</div>
+
+<div id="toastRoot" class="fixed bottom-5 left-5 z-[60] flex flex-col gap-2"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="drills.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
