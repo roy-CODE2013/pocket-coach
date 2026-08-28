@@ -1268,8 +1268,6 @@
 
   // ───────────────────────────────────────── כניסה עם גוגל (Supabase)
 
-  let sb = null;
-
   const returningFromGoogle = () =>
     new URL(location.href).searchParams.has('code') || location.hash.includes('access_token');
 
