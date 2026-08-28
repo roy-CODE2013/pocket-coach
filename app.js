@@ -1311,7 +1311,7 @@
 
     const { error } = await sb.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: `${window.location.origin}/app` },
+      options: { redirectTo: window.location.href.split('?')[0].split('#')[0] },
     });
 
     if (error) {
