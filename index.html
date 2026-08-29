@@ -543,6 +543,7 @@
       <li><a href="#pricing" data-en="Pricing">מודל עסקי</a></li>
       <li><a href="app.html" id="loginLink" data-en="Log In">התחברות</a></li>
       <li><a href="app.html?mode=register" id="registerLink" data-en="Sign Up">הרשמה</a></li>
+      <li><a href="deck.html" class="nav-deck" data-en="The Deck">המצגת</a></li>
       <li><a href="#join" class="nav-cta" data-en="Try It Free">נסו בחינם</a></li>
     </ul>
     <div class="user-badge" id="userBadge" style="display:none;">
@@ -3252,6 +3253,264 @@
 
 })();
 </script>
+
+
+<!-- ===== Pocket Coach · סיור מודרך (guided tour) ===== -->
+<style id="pct-nav-style">
+  .nav-links .nav-deck {
+    display: inline-flex; align-items: center; gap: 6px;
+    border: 1px solid rgba(255,213,0,.55); color: #FFD500;
+    border-radius: 100px; padding: 7px 15px; font-weight: 700;
+    transition: background .2s ease, border-color .2s ease;
+  }
+  .nav-links .nav-deck:hover { background: rgba(255,213,0,.12); border-color: #FFD500; }
+</style>
+<style id="pct-style">
+  #pct-root { position: fixed; inset: 0; z-index: 99998; display: none; }
+  #pct-root.pct-on { display: block; }
+  #pct-veil { position: absolute; inset: 0; cursor: pointer; }
+  #pct-hole {
+    position: fixed; border-radius: 12px; pointer-events: none;
+    border: 2px solid #FFD500; box-shadow: 0 0 0 9999px rgba(7,22,51,.74), 0 0 0 6px rgba(255,213,0,.22);
+    transition: top .32s cubic-bezier(.4,0,.2,1), left .32s cubic-bezier(.4,0,.2,1),
+                width .32s cubic-bezier(.4,0,.2,1), height .32s cubic-bezier(.4,0,.2,1);
+  }
+  #pct-arrow { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+  #pct-arrow path { fill: none; stroke: #FFD500; stroke-width: 3; stroke-linecap: round;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,.45)); }
+  #pct-arrow polygon { fill: #FFD500; filter: drop-shadow(0 2px 6px rgba(0,0,0,.45)); }
+  #pct-tip {
+    position: fixed; width: min(340px, calc(100vw - 32px)); background: #FFFFFF; color: #071633;
+    border-radius: 16px; padding: 18px 20px 16px; box-shadow: 0 24px 60px rgba(0,0,0,.42);
+    font-family: 'Assistant', 'Arial Hebrew', sans-serif; direction: rtl; text-align: right;
+    pointer-events: auto;
+  }
+  #pct-tip .pct-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  #pct-tip .pct-badge {
+    font-family: 'Space Mono', monospace; direction: ltr; font-size: 12px; font-weight: 700;
+    background: #2D5BFF; color: #FFFFFF; border-radius: 100px; padding: 4px 11px;
+  }
+  #pct-tip .pct-close {
+    margin-right: auto; background: none; border: 0; color: #5B6B95; font: inherit; font-size: 13px;
+    cursor: pointer; padding: 4px 6px; border-radius: 8px;
+  }
+  #pct-tip .pct-close:hover { background: rgba(7,22,51,.06); color: #071633; }
+  #pct-tip h4 { font-family: 'Rubik', 'Arial Hebrew', sans-serif; font-size: 18px; font-weight: 700;
+    margin: 0 0 7px; line-height: 1.3; }
+  #pct-tip p { font-size: 15px; line-height: 1.55; color: #5B6B95; margin: 0 0 14px; }
+  #pct-tip .pct-foot { display: flex; align-items: center; gap: 12px; border-top: 1px solid rgba(7,22,51,.1);
+    padding-top: 11px; font-size: 12.5px; color: #5B6B95; }
+  #pct-tip .pct-prog { margin-right: auto; font-family: 'Space Mono', monospace; direction: ltr; }
+  #pct-tip .pct-nav { background: rgba(7,22,51,.06); border: 0; border-radius: 100px; color: #071633;
+    font: inherit; font-size: 13px; font-weight: 600; padding: 6px 13px; cursor: pointer; }
+  #pct-tip .pct-nav:hover { background: rgba(7,22,51,.12); }
+  #pct-tip .pct-nav:disabled { opacity: .35; cursor: default; }
+  #pct-tip button:focus-visible, #pct-tip button:focus-visible { outline: 2px solid #2D5BFF; outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { #pct-hole { transition: none; } }
+  @media print { #pct-root { display: none !important; } }
+</style>
+
+
+<div id="pct-root" role="dialog" aria-modal="true" aria-label="סיור מודרך באתר">
+  <div id="pct-veil"></div>
+  <div id="pct-hole"></div>
+  <svg id="pct-arrow" aria-hidden="true"><path id="pct-path" /><polygon id="pct-head" /></svg>
+  <div id="pct-tip">
+    <div class="pct-head">
+      <span class="pct-badge" id="pct-badge">01</span>
+      <button class="pct-close" id="pct-close" type="button">סגירת הסיור</button>
+    </div>
+    <h4 id="pct-title"></h4>
+    <p id="pct-text"></p>
+    <div class="pct-foot">
+      <button class="pct-nav" id="pct-prev" type="button">הקודם</button>
+      <span>לחצו במסך להמשך</span>
+      <span class="pct-prog" id="pct-prog"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var STEPS = [
+    ['.hero h1', 'ההבטחה של האתר', 'המשפט הראשון מסביר את כל המוצר: מתארים מה קשה במגרש, ומקבלים תרגיל — לא עוד סרטון אקראי.'],
+    ['.hero-ctas', 'שתי דרכים להתחיל', 'אפשר לקפוץ ישר לתרגול, או לקרוא קודם איך זה עובד. שחקן ממהר וגם הורה זהיר מוצאים כאן את הכפתור שלהם.'],
+    ['#navLinks', 'תפריט התחנות', 'האתר הוא עמוד אחד ארוך. התפריט קופץ לכל אחת מהתחנות — הבעיה, איך זה עובד, השוואה, יכולות, קהל, מחיר, צמיחה ויעד.'],
+    ['#a11yFab', 'פאנל הנגישות', 'מכאן נפתחות 12 התאמות נגישות ו-41 שפות ממשק: ניגודיות גבוהה, הקראת טקסט, גודל גופן, מצב לילה וצבעי רקע.'],
+    ['#searchInput', 'כאן מתחיל הכול', 'כותבים מה קשה במילים רגילות — "לא מצליח לקלוע בלחץ", "מפחד לפני משחק". בלי מונחים מקצועיים ובלי לדעת מה לחפש.'],
+    ['#chipRow', 'סינון לפי סוג', 'שלוש קטגוריות: טכניקה, קליעה, וכלים מנטליים להרגעה. לחיצה אחת מצמצמת את המאגר בדיוק למה שצריך עכשיו.'],
+    ['#drillList', 'התרגילים עצמם', 'המאגר מכיל 27 תרגילים ממוקדים — 15 טכניקה, 7 קליעה ו-5 מנטליים. בכל תרגיל יש טיימר מובנה, בלי אפליקציית סטופר נפרדת.'],
+    ['#favCount', 'מועדפים בלי הרשמה', 'הכוכב שומר תרגיל בדפדפן עצמו. אין משתמש, אין סיסמה, ואין טופס שצריך למלא כדי לחזור לתרגיל מחר.'],
+    ['#problem .section-head h2', 'תחנה: הבעיה', 'שעה במגרש ואפס התקדמות. כאן מוסבר למה אימון בלי תוכנית מבזבז חודשים, ולמה מאמן פרטי ויוטיוב לא פותרים את זה.'],
+    ['#how .section-head h2', 'תחנה: איך זה עובד', 'שלושה צעדים בין "אני תקוע" לבין תרגול אמיתי — בלי תיאום, בלי המתנה ובפחות מדקה.'],
+    ['#how .step-card', 'צעד ראשון מתוך שלושה', 'הכרטיסים ממוספרים 01 עד 03 ונכנסים לתמונה בזמן הגלילה. כל אחד מסביר בדיוק מה השחקן עושה בשלב הזה.'],
+    ['.compare', 'תחנה: השוואה לחלופות', 'טבלה כנה בת שלוש עמודות. היא לא מסתירה שיוטיוב חינמי וזמין תמיד — ומראה בדיוק איפה הוא נכשל: שעות חיפוש מול פחות מדקה.'],
+    ['#features .feature-card', 'תחנה: יכולות עיקריות', 'שלוש יכולות שמחליפות תכנון אימונים, סטופר נפרד ופתק של "לבדוק אחר כך": חיפוש וסינון, טיימר, ומועדפים.'],
+    ['#audience .section-head h2', 'תחנה: קהלי יעד', 'שני פרופילים מפורטים — נוער ושכונה בגילאי 10 עד 18, וחובבים מבוגרים מגיל 18. אותו צורך בדיוק, שני מצבי חיים שונים.'],
+    ['#pricing .price-card', 'תחנה: מודל עסקי', 'גישה בסיסית חינם לתמיד ללא הרשמה, לצד מנוי חודשי בעלות ₪15 במחיר השקה. הבסיס נשאר חינמי גם אחרי שהפרימיום ייבנה.'],
+    ['#premiumBadge', 'מה שעוד לא נבנה', 'היכולות המסומנות "בקרוב" — מאמן חכם ללא הגבלה, תרגילים מנטליים מתקדמים ומעקב התקדמות — קיימות כרגע רק ככוונה. זה בדיוק מה שתרומה מממנת.'],
+    ['#growth .growth-card', 'תחנה: שיווק וצמיחה', 'שלושה ערוצים אורגניים בלי תקציב פרסום: תוכן קצר בטיקטוק ואינסטגרם, קהילות כדורסל קיימות, וחבר מביא חבר בתוך האפליקציה.'],
+    ['#goalNum', 'תחנה: היעד שלנו', 'מספר אחד ומדיד לחודשים הראשונים. מיזם שמוכן להיבחן לפי מדד יחיד הוא מיזם שאפשר לתמוך בו בביטחון.'],
+    ['#join .btn-primary', 'תחנה אחרונה: הצטרפות', 'בלי הרשמה ובלי כרטיס אשראי. מתארים מה קשה, ומתחילים להתאמן נכון היום — זו כל הבקשה מהשחקן.']
+  ];
+
+  var root = document.getElementById('pct-root');
+  var veil = document.getElementById('pct-veil');
+  var hole = document.getElementById('pct-hole');
+  var tip = document.getElementById('pct-tip');
+  var pathEl = document.getElementById('pct-path');
+  var headEl = document.getElementById('pct-head');
+  var badge = document.getElementById('pct-badge');
+  var titleEl = document.getElementById('pct-title');
+  var textEl = document.getElementById('pct-text');
+  var progEl = document.getElementById('pct-prog');
+  var prevBtn = document.getElementById('pct-prev');
+  var closeBtn = document.getElementById('pct-close');
+  var i = 0, live = [], busy = false;
+
+  function visible(el) {
+    if (!el) return false;
+    var r = el.getBoundingClientRect();
+    if (r.width < 4 || r.height < 4) return false;
+    var cs = getComputedStyle(el);
+    return cs.visibility !== 'hidden' && cs.display !== 'none' && cs.opacity !== '0';
+  }
+
+  function collect() {
+    live = [];
+    for (var k = 0; k < STEPS.length; k++) {
+      var el = document.querySelector(STEPS[k][0]);
+      if (visible(el)) live.push({ el: el, title: STEPS[k][1], text: STEPS[k][2] });
+    }
+    return live.length;
+  }
+
+  function rectOf(el) {
+    var r = el.getBoundingClientRect();
+    var pad = 8;
+    var top = Math.max(6, r.top - pad);
+    var bottom = Math.min(innerHeight - 6, r.bottom + pad);
+    return {
+      left: Math.max(6, r.left - pad),
+      top: top,
+      width: Math.min(innerWidth - 12, r.width + pad * 2),
+      height: Math.max(24, bottom - top)
+    };
+  }
+
+  function placeTip(t) {
+    var tw = tip.offsetWidth, th = tip.offsetHeight, gap = 22;
+    var below = innerHeight - (t.top + t.height), above = t.top;
+    var top;
+    if (below >= th + gap) top = t.top + t.height + gap;
+    else if (above >= th + gap) top = t.top - th - gap;
+    else top = Math.max(10, Math.min(innerHeight - th - 10, t.top + t.height / 2 - th / 2));
+    var left = t.left + t.width / 2 - tw / 2;
+    if (top >= t.top - gap && top <= t.top + t.height + gap) {
+      left = (t.left > innerWidth / 2) ? t.left - tw - gap : t.left + t.width + gap;
+    }
+    left = Math.max(10, Math.min(innerWidth - tw - 10, left));
+    tip.style.left = left + 'px';
+    tip.style.top = Math.max(10, top) + 'px';
+    return { left: left, top: Math.max(10, top), w: tw, h: th };
+  }
+
+  function drawArrow(t, p) {
+    var tx = t.left + t.width / 2, ty = t.top + t.height / 2;
+    var px = p.left + p.w / 2, py = p.top + p.h / 2;
+    var sx, sy;
+    if (Math.abs(px - tx) > Math.abs(py - ty)) { sx = px + (tx > px ? p.w / 2 : -p.w / 2); sy = py; }
+    else { sx = px; sy = py + (ty > py ? p.h / 2 : -p.h / 2); }
+    var dx = tx - sx, dy = ty - sy, len = Math.hypot(dx, dy) || 1;
+    var ex = tx - (dx / len) * (Math.min(t.width, t.height) / 2 + 12);
+    var ey = ty - (dy / len) * (Math.min(t.width, t.height) / 2 + 12);
+    var mx = (sx + ex) / 2, my = (sy + ey) / 2;
+    var cx = mx - (ey - sy) * 0.22, cy = my + (ex - sx) * 0.22;
+    pathEl.setAttribute('d', 'M' + sx + ',' + sy + ' Q' + cx + ',' + cy + ' ' + ex + ',' + ey);
+    var ax = ex - cx, ay = ey - cy, al = Math.hypot(ax, ay) || 1;
+    ax /= al; ay /= al;
+    var s = 11;
+    headEl.setAttribute('points',
+      (ex + ax * s) + ',' + (ey + ay * s) + ' ' +
+      (ex - ax * s + -ay * s * 0.62) + ',' + (ey - ay * s + ax * s * 0.62) + ' ' +
+      (ex - ax * s - -ay * s * 0.62) + ',' + (ey - ay * s - ax * s * 0.62));
+  }
+
+  function paint() {
+    var step = live[i];
+    if (!step) return;
+    var t = rectOf(step.el);
+    hole.style.left = t.left + 'px';
+    hole.style.top = t.top + 'px';
+    hole.style.width = t.width + 'px';
+    hole.style.height = t.height + 'px';
+    drawArrow(t, placeTip(t));
+  }
+
+  function render() {
+    var step = live[i];
+    if (!step) return;
+    badge.textContent = (i + 1 < 10 ? '0' : '') + (i + 1);
+    titleEl.textContent = step.title;
+    textEl.textContent = step.text;
+    progEl.textContent = (i + 1) + ' / ' + live.length;
+    prevBtn.disabled = i === 0;
+    busy = true;
+    try { step.el.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
+    catch (e) { step.el.scrollIntoView(false); }
+    var last = null, still = 0;
+    (function settle() {
+      var y = step.el.getBoundingClientRect().top;
+      still = (last !== null && Math.abs(y - last) < 0.5) ? still + 1 : 0;
+      last = y;
+      paint();
+      if (still < 4) requestAnimationFrame(settle); else busy = false;
+    })();
+  }
+
+  function go(n) {
+    if (n < 0) return;
+    if (n >= live.length) { stop(); return; }
+    i = n; render();
+  }
+
+  function start() {
+    if (!collect()) return;
+    i = 0;
+    root.classList.add('pct-on');
+    document.addEventListener('keydown', onKey, true);
+    render();
+  }
+
+  function stop() {
+    root.classList.remove('pct-on');
+    document.removeEventListener('keydown', onKey, true);
+  }
+
+  function onKey(e) {
+    if (e.key === 'Escape') { e.preventDefault(); stop(); }
+    else if (e.key === 'ArrowLeft' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); go(i + 1); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); go(i - 1); }
+  }
+
+  veil.addEventListener('click', function () { if (!busy) go(i + 1); });
+  tip.addEventListener('click', function (e) {
+    if (e.target.closest('#pct-close') || e.target.closest('#pct-prev')) return;
+    if (!busy) go(i + 1);
+  });
+  closeBtn.addEventListener('click', function (e) { e.stopPropagation(); stop(); });
+  prevBtn.addEventListener('click', function (e) { e.stopPropagation(); go(i - 1); });
+  addEventListener('resize', function () { if (root.classList.contains('pct-on')) paint(); });
+
+  // the tour runs only for visitors arriving from the deck link (…/?tour=1)
+  if (/[?&]tour=1/.test(location.search)) {
+    if (document.readyState === 'complete') setTimeout(start, 700);
+    else addEventListener('load', function () { setTimeout(start, 700); });
+  }
+})();
+</script>
+<!-- ===== end guided tour ===== -->
 
 </body>
 </html>
