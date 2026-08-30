@@ -84,6 +84,7 @@
   .btn:disabled { opacity: .35; cursor: default; }
   .btn:focus-visible { outline: 2px solid var(--yellow); outline-offset: 2px; }
   .btn.icon { padding: 8px 11px; }
+  .btn[aria-pressed="true"] { background: var(--yellow); color: var(--ink); border-color: var(--yellow); }
   .counter { font-size: 14px; color: var(--chrome-text); min-width: 62px; text-align: center; }
   .hint { font-size: 12.5px; color: rgba(255,255,255,.38); }
   @media (max-width: 720px) { .hint, .bar .title { display: none; } }
@@ -1111,6 +1112,12 @@
     <button class="btn icon" id="prev" type="button" aria-label="השקף הקודם">›</button>
     <span class="counter num" id="counter">1 / 21</span>
     <button class="btn icon" id="next" type="button" aria-label="השקף הבא">‹</button>
+    <button class="btn" id="speak" type="button" aria-pressed="false" title="הקראת השקף">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M11 5L6 9H2v6h4l5 4V5z" /><path class="wave" d="M15.5 8.5a5 5 0 0 1 0 7" /><path class="wave" d="M18.5 5.5a9 9 0 0 1 0 13" />
+      </svg>
+      <span id="speakLabel">הקראה</span>
+    </button>
     <button class="btn" id="grid" type="button" aria-pressed="false">רשת</button>
   </div>
 </div>
@@ -1145,6 +1152,7 @@
     prevBtn.disabled = !isGrid && i === 0;
     nextBtn.disabled = !isGrid && i === frames.length - 1;
     if (isGrid) frames[i].scrollIntoView({ block: 'nearest' });
+    if (speaking) speakSlide();   // reading carries on into the new slide
   }
 
   function setGrid(on) {
@@ -1180,6 +1188,59 @@
     else if (k === 'g' || k === 'G') { e.preventDefault(); setGrid(!isGrid); }
     else if (k === 'Escape' && isGrid) { e.preventDefault(); setGrid(false); }
   });
+
+  // ---- read the slide aloud (Hebrew) ----
+  var synth = window.speechSynthesis;
+  var speakBtn = document.getElementById('speak');
+  var speakLabel = document.getElementById('speakLabel');
+  var speaking = false;
+
+  if (!synth || typeof SpeechSynthesisUtterance === 'undefined') {
+    speakBtn.hidden = true;
+  }
+
+  function hebrewVoice() {
+    var vs = (synth.getVoices && synth.getVoices()) || [];
+    for (var k = 0; k < vs.length; k++) if (/^he/i.test(vs[k].lang)) return vs[k];
+    return null;
+  }
+
+  function slideText() {
+    var f = frames[i];
+    var raw = f.innerText || f.textContent || '';
+    return raw
+      .replace(/\b\d{1,2}\s*\/\s*\d{1,2}\b/g, ' ')   // drop the slide counter
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function setSpeakState(on) {
+    speaking = on;
+    speakBtn.setAttribute('aria-pressed', String(on));
+    speakLabel.textContent = on ? 'עצור' : 'הקראה';
+  }
+
+  function stopSpeech() { try { synth.cancel(); } catch (e) {} setSpeakState(false); }
+
+  function speakSlide() {
+    if (!synth) return;
+    try { synth.cancel(); } catch (e) {}
+    var text = slideText();
+    if (!text) { setSpeakState(false); return; }
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'he-IL';
+    var v = hebrewVoice();
+    if (v) u.voice = v;
+    u.rate = 0.98;
+    u.onend = function () { setSpeakState(false); };
+    u.onerror = function () { setSpeakState(false); };
+    setSpeakState(true);
+    synth.speak(u);
+  }
+
+  speakBtn.addEventListener('click', function () { speaking ? stopSpeech() : speakSlide(); });
+  if (synth && 'onvoiceschanged' in synth) synth.onvoiceschanged = function () {};
+  window.addEventListener('beforeunload', function () { try { synth.cancel(); } catch (e) {} });
 
   window.addEventListener('resize', fit);
   if (window.ResizeObserver) new ResizeObserver(fit).observe(deck);
