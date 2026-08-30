@@ -1224,6 +1224,8 @@
       .replace(/10–18/g, 'עשר עד שמונה עשרה')
       .replace(/[A-Za-z][A-Za-z0-9_.'\-]*/g, '')  // #anchors, ids, MVP and other latin labels
       .replace(/\b0(\d)\b/g, '$1')                // 03 reads as "zero three" otherwise
+      .replace(/(\d)\s*\+/g, '$1 ומעלה')
+      .replace(/\s*=\s*/g, ' זה ')
       .replace(/[#·•]/g, ',')
       .replace(/[—–]/g, ',')
       .replace(/\s*,\s*(?:,\s*)+/g, ', ')
@@ -1235,16 +1237,38 @@
 
   var HEBREW = /[\u0590-\u05FF]/;
 
+  // adjacent inline elements carry no separator of their own: a row of filter chips
+  // would otherwise arrive as one run-on word. Comma-join a pure row of siblings.
+  function blockText(el) {
+    var kids = el.children, parts = [], loose = false, n;
+    for (n = 0; n < el.childNodes.length; n++) {
+      var node = el.childNodes[n];
+      if (node.nodeType === 3 && node.nodeValue.trim()) { loose = true; break; }
+    }
+    if (kids.length >= 2 && !loose) {
+      for (n = 0; n < kids.length; n++) {
+        var one = (kids[n].innerText || kids[n].textContent || '').replace(/\s+/g, ' ').trim();
+        if (one) parts.push(one);
+      }
+      return parts.join(', ');
+    }
+    return (el.innerText || el.textContent || '').replace(/\s+/g, ' ').trim();
+  }
+
   // one utterance per block: the gap between them is the breath a single long
   // utterance never takes, and headings get a slower, lower delivery
   function slideChunks() {
     var f = frames[i];
     var nodes = f.querySelectorAll('h1, h2, h3, h4, p, li, div, span');
-    var raw = [];
+    var raw = [], taken = [];
     for (var k = 0; k < nodes.length; k++) {
       var el = nodes[k];
-      if (el.querySelector('h1, h2, h3, h4, p, li, div, span')) continue;   // keep leaf blocks only
-      var txt = (el.innerText || el.textContent || '').replace(/\s+/g, ' ').trim();
+      var inside = false;
+      for (var q = 0; q < taken.length; q++) if (taken[q].contains(el)) { inside = true; break; }
+      if (inside) continue;                                                // already read with its parent
+      if (el.querySelector('h1, h2, h3, h4, p, li, div')) continue;        // a container of blocks
+      var txt = blockText(el);
+      if (txt) taken.push(el);                                             // inline spans come along
       if (!txt) continue;
       if (/^\d{1,2}\s*\/\s*\d{1,2}$/.test(txt)) continue;                 // the slide counter
       if (/^0\d$/.test(txt)) continue;                                     // 01 02 03 — visual numbering
