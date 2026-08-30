@@ -1201,17 +1201,27 @@
 
   function hebrewVoice() {
     var vs = (synth.getVoices && synth.getVoices()) || [];
-    for (var k = 0; k < vs.length; k++) if (/^he/i.test(vs[k].lang)) return vs[k];
-    return null;
+    var he = [];
+    for (var k = 0; k < vs.length; k++) if (/^he/i.test(vs[k].lang)) he.push(vs[k]);
+    if (!he.length) return null;
+    // an Enhanced/Premium system voice sounds markedly more natural when installed
+    for (var j = 0; j < he.length; j++) if (/premium|enhanced|natural|neural|siri/i.test(he[j].name)) return he[j];
+    return he[0];
   }
 
   function slideText() {
     var f = frames[i];
     var raw = f.innerText || f.textContent || '';
-    return raw
-      .replace(/\b\d{1,2}\s*\/\s*\d{1,2}\b/g, ' ')   // drop the slide counter
-      .replace(/\s+/g, ' ')
-      .trim();
+    var lines = raw.split('\n');
+    var out = [];
+    for (var k = 0; k < lines.length; k++) {
+      var l = lines[k].replace(/\s+/g, ' ').trim();
+      if (!l) continue;
+      if (/^\d{1,2}\s*\/\s*\d{1,2}$/.test(l)) continue;      // the slide counter
+      if (!/[.!?:;,—]$/.test(l)) l += '.';                     // a full stop makes the voice pause
+      out.push(l);
+    }
+    return out.join(' ');
   }
 
   function setSpeakState(on) {
@@ -1231,7 +1241,8 @@
     u.lang = 'he-IL';
     var v = hebrewVoice();
     if (v) u.voice = v;
-    u.rate = 0.98;
+    u.rate = 0.82;
+    u.pitch = 1.0;
     u.onend = function () { setSpeakState(false); };
     u.onerror = function () { setSpeakState(false); };
     setSpeakState(true);
