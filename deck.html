@@ -1194,6 +1194,7 @@
   var speakBtn = document.getElementById('speak');
   var speakLabel = document.getElementById('speakLabel');
   var speaking = false;
+  var keepAlive = null;
 
   if (!synth || typeof SpeechSynthesisUtterance === 'undefined') {
     speakBtn.hidden = true;
@@ -1209,25 +1210,52 @@
     return he[0];
   }
 
-  function slideText() {
+  // rewrite what looks fine on screen but reads badly aloud
+  function speechify(s) {
+    return s
+      .replace(/roy-code2013\.github\.io\/pocket-coach/gi, 'הכתובת שמופיעה על המסך')
+      .replace(/Pocket Coach/gi, "פוקט קואץ'")
+      .replace(/\bMVP\b/g, 'אם וי פי')
+      .replace(/₪\s*\[__\]/g, 'הסכום')
+      .replace(/₪\s*0\b/g, 'אפס שקלים')
+      .replace(/₪\s*(\d+)/g, '$1 שקלים')
+      .replace(/\[([^\]]+)\]/g, '$1')
+      .replace(/24\/7/g, 'עשרים וארבע שעות ביממה')
+      .replace(/4-7-8/g, 'ארבע, שבע, שמונה')
+      .replace(/10–18/g, 'עשר עד שמונה עשרה')
+      .replace(/[#·•]/g, ',')
+      .replace(/[—–]/g, ',')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  // one utterance per block: the gap between them is the breath a single long
+  // utterance never takes, and headings get a slower, lower delivery
+  function slideChunks() {
     var f = frames[i];
-    var raw = f.innerText || f.textContent || '';
-    var lines = raw.split('\n');
-    var out = [];
-    for (var k = 0; k < lines.length; k++) {
-      var l = lines[k].replace(/\s+/g, ' ').trim();
-      if (!l) continue;
-      if (/^\d{1,2}\s*\/\s*\d{1,2}$/.test(l)) continue;      // the slide counter
-      if (!/[.!?:;,—]$/.test(l)) l += '.';                     // a full stop makes the voice pause
-      out.push(l);
+    var nodes = f.querySelectorAll('h1, h2, h3, h4, p, li, div, span');
+    var chunks = [];
+    for (var k = 0; k < nodes.length; k++) {
+      var el = nodes[k];
+      if (el.querySelector('h1, h2, h3, h4, p, li, div, span')) continue;   // keep leaf blocks only
+      var txt = (el.innerText || el.textContent || '').replace(/\s+/g, ' ').trim();
+      if (!txt) continue;
+      if (/^\d{1,2}\s*\/\s*\d{1,2}$/.test(txt)) continue;                 // the slide counter
+      var tag = el.tagName.toLowerCase();
+      var heading = (tag === 'h1' || tag === 'h2');
+      var said = speechify(txt);
+      if (!said) continue;
+      if (!/[.!?:;,]$/.test(said)) said += '.';
+      chunks.push({ text: said, rate: heading ? 0.74 : 0.84, pitch: heading ? 0.96 : 1.0 });
     }
-    return out.join(' ');
+    return chunks;
   }
 
   function setSpeakState(on) {
     speaking = on;
     speakBtn.setAttribute('aria-pressed', String(on));
     speakLabel.textContent = on ? 'עצור' : 'הקראה';
+    if (!on) { clearInterval(keepAlive); keepAlive = null; }
   }
 
   function stopSpeech() { try { synth.cancel(); } catch (e) {} setSpeakState(false); }
@@ -1235,18 +1263,30 @@
   function speakSlide() {
     if (!synth) return;
     try { synth.cancel(); } catch (e) {}
-    var text = slideText();
-    if (!text) { setSpeakState(false); return; }
-    var u = new SpeechSynthesisUtterance(text);
-    u.lang = 'he-IL';
-    var v = hebrewVoice();
-    if (v) u.voice = v;
-    u.rate = 0.82;
-    u.pitch = 1.0;
-    u.onend = function () { setSpeakState(false); };
-    u.onerror = function () { setSpeakState(false); };
+    var chunks = slideChunks();
+    if (!chunks.length) { setSpeakState(false); return; }
     setSpeakState(true);
-    synth.speak(u);
+    // cancel() needs a beat before the queue takes new utterances
+    setTimeout(function () {
+      if (!speaking) return;
+      var v = hebrewVoice();
+      for (var k = 0; k < chunks.length; k++) {
+        var u = new SpeechSynthesisUtterance(chunks[k].text);
+        u.lang = 'he-IL';
+        if (v) u.voice = v;
+        u.rate = chunks[k].rate;
+        u.pitch = chunks[k].pitch;
+        u.onerror = function () { setSpeakState(false); };
+        if (k === chunks.length - 1) u.onend = function () { setSpeakState(false); };
+        synth.speak(u);
+      }
+      // Chrome drops long queues after ~15s unless nudged
+      clearInterval(keepAlive);
+      keepAlive = setInterval(function () {
+        if (synth.speaking) { try { synth.resume(); } catch (e) {} }
+        else { clearInterval(keepAlive); keepAlive = null; }
+      }, 9000);
+    }, 70);
   }
 
   speakBtn.addEventListener('click', function () { speaking ? stopSpeech() : speakSlide(); });
