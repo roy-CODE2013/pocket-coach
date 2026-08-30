@@ -1215,7 +1215,6 @@
     return s
       .replace(/roy-code2013\.github\.io\/pocket-coach/gi, 'הכתובת שמופיעה על המסך')
       .replace(/Pocket Coach/gi, "פוקט קואץ'")
-      .replace(/\bMVP\b/g, 'אם וי פי')
       .replace(/₪\s*\[__\]/g, 'הסכום')
       .replace(/₪\s*0\b/g, 'אפס שקלים')
       .replace(/₪\s*(\d+)/g, '$1 שקלים')
@@ -1223,30 +1222,55 @@
       .replace(/24\/7/g, 'עשרים וארבע שעות ביממה')
       .replace(/4-7-8/g, 'ארבע, שבע, שמונה')
       .replace(/10–18/g, 'עשר עד שמונה עשרה')
+      .replace(/[A-Za-z][A-Za-z0-9_.'\-]*/g, '')  // #anchors, ids, MVP and other latin labels
+      .replace(/\b0(\d)\b/g, '$1')                // 03 reads as "zero three" otherwise
       .replace(/[#·•]/g, ',')
       .replace(/[—–]/g, ',')
+      .replace(/\s*,\s*(?:,\s*)+/g, ', ')
       .replace(/\s+/g, ' ')
+      .replace(/^[\s,.]+/, '')
+      .replace(/[\s,]+$/, '')
       .trim();
   }
+
+  var HEBREW = /[\u0590-\u05FF]/;
 
   // one utterance per block: the gap between them is the breath a single long
   // utterance never takes, and headings get a slower, lower delivery
   function slideChunks() {
     var f = frames[i];
     var nodes = f.querySelectorAll('h1, h2, h3, h4, p, li, div, span');
-    var chunks = [];
+    var raw = [];
     for (var k = 0; k < nodes.length; k++) {
       var el = nodes[k];
       if (el.querySelector('h1, h2, h3, h4, p, li, div, span')) continue;   // keep leaf blocks only
       var txt = (el.innerText || el.textContent || '').replace(/\s+/g, ' ').trim();
       if (!txt) continue;
       if (/^\d{1,2}\s*\/\s*\d{1,2}$/.test(txt)) continue;                 // the slide counter
-      var tag = el.tagName.toLowerCase();
-      var heading = (tag === 'h1' || tag === 'h2');
+      if (/^0\d$/.test(txt)) continue;                                     // 01 02 03 — visual numbering
       var said = speechify(txt);
       if (!said) continue;
-      if (!/[.!?:;,]$/.test(said)) said += '.';
-      chunks.push({ text: said, rate: heading ? 0.74 : 0.84, pitch: heading ? 0.96 : 1.0 });
+      var tag = el.tagName.toLowerCase();
+      raw.push({
+        text: said,
+        heading: (tag === 'h1' || tag === 'h2'),
+        // a short lone figure is a stat that belongs to its label (27, 41, 12);
+        // a four-digit one is a year and should not glue itself to the next line
+        bare: /^[\d.,₪%\s]+$/.test(said) && !/\d{4}/.test(said)
+      });
+    }
+
+    var chunks = [];
+    for (var j = 0; j < raw.length; j++) {
+      // a bare figure belongs to the label beneath it — say them as one phrase
+      if (raw[j].bare && raw[j + 1] && !raw[j + 1].bare) {
+        raw[j + 1].text = raw[j].text + ' ' + raw[j + 1].text;
+        continue;
+      }
+      if (!HEBREW.test(raw[j].text)) continue;     // nothing left worth saying
+      var said2 = raw[j].text;
+      if (!/[.!?:;,]$/.test(said2)) said2 += '.';
+      chunks.push({ text: said2, rate: raw[j].heading ? 0.74 : 0.84, pitch: raw[j].heading ? 0.96 : 1.0 });
     }
     return chunks;
   }
