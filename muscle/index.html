@@ -3912,9 +3912,8 @@ footer .wrap { padding-block: 28px 36px; }
   renderWeight();
   gcReady = true;
   renderSched();
-  var startView = location.hash.slice(1);
-  if (VIEWS.indexOf(startView) === -1) { try { startView = localStorage.getItem("view"); } catch (e) { startView = null; } }
-  go(startView || "home", true);
+  // the site always opens on the home page
+  go("home", true);
 })();
 </script>
 </body>
