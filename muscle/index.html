@@ -492,6 +492,11 @@ input[type="time"] { font: inherit; font-size: 1rem; padding: 8px 10px; border-r
 @media (max-width: 520px) { .gcal-list li { grid-template-columns: 1fr 1fr; } .gcal-list li > div { grid-column: 1 / -1; } }
 .btn.sm { padding: 7px 12px; font-size: .86rem; }
 #log-export { margin-top: -6px; }
+.tight-ex { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
+.tight-areas { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.tight-areas button { font: inherit; font-size: .85rem; border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: 6px 11px; border-radius: 999px; cursor: pointer; }
+.tight-areas button:hover { border-color: var(--violet); }
+.tight-doc { font-size: .8rem; color: var(--muted); margin-top: 8px; }
 .gsearch { display: inline-flex; gap: 6px; align-items: center; margin-top: 8px; font-size: .78rem; color: var(--muted); text-decoration: none; }
 .gsearch:hover { color: var(--accent); }
 
@@ -1535,7 +1540,7 @@ footer .wrap { padding-block: 28px 36px; }
       coachT: "המאמן האישי", coachSub: "מבוסס AI · מכיר את התוכנית והיומן שלך",
       coachHi: "היי! אני המאמן שלך. אפשר לשאול אותי על אימונים, טכניקה, תזונה או התוכנית שבנית. אני רואה את היעדים מהמחשבון ואת מה שאכלת היום.",
       coachPh: "שאלו כל דבר…", coachSend: "שליחה", coachStop: "עצירה", coachClose: "סגירה", coachClear: "שיחה חדשה", coachThinking: "חושב…",
-      cq1: "מה כדאי לאכול אחרי אימון?", cq2: "כמה חלבון נשאר לי היום, ומה לאכול?", cq3: "איך עושים סקוואט נכון? שלח קישור לסרטון", cq4: "תכין לי ארוחת בוקר עם 40 גרם חלבון",
+      cqT: "תפוס לי שריר, מה לעשות?", coachLocal: "בלי Claude אני יודע לעזור בעיקר בשריר תפוס. איפה תפוס לך?", cq1: "מה כדאי לאכול אחרי אימון?", cq2: "כמה חלבון נשאר לי היום, ומה לאכול?", cq3: "איך עושים סקוואט נכון? שלח קישור לסרטון", cq4: "תכין לי ארוחת בוקר עם 40 גרם חלבון",
       n7: "ספריית תרגילים", lH: "ספריית תרגילים",
       lIntro: "49 תרגילים לחדר כושר ולבית, לפי רמה, ציוד וקבוצת שריר. לכל תרגיל יש הסבר שלב אחר שלב, הציוד שצריך, וקישור לסרטוני הדגמה ביוטיוב.",
       lSearchPh: "חיפוש תרגיל או ציוד, למשל משקולות", lSearchAria: "חיפוש בספריית התרגילים",
@@ -1693,7 +1698,7 @@ footer .wrap { padding-block: 28px 36px; }
       coachT: "Personal coach", coachSub: "AI powered · knows your plan and log",
       coachHi: "Hi! I'm your coach. Ask me about training, technique, nutrition or the plan you built. I can see your calculator targets and what you've eaten today.",
       coachPh: "Ask anything…", coachSend: "Send", coachStop: "Stop", coachClose: "Close", coachClear: "New chat", coachThinking: "Thinking…",
-      cq1: "What should I eat after a workout?", cq2: "How much protein do I have left today, and what should I eat?", cq3: "How do I squat properly? Send a video link", cq4: "Make me a breakfast with 40 g of protein",
+      cqT: "I have a tight muscle, what should I do?", coachLocal: "Without Claude I can mainly help with a tight muscle. Where is it tight?", cq1: "What should I eat after a workout?", cq2: "How much protein do I have left today, and what should I eat?", cq3: "How do I squat properly? Send a video link", cq4: "Make me a breakfast with 40 g of protein",
       n7: "Exercise library", lH: "Exercise library",
       lIntro: "49 exercises for the gym and for home, by level, equipment and muscle group. Each one has step-by-step instructions, the equipment you need, and a link to demo videos on YouTube.",
       lSearchPh: "Search an exercise or equipment, e.g. dumbbells", lSearchAria: "Search the exercise library",
@@ -3789,10 +3794,11 @@ footer .wrap { padding-block: 28px 36px; }
   }
   function coachRules() {
     var i = lang === "he" ? 0 : 1;
-    return "You are the personal AI coach inside a muscle-building website. Always reply in " + (lang === "he" ? "Hebrew" : "English") + ". " +
+    return "You are the personal AI coach inside a muscle-building website. Reply in the language the person writes in (default " + (lang === "he" ? "Hebrew" : "English") + "). " +
       "Be warm, direct and practical, like an experienced strength coach: short paragraphs or '-' bullet lists, concrete numbers (sets, reps, grams, minutes), usually under 150 words unless asked for more. Use **bold** sparingly; no headings or tables. " +
       "Use the person's context below when it helps. When you suggest exercises, prefer ones from the site's exercise library listed below. " +
       "Links: only when the person explicitly asks for a link, video or demo, put the marker [[ex:N]] right after each exercise name you are linking, with N taken from the library list; the site turns each marker into a video link. Never add markers otherwise, and never write URLs yourself. " +
+      "When someone has a tight, sore or pulled muscle: name the likely muscle, give 2–4 gentle stretches or mobility drills with hold times, heat and rest advice, and when to see a doctor; the site adds video links for that area under your reply, so do not add markers for stretches." +
       "You are not a doctor or dietitian: for pain, injury, eating disorders or medical conditions, tell them to see a professional." +
       "\n\nExercise library (N: name):\n" + EX.map(function (e, n) { return n + ": " + e[6 + i] + (i === 0 ? " / " + e[7] : ""); }).join("\n") +
       "\n\nThe person's context:\n" + coachContext();
@@ -3802,25 +3808,24 @@ footer .wrap { padding-block: 28px 36px; }
     if (m.pending && !m.text) return '<div class="msg bot"><span class="think"><span class="spinner"></span>' + esc(t("coachThinking")) + "</span></div>";
     var gq = prev && prev.role === "user" ? prev.text : "";
     var gs = gq && !m.err ? '<a class="gsearch" href="https://www.google.com/search?q=' + encodeURIComponent(gq.slice(0, 200)) + '&hl=' + lang + '" target="_blank" rel="noopener noreferrer"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>' + esc(t("gSearch")) + "</a>" : "";
-    return '<div class="msg bot' + (m.err ? " err" : "") + '">' + mdLite(m.text) + (m.errMsg ? '<p class="sc-err">' + esc(m.errMsg) + "</p>" : "") + gs + "</div>";
+    return '<div class="msg bot' + (m.err ? " err" : "") + '">' + mdLite(m.text) + (m.tight ? tightHtml(m.tight) : "") + (m.errMsg ? '<p class="sc-err">' + esc(m.errMsg) + "</p>" : "") + gs + "</div>";
   }
   function updateSend() {
     var b = $("coach-send");
     if (coachBusy) { b.innerHTML = ICON_STOP; b.disabled = false; b.setAttribute("aria-label", t("coachStop")); return; }
     b.innerHTML = ICON_SEND;
     b.setAttribute("aria-label", t("coachSend"));
-    b.disabled = aiState !== "on" || !$("coach-in").value.trim();
+    b.disabled = !$("coach-in").value.trim();
   }
   function renderCoach() {
     var box = $("coach-msgs");
     box.innerHTML = '<div class="msg bot">' + mdLite(t("coachHi")) + "</div>" + coachMsgs.map(function (m, k) { return msgHtml(m, coachMsgs[k - 1]); }).join("");
-    $("coach-sug").innerHTML = coachMsgs.length || aiState === "off" ? "" : ["cq1", "cq2", "cq3", "cq4"].map(function (k) {
+    $("coach-sug").innerHTML = coachMsgs.length ? "" : (aiState === "off" ? ["cqT"] : ["cqT", "cq1", "cq2", "cq3", "cq4"]).map(function (k) {
       return '<button type="button" data-q="' + k + '">' + esc(t(k)) + "</button>";
     }).join("");
     var off = $("coach-off");
     off.hidden = aiState !== "off";
     off.textContent = t("aiNoAccess");
-    $("coach-in").disabled = aiState === "off";
     updateSend();
     box.scrollTop = box.scrollHeight;
     renderHist();
@@ -3828,7 +3833,14 @@ footer .wrap { padding-block: 28px 36px; }
   function autoSize() { var ta = $("coach-in"); ta.style.height = "auto"; ta.style.height = Math.min(120, ta.scrollHeight) + "px"; }
   function sendCoach(text) {
     text = String(text || "").trim().slice(0, 2000);
-    if (!text || coachBusy || aiState !== "on") return;
+    if (!text || coachBusy) return;
+    var tk = tightFind(text);
+    if (aiState !== "on") {
+      $("coach-in").value = ""; autoSize();
+      if (tk) tightReply(text, tk);
+      else { coachMsgs.push({ role: "user", text: text }); coachMsgs.push({ role: "assistant", text: t("coachLocal"), tight: "?" }); renderCoach(); }
+      return;
+    }
     var turns = [{ role: "user", content: coachRules() }];
     coachMsgs.slice(-12).forEach(function (m) {
       if (m.err || m.pending || !m.text) return;
@@ -3836,7 +3848,7 @@ footer .wrap { padding-block: 28px 36px; }
     });
     turns.push({ role: "user", content: text });
     coachMsgs.push({ role: "user", text: text });
-    var bot = { role: "assistant", text: "", pending: true };
+    var bot = { role: "assistant", text: "", pending: true, tight: tk && tk !== "?" ? tk : "" };
     coachMsgs.push(bot);
     var mine = coachMsgs;
     $("coach-in").value = "";
@@ -3867,6 +3879,55 @@ footer .wrap { padding-block: 28px 36px; }
   }
   $("coach-new").addEventListener("click", function () { if (coachCtl) coachCtl.abort(); coachMsgs = []; currentChat = null; histOpen = false; renderCoach(); });
 
+  /* coach: tight or sore muscle — built-in stretches with video links, works without the AI */
+  var TIGHT = [
+    { k: "neck", he: "צוואר", en: "Neck", w: ["צוואר", "עורף", "neck", "رقبة", "шея", "шеи"], s: [["סנטר פנימה (Chin tuck)", "Chin tuck", "chin tuck exercise neck"], ["מתיחת טרפז עליון", "Upper trap stretch", "upper trapezius stretch"], ["מתיחת מרים השכמה", "Levator scapulae stretch", "levator scapulae stretch"]] },
+    { k: "upper", he: "גב עליון ושכמות", en: "Upper back", w: ["גב עליון", "שכמה", "שכמות", "טרפז", "בין השכמות", "upper back", "trap", "shoulder blade"], s: [["השחלת המחט (Thread the needle)", "Thread the needle", "thread the needle stretch"], ["חתול־פרה", "Cat-cow", "cat cow stretch"], ["פתיחת חזה בעמידה בפתח דלת", "Doorway stretch", "doorway pec stretch"]] },
+    { k: "lower", he: "גב תחתון", en: "Lower back", w: ["גב תחתון", "מותן", "lower back", "low back", "lumbar", "גב", "back", "ظهر", "спина", "спине", "поясница"], s: [["ברך לחזה בשכיבה", "Knee to chest", "knee to chest stretch lower back"], ["תנוחת הילד", "Child's pose", "child's pose stretch"], ["הטיית אגן בשכיבה", "Pelvic tilt", "pelvic tilt exercise"]] },
+    { k: "shoulder", he: "כתף", en: "Shoulder", w: ["כתף", "כתפיים", "shoulder", "كتف", "плечо", "плече"], s: [["מתיחת כתף לרוחב הגוף", "Cross-body shoulder stretch", "cross body shoulder stretch"], ["מטוטלת", "Pendulum", "shoulder pendulum exercise"], ["מתיחת שינה (Sleeper)", "Sleeper stretch", "sleeper stretch shoulder"]] },
+    { k: "chest", he: "חזה", en: "Chest", w: ["חזה", "chest", "pec", "صدر", "грудь"], s: [["מתיחת חזה בפתח דלת", "Doorway chest stretch", "doorway chest stretch"], ["פתיחת חזה על רולר", "Foam roller chest opener", "foam roller chest opener"]] },
+    { k: "ham", he: "ירך אחורית", en: "Hamstring", w: ["ירך אחורית", "אחורי הירך", "המסטרינג", "hamstring", "back of thigh"], s: [["מתיחת ירך אחורית בעמידה", "Standing hamstring stretch", "standing hamstring stretch"], ["מתיחה בשכיבה עם רצועה", "Lying hamstring stretch", "lying hamstring stretch strap"]] },
+    { k: "quad", he: "ירך קדמית", en: "Quad", w: ["ירך קדמית", "קדמת הירך", "ארבע ראשי", "quad", "front of thigh"], s: [["מתיחת ירך קדמית בעמידה", "Standing quad stretch", "standing quad stretch"], ["מתיחת ספה (Couch stretch)", "Couch stretch", "couch stretch"]] },
+    { k: "calf", he: "שוק (תאומים)", en: "Calf", w: ["שוק", "תאומים", "סובך", "calf", "calves", "икра", "икры"], s: [["מתיחת שוק מול קיר", "Wall calf stretch", "wall calf stretch"], ["מתיחה על מדרגה", "Step calf stretch", "calf stretch on step"], ["גלגול שוק על רולר", "Calf foam roll", "foam roll calves"]] },
+    { k: "glute", he: "ישבן ואגן", en: "Glutes & hip", w: ["ישבן", "עכוז", "אגן", "ירך", "glute", "butt", "hip", "piriformis"], s: [["מתיחת ארבע (Figure 4)", "Figure-4 stretch", "figure 4 stretch"], ["תנוחת יונה", "Pigeon pose", "pigeon pose stretch"], ["מתיחת כופף ירך בלאנג׳", "Hip flexor stretch", "kneeling hip flexor stretch"]] },
+    { k: "groin", he: "מפשעה", en: "Groin", w: ["מפשעה", "מקרבים", "groin", "adductor"], s: [["מתיחת פרפר", "Butterfly stretch", "butterfly stretch groin"], ["מתיחת צפרדע", "Frog stretch", "frog stretch"]] },
+    { k: "arm", he: "אמה ושורש כף היד", en: "Forearm & wrist", w: ["אמה", "שורש כף", "פרק כף", "זרוע", "יד", "forearm", "wrist", "arm"], s: [["מתיחת כופפי שורש כף היד", "Wrist flexor stretch", "wrist flexor stretch"], ["מתיחת פושטי שורש כף היד", "Wrist extensor stretch", "wrist extensor stretch"]] },
+    { k: "foot", he: "כף רגל ועקב", en: "Foot & heel", w: ["כף רגל", "כף הרגל", "עקב", "foot", "heel", "plantar"], s: [["גלגול כדור מתחת לכף הרגל", "Foot ball roll", "plantar fascia ball roll"], ["מתיחת אצבעות הרגל", "Toe stretch", "plantar fascia stretch"]] }
+  ];
+  function tightFind(text) {
+    var s = String(text || "").toLowerCase();
+    for (var i = 0; i < TIGHT.length; i++) if (TIGHT[i].w.some(function (w) { return s.indexOf(w) !== -1; })) return TIGHT[i].k;
+    return /תפוס|תפיס|כואב|כאב|מתיח|נתפס|tight|sore|cramp|pain|stiff|pulled|شد|боль|болит/i.test(s) ? "?" : "";
+  }
+  function tightText(k) {
+    var a = TIGHT.filter(function (x) { return x.k === k; })[0], he = lang === "he";
+    if (!a) return he ? "איפה תפוס לך? בחרו אזור:" : "Where is it tight? Pick an area:";
+    return he
+      ? "**" + a.he + " תפוס?** ברוב המקרים זה עובר תוך כמה ימים.\n- חום: מקלחת חמה או כרית חימום, 15–20 דקות\n- תנועה קלה עדיפה על מנוחה מלאה\n- כל מתיחה 20–30 שניות, 2–3 פעמים, בלי כאב חד\n- לא לאמן את השריר הזה בכבד 2–3 ימים\n**תרגילים** (לחצו לסרטון):"
+      : "**Tight " + a.en.toLowerCase() + "?** It usually eases within a few days.\n- Heat: warm shower or heating pad, 15–20 minutes\n- Gentle movement beats full rest\n- Hold each stretch 20–30 seconds, 2–3 times, no sharp pain\n- Skip heavy work for this muscle for 2–3 days\n**Exercises** (tap for a video):";
+  }
+  function tightHtml(k) {
+    var a = TIGHT.filter(function (x) { return x.k === k; })[0], he = lang === "he";
+    if (!a) return '<div class="tight-areas">' + TIGHT.map(function (x) { return '<button type="button" data-tight="' + x.k + '">' + esc(he ? x.he : x.en) + "</button>"; }).join("") + "</div>";
+    return '<div class="tight-ex">' + a.s.map(function (x) {
+      return '<a class="exlink" href="https://www.youtube.com/results?search_query=' + encodeURIComponent(x[2]) + '" target="_blank" rel="noopener noreferrer">' + PLAY + esc(he ? x[0] : x[1]) + "</a>";
+    }).join("") + '</div><p class="tight-doc">' + esc(he
+      ? "לרופא אם: כאב חזק מאוד, נפיחות או שטף דם, נימול או חולשה, כאב שמקרין ליד או לרגל, או שאין שיפור אחרי שבוע."
+      : "See a doctor if: severe pain, swelling or bruising, numbness or weakness, pain spreading down an arm or leg, or no improvement after a week.") + "</p>";
+  }
+  function tightReply(text, k) {
+    coachMsgs.push({ role: "user", text: text });
+    coachMsgs.push({ role: "assistant", text: tightText(k), tight: k });
+    renderCoach();
+    saveChat();
+  }
+  $("coach-msgs").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-tight]");
+    if (!b || coachBusy) return;
+    var a = TIGHT.filter(function (x) { return x.k === b.getAttribute("data-tight"); })[0];
+    tightReply(lang === "he" ? a.he : a.en, a.k);
+  });
+
   /* coach: past chats (private per viewer) */
   var userCol = null, chats = [], currentChat = null, histOpen = false, chatSaving = false, chatDirty = false, delArm = null;
   function subscribeChats() {
@@ -3882,7 +3943,7 @@ footer .wrap { padding-block: 28px 36px; }
   function saveChat() {
     if (!userCol) return;
     var msgs = coachMsgs.filter(function (m) { return !m.pending && m.text; }).slice(-60).map(function (m) {
-      return { role: m.role === "user" ? "user" : "assistant", text: String(m.text).slice(0, 4000) };
+      return { role: m.role === "user" ? "user" : "assistant", text: String(m.text).slice(0, 4000), tight: m.tight || "" };
     });
     if (!msgs.length) return;
     if (!currentChat) currentChat = { id: "chat-" + Date.now().toString(36), at: Date.now() };
@@ -3916,7 +3977,7 @@ footer .wrap { padding-block: 28px 36px; }
       if (!c) return;
       if (coachCtl) coachCtl.abort();
       currentChat = { id: c.id, at: c.at };
-      coachMsgs = c.msgs.map(function (m) { return { role: m.role === "user" ? "user" : "assistant", text: String((m && m.text) || "") }; });
+      coachMsgs = c.msgs.map(function (m) { return { role: m.role === "user" ? "user" : "assistant", text: String((m && m.text) || ""), tight: String((m && m.tight) || "") }; });
       histOpen = false;
       renderCoach();
     } else if (dl) {
