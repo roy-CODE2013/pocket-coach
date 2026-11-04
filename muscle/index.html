@@ -156,6 +156,22 @@ a { color: var(--accent); }
 .side .qrbox { grid-template-columns: 44px minmax(0, 1fr); padding: 8px 10px; gap: 10px; }
 .side .qrimg { width: 44px; height: 44px; padding: 2px; border-radius: 6px; }
 [hidden] { display: none !important; }
+/* ---------- form check: live pose skeleton ---------- */
+.fcmodal { position: fixed; z-index: 62; inset: 0; background: #000; color: #fff; }
+.fc-stage { position: absolute; inset: 0; display: grid; transition: box-shadow .2s; }
+.fc-stage video, .fc-stage canvas { grid-area: 1 / 1; width: 100%; height: 100%; object-fit: contain; transform: scaleX(-1); min-height: 0; }
+.fcmodal.ok .fc-stage { box-shadow: inset 0 0 0 8px #22c55e; }
+.fcmodal.bad .fc-stage { box-shadow: inset 0 0 0 8px #ef4444; }
+.fc-top { position: absolute; top: 0; inset-inline: 0; display: flex; align-items: center; gap: 14px; padding: 16px 16px 28px; background: linear-gradient(rgba(0,0,0,.8), transparent); }
+.fc-light { width: 48px; height: 48px; border-radius: 50%; flex: none; background: #eab308; box-shadow: 0 0 18px 4px rgba(234,179,8,.55); transition: background .2s, box-shadow .2s; }
+.fc-light.ok { background: #22c55e; box-shadow: 0 0 26px 8px rgba(34,197,94,.75); }
+.fc-light.bad { background: #ef4444; box-shadow: 0 0 26px 8px rgba(239,68,68,.75); }
+.fc-txt { display: grid; gap: 3px; flex: 1; min-width: 0; }
+.fc-txt b { font-size: 1.05rem; }
+.fc-txt span { font-size: 1rem; line-height: 1.4; }
+.fc-top .qrx { position: static; flex: none; }
+.fc-hint { position: absolute; bottom: 0; inset-inline: 0; margin: 0; padding: 28px 16px calc(16px + env(safe-area-inset-bottom, 0px)); font-size: .88rem; text-align: center; background: linear-gradient(transparent, rgba(0,0,0,.8)); }
+.fcopen { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
 .cammodal { position: fixed; z-index: 61; inset: 0; background: #000; display: grid; grid-template-rows: 1fr auto; }
 .cammodal video { width: 100%; height: 100%; object-fit: contain; background: #000; min-height: 0; }
 .cam-bar { display: flex; align-items: center; justify-content: center; gap: 28px; padding: 18px 16px calc(18px + env(safe-area-inset-bottom, 0px)); }
@@ -758,6 +774,11 @@ footer .wrap { padding-block: 28px 36px; }
     </div>
   </div>
 
+  <div class="fcmodal" id="fcmodal" hidden role="dialog" aria-modal="true" data-ta="fcBtn">
+    <div class="fc-stage"><video id="fc-v" playsinline muted autoplay></video><canvas id="fc-c"></canvas></div>
+    <div class="fc-top"><span class="fc-light" id="fc-light" aria-hidden="true"></span><div class="fc-txt"><b id="fc-name"></b><span id="fc-msg" aria-live="polite"></span></div><button type="button" class="qrx" id="fc-x" data-ta="fcClose">×</button></div>
+    <p class="fc-hint" data-t="fcHint"></p>
+  </div>
   <div class="cammodal" id="cammodal" hidden role="dialog" aria-modal="true" data-ta="scCam">
     <video id="cam-v" playsinline muted autoplay></video>
     <div class="cam-bar"><button type="button" class="btn" id="cam-x" data-t="camCancel"></button><button type="button" class="cam-shot" id="cam-shot" data-ta="camShot"></button><span style="width:90px"></span></div>
@@ -1299,7 +1320,7 @@ footer .wrap { padding-block: 28px 36px; }
       dLeft: "נשארו", dOver: "מעל היעד", dEaten: "{a} מתוך {b}", dWater: "מים", dGlass: "כוס", dStreak: "{n} ימים ברצף", kcalS: "קל׳",
       n8: "סורק אוכל", ctaScan: "סריקת אוכל", ctaCoach: "שאלו את המאמן",
       scH: "סורק האוכל", scP: "צלמו את הצלחת, את תווית המזון, או פשוט כתבו מה אכלתם. ה־AI מזהה כל מרכיב, מעריך כמויות ומחשב קלוריות, חלבון, פחמימות, שומן וסיבים, והכל נכנס ליומן היומי.",
-      scCam: "צילום", camCancel: "ביטול", camShot: "צילום התמונה", camBlocked: "אין גישה למצלמה. אשרו גישה למצלמה בדפדפן, או לחצו על \"העלאת תמונה\".", scGal: "העלאת תמונה", scClear: "הסרת התמונה", scDrop: "צלמו את הצלחת או גררו לכאן תמונה",
+      fcBtn: "בדיקת טכניקה", fcClose: "סגירה", fcLoading: "פותח מצלמה וטוען זיהוי תנוחה…", fcStep: "התרחקו מהמצלמה כך שכל הגוף ייראה", fcGood: "טכניקה נכונה, המשיכו כך", fcLineBad: "שמרו על קו ישר מהכתפיים ועד הרגליים: הירכיים שוקעות או גבוהות מדי", fcSquatBad: "הרימו את החזה: הגב נוטה קדימה יותר מדי", fcHingeBad: "שמרו על הראש בקו אחד עם הגב", fcLeanBad: "אל תיטו את הגב לאחור, עמדו זקוף", fcPressBad: "דחפו ישר למעלה, מעל הכתפיים", fcCurlBad: "הצמידו את המרפקים לגוף", fcRaiseBad: "אל תרימו את המרפקים מעל גובה הכתפיים", fcBridgeBad: "קרבו או הרחיקו את כפות הרגליים, כך שהברך תהיה בזווית של כ־90°", fcLevelBad: "שמרו על הכתפיים ישרות ובאותו גובה", fcNoCam: "אין גישה למצלמה. אשרו מצלמה בדפדפן. בתוך Claude המצלמה חסומה, פתחו את האתר: roy-code2013.github.io/pocket-coach/muscle", fcNoModel: "לא הצלחתי לטעון את זיהוי התנוחה. בדקו חיבור לאינטרנט, או פתחו את האתר: roy-code2013.github.io/pocket-coach/muscle", fcHint: "הניחו את הטלפון או המחשב מהצד, במרחק 2–3 מטרים, כך שכל הגוף ייראה. הווידאו לא נשלח לשום מקום.", scCam: "צילום", camCancel: "ביטול", camShot: "צילום התמונה", camBlocked: "אין גישה למצלמה. אשרו גישה למצלמה בדפדפן, או לחצו על \"העלאת תמונה\".", scGal: "העלאת תמונה", scClear: "הסרת התמונה", scDrop: "צלמו את הצלחת או גררו לכאן תמונה",
       scNoteLbl: "פרטים נוספים <small>לא חובה, משפר את הדיוק</small>", scNotePh: "למשל: 150 גרם חזה עוף, כוס אורז, כף שמן זית",
       scGo: "ניתוח הארוחה", scLoading: "מזהה את האוכל ומחשב ערכים…", scStop: "עצירה", scMeal: "ארוחה",
       scEmpty: "כאן יופיעו כל המרכיבים בצלחת, המשקל המשוער של כל אחד והערכים התזונתיים. אפשר לתקן משקל של מרכיב והכל יחושב מחדש. אין תמונה? תארו את הארוחה במילים.",
@@ -1457,7 +1478,7 @@ footer .wrap { padding-block: 28px 36px; }
       dLeft: "left", dOver: "over target", dEaten: "{a} of {b}", dWater: "Water", dGlass: "Glass", dStreak: "{n}-day streak", kcalS: "kcal",
       n8: "Food scanner", ctaScan: "Scan your food", ctaCoach: "Ask the coach",
       scH: "Food scanner", scP: "Snap your plate or a food label, or just type what you ate. The AI identifies each item, estimates portions and works out calories, protein, carbs, fat and fiber, and it all goes into your daily log.",
-      scCam: "Take photo", camCancel: "Cancel", camShot: "Take the picture", camBlocked: "No camera access. Allow the camera in your browser, or use \"Upload photo\".", scGal: "Upload photo", scClear: "Remove photo", scDrop: "Take a photo of your plate or drop one here",
+      fcBtn: "Form check", fcClose: "Close", fcLoading: "Opening camera and loading pose detection…", fcStep: "Step back so your whole body is in view", fcGood: "Good form, keep going", fcLineBad: "Keep a straight line from shoulders to feet: hips are sagging or too high", fcSquatBad: "Chest up: you are leaning too far forward", fcHingeBad: "Keep your head in line with your back", fcLeanBad: "Don't lean back, stand tall", fcPressBad: "Press straight up, over your shoulders", fcCurlBad: "Keep your elbows close to your body", fcRaiseBad: "Don't lift your elbows above shoulder height", fcBridgeBad: "Move your feet so your knees are at about 90°", fcLevelBad: "Keep your shoulders level", fcNoCam: "No camera access. Allow the camera in your browser. Inside Claude the camera is blocked, open the site: roy-code2013.github.io/pocket-coach/muscle", fcNoModel: "Couldn't load pose detection. Check your connection, or open the site: roy-code2013.github.io/pocket-coach/muscle", fcHint: "Place your phone or computer to the side, 2–3 m away, so your whole body is visible. The video never leaves your device.", scCam: "Take photo", camCancel: "Cancel", camShot: "Take the picture", camBlocked: "No camera access. Allow the camera in your browser, or use \"Upload photo\".", scGal: "Upload photo", scClear: "Remove photo", scDrop: "Take a photo of your plate or drop one here",
       scNoteLbl: "Extra details <small>optional, improves accuracy</small>", scNotePh: "e.g. 150 g chicken breast, a cup of rice, a tablespoon of olive oil",
       scGo: "Analyze meal", scLoading: "Identifying food and calculating…", scStop: "Stop", scMeal: "Meal",
       scEmpty: "Every item on the plate shows up here, with its estimated weight and nutrition values. Fix an item's weight and everything recalculates. No photo? Describe the meal in words.",
@@ -1805,10 +1826,132 @@ footer .wrap { padding-block: 28px 36px; }
         '<p class="tip"><b>' + esc(t("lTip")) + "</b> " + esc(e[10 + i]) + "</p></details>" +
         '<div class="vrow"><a class="video" href="' + url + '" target="_blank" rel="noopener noreferrer"><svg width="20" height="14" viewBox="0 0 20 14" aria-hidden="true"><rect width="20" height="14" rx="4" fill="var(--red)"/><path d="M8 4v6l5-3z" fill="#fff"/></svg>' + esc(t("lVideo")) + "</a>" +
         '<a class="more" href="' + more + '" target="_blank" rel="noopener noreferrer">' + esc(t("lMore")) + "</a>" +
-        '<button type="button" class="linkbtn copylink" data-url="' + url + '">' + esc(t("lCopyLink")) + "</button></div>" +
+        '<button type="button" class="linkbtn copylink" data-url="' + url + '">' + esc(t("lCopyLink")) + "</button>" +
+        '<button type="button" class="linkbtn fcopen" data-form="' + EX.indexOf(e) + '"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="4.5" r="2"/><path d="M12 7v7m0 0-3 7m3-7 3 7M6 10l6-2 6 2"/></svg>' + esc(t("fcBtn")) + "</button></div>" +
         "</article>";
     }).join("");
   }
+  /* form check: MediaPipe pose landmarks, judged per movement pattern */
+  var FC_PAT = { 0: "line", 1: "knee", 2: "line", 41: "line", 43: "line", 45: "line", 17: "squat", 18: "squat", 19: "squat", 21: "squat", 22: "squat",
+    9: "hinge", 13: "hinge", 16: "hinge", 23: "hinge", 29: "hinge", 31: "press", 32: "press", 37: "curl", 38: "curl", 39: "curl", 33: "raise", 27: "bridge", 28: "bridge" };
+  var BONES = [[11, 12], [11, 13], [13, 15], [12, 14], [14, 16], [11, 23], [12, 24], [23, 24], [23, 25], [25, 27], [24, 26], [26, 28], [27, 31], [28, 32]];
+  var POSE = "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14";
+  var POSE_MODEL = "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task";
+  var fcLm = null, fcStream = null, fcRaf = 0, fcEx = -1, fcHist = [], fcState = "", fcKey = "";
+  function ang(a, b, c) {
+    var ax = a.x - b.x, ay = a.y - b.y, cx = c.x - b.x, cy = c.y - b.y, d = Math.hypot(ax, ay) * Math.hypot(cx, cy);
+    return d ? Math.acos(Math.max(-1, Math.min(1, (ax * cx + ay * cy) / d))) * 180 / Math.PI : 180;
+  }
+  function fromVert(top, bottom) { return Math.abs(Math.atan2(top.x - bottom.x, bottom.y - top.y)) * 180 / Math.PI; }
+  function judge(p, pat) {
+    var Ls = [11, 13, 15, 23, 25, 27, 7], Rs = [12, 14, 16, 24, 26, 28, 8];
+    function vis(ids) { return ids.reduce(function (s, i) { return s + p[i].v; }, 0); }
+    var sd = vis(Ls) >= vis(Rs) ? Ls : Rs;
+    var S = p[sd[0]], E = p[sd[1]], W = p[sd[2]], H = p[sd[3]], K = p[sd[4]], A = p[sd[5]], EAR = p[sd[6]];
+    var need = { line: [0, 3, 5], knee: [0, 3, 4], squat: [0, 3, 4], hinge: [0, 3, 6], press: [0, 1, 2, 3], curl: [0, 1, 3], raise: [0, 1, 3], bridge: [3, 4, 5] }[pat] || [0, 3];
+    if (need.some(function (k) { return p[sd[k]].v < 0.5; })) return ["wait", "fcStep"];
+    var torso = Math.hypot(S.x - H.x, S.y - H.y) || 1;
+    switch (pat) {
+      case "line": return ang(S, H, A) >= 160 ? ["ok", "fcGood"] : ["bad", "fcLineBad"];
+      case "knee": return ang(S, H, K) >= 160 ? ["ok", "fcGood"] : ["bad", "fcLineBad"];
+      case "squat": return fromVert(S, H) <= 45 ? ["ok", "fcGood"] : ["bad", "fcSquatBad"];
+      case "hinge": return ang(EAR, S, H) >= 140 ? ["ok", "fcGood"] : ["bad", "fcHingeBad"];
+      case "press":
+        if (fromVert(S, H) > 15) return ["bad", "fcLeanBad"];
+        if (W.y < S.y && Math.abs(W.x - S.x) > 0.25 * torso) return ["bad", "fcPressBad"];
+        return ["ok", "fcGood"];
+      case "curl": return ang(E, S, H) <= 30 ? ["ok", "fcGood"] : ["bad", "fcCurlBad"];
+      case "raise": return E.y >= S.y - 0.1 * torso ? ["ok", "fcGood"] : ["bad", "fcRaiseBad"];
+      case "bridge": var kn = ang(H, K, A); return kn >= 60 && kn <= 120 ? ["ok", "fcGood"] : ["bad", "fcBridgeBad"];
+    }
+    var l = p[11], r = p[12];
+    if (l.v > 0.5 && r.v > 0.5 && Math.abs(l.x - r.x) > 0.4 * torso && Math.abs(l.y - r.y) > 0.18 * Math.abs(l.x - r.x)) return ["bad", "fcLevelBad"];
+    return ["ok", "fcGood"];
+  }
+  function fcSet(st, key) {
+    if (st === fcState && key === fcKey) return;
+    fcState = st; fcKey = key;
+    $("fc-light").className = "fc-light " + st;
+    $("fcmodal").classList.toggle("ok", st === "ok");
+    $("fcmodal").classList.toggle("bad", st === "bad");
+    $("fc-msg").textContent = t(key);
+  }
+  function loadPose() {
+    if (fcLm) return Promise.resolve(fcLm);
+    return import(POSE + "/vision_bundle.mjs").then(function (m) {
+      return m.FilesetResolver.forVisionTasks(POSE + "/wasm").then(function (fs) {
+        function make(dev) { return m.PoseLandmarker.createFromOptions(fs, { baseOptions: { modelAssetPath: POSE_MODEL, delegate: dev }, runningMode: "VIDEO", numPoses: 1 }); }
+        return make("GPU").catch(function () { return make("CPU"); });
+      });
+    }).then(function (lm) { fcLm = lm; return lm; });
+  }
+  function fcDraw(ctx, p, st) {
+    var col = st === "ok" ? "#22c55e" : st === "bad" ? "#ef4444" : "#eab308", w = Math.max(4, ctx.canvas.width / 150);
+    ctx.lineCap = "round"; ctx.lineWidth = w; ctx.strokeStyle = col;
+    BONES.forEach(function (b) {
+      var a = p[b[0]], c = p[b[1]];
+      if (a.v < 0.5 || c.v < 0.5) return;
+      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(c.x, c.y); ctx.stroke();
+    });
+    [0, 11, 12, 13, 14, 15, 16, 23, 24, 25, 26, 27, 28].forEach(function (i) {
+      if (p[i].v < 0.5) return;
+      ctx.beginPath(); ctx.arc(p[i].x, p[i].y, w * 1.1, 0, Math.PI * 2);
+      ctx.fillStyle = "#fff"; ctx.fill(); ctx.lineWidth = w / 2; ctx.stroke(); ctx.lineWidth = w;
+    });
+  }
+  function fcTick() {
+    if (!fcStream) return;
+    var v = $("fc-v"), c = $("fc-c");
+    if (v.readyState >= 2 && v.videoWidth) {
+      if (c.width !== v.videoWidth) { c.width = v.videoWidth; c.height = v.videoHeight; }
+      var r = null;
+      try { r = fcLm.detectForVideo(v, performance.now()); } catch (e) {}
+      var ctx = c.getContext("2d"), lm = r && r.landmarks && r.landmarks[0];
+      ctx.clearRect(0, 0, c.width, c.height);
+      if (lm) {
+        var p = lm.map(function (q) { return { x: q.x * c.width, y: q.y * c.height, v: q.visibility == null ? 1 : q.visibility }; });
+        var j = judge(p, FC_PAT[fcEx]);
+        fcHist.push(j[0] + "|" + j[1]);
+        if (fcHist.length > 6) fcHist.shift();
+        // only switch the light when the last frames agree, so it does not flicker
+        if (fcHist.filter(function (x) { return x === fcHist[fcHist.length - 1]; }).length >= 5) fcSet(j[0], j[1]);
+        fcDraw(ctx, p, fcState);
+      } else fcSet("wait", "fcStep");
+    }
+    fcRaf = requestAnimationFrame(fcTick);
+  }
+  function closeForm() {
+    cancelAnimationFrame(fcRaf);
+    if (fcStream) fcStream.getTracks().forEach(function (tr) { tr.stop(); });
+    fcStream = null; fcHist = [];
+    $("fc-v").srcObject = null;
+    $("fcmodal").hidden = true;
+  }
+  function openForm(idx) {
+    fcEx = idx; fcHist = []; fcState = ""; fcKey = "";
+    $("fc-name").textContent = EX[idx][lang === "he" ? 6 : 7];
+    var c = $("fc-c"); c.getContext("2d").clearRect(0, 0, c.width, c.height);
+    $("fcmodal").hidden = false;
+    fcSet("wait", "fcLoading");
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { fcSet("bad", "fcNoCam"); return; }
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "user", width: { ideal: 1280 } }, audio: false }).then(function (s) {
+      if ($("fcmodal").hidden) { s.getTracks().forEach(function (tr) { tr.stop(); }); return; }
+      fcStream = s;
+      $("fc-v").srcObject = s;
+      $("fc-v").play().catch(function () {});
+      return loadPose().then(function () {
+        if (!fcStream) return;
+        fcSet("wait", "fcStep");
+        fcTick();
+      }, function () { fcSet("bad", "fcNoModel"); });
+    }, function () { fcSet("bad", "fcNoCam"); });
+  }
+  exgrid.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-form]");
+    if (b) openForm(Number(b.getAttribute("data-form")));
+  });
+  $("fc-x").addEventListener("click", closeForm);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !$("fcmodal").hidden) closeForm(); });
   $("lib-controls").addEventListener("click", function (e) {
     var b = e.target.closest(".chip");
     if (!b) return;
