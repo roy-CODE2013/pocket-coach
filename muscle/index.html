@@ -257,11 +257,11 @@ html.a-focus :focus-visible { outline: 4px solid #f5b400 !important; outline-off
 .a11y-panel details { font-size: .85rem; color: var(--muted); }
 .a11y-panel summary { cursor: pointer; font-weight: 600; color: var(--ink); }
 @media (max-width: 860px) { .a11y-tab { top: 30%; } }
-.sc-claude { display: grid; justify-items: center; text-align: center; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 26px 20px; margin: 18px 0; box-shadow: var(--shadow); }
-.sc-claude-ic { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: color-mix(in srgb, var(--violet) 16%, transparent); color: var(--violet); }
-.sc-claude b { font-size: 1.25rem; }
-.sc-claude p { margin: 0; color: var(--muted); max-width: 46ch; line-height: 1.6; }
-.sc-claude small { color: var(--muted); font-size: .8rem; }
+.lf-guess { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 4px 0 12px; }
+.lf-guess > span { font-size: .88rem; color: var(--muted); }
+.lf-add { display: grid; gap: 6px; margin-top: 12px; }
+.lf-add label { font-weight: 600; font-size: .92rem; }
+.lf-add input[aria-invalid="true"] { border-color: var(--red); }
 /* ---------- form check: live pose skeleton ---------- */
 .fcmodal { position: fixed; z-index: 62; inset: 0; background: #000; color: #fff; }
 .fc-stage { position: absolute; inset: 0; display: grid; transition: box-shadow .2s; }
@@ -1148,9 +1148,8 @@ footer .wrap { padding-block: 28px 36px; }
           <h2 data-t="scH"></h2>
           <p class="intro" data-t="scP"></p>
         </div>
-        <div class="sc-claude"><span class="sc-claude-ic" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.8"/></svg></span><b data-t="scClaudeH"></b><p data-t="scClaudeP"></p><a class="btn primary big" href="https://claude.ai/artifact/PSrz687qio2pK5w5Vj78Vs" target="_blank" rel="noopener" data-t="scClaudeGo"></a><small data-t="scClaudeS"></small></div>
         <div class="dash" id="dash"></div>
-        <div class="logcard" id="scan" hidden>
+        <div class="logcard" id="scan">
           <div class="modes" role="group" data-ta="scModeAria">
             <button type="button" data-mode="plate" aria-pressed="true" data-t="mPlate"></button>
             <button type="button" data-mode="label" aria-pressed="false" data-t="mLabel"></button>
@@ -1487,7 +1486,7 @@ footer .wrap { padding-block: 28px 36px; }
       dLeft: "נשארו", dOver: "מעל היעד", dEaten: "{a} מתוך {b}", dWater: "מים", dGlass: "כוס", dStreak: "{n} ימים ברצף", kcalS: "קל׳",
       n8: "סורק אוכל", ctaScan: "סריקת אוכל", ctaCoach: "שאלו את המאמן",
       scH: "סורק האוכל", scP: "צלמו את הצלחת, את תווית המזון, או פשוט כתבו מה אכלתם. ה־AI מזהה כל מרכיב, מעריך כמויות ומחשב קלוריות, חלבון, פחמימות, שומן וסיבים, והכל נכנס ליומן היומי.",
-      gOppH: "יריב", gOpp0: "בלי בוט", gOpp1: "בוט קל", gOpp2: "בוט בינוני", gOpp3: "בוט קשה", gOpp4: "בוט אלוף", gTolH: "רמת קפדנות של הבדיקה", gTol0: "קלה", gTol1: "רגילה", gTol2: "קפדנית", gBotShort: "בוט", gBotFell: "הבוט נשבר! תמשיכו להחזיק", gWin: "ניצחת את הבוט!", gLose: "הבוט ניצח הפעם", gTie: "תיקו!", gVs: "את/ה {a} · {l} {b}", gWins: "ניצחונות נגד בוטים: {n}", scDel: "מחיקת פריט", scFixH: "משהו לא נכון? כתבו מה לתקן", scFixPh: "למשל: זה קינואה ולא אורז, ויש גם כוס מיץ", scFixGo: "תיקון", wqH: "מחשבון משקל מהיר", qHeight: "גובה (ס״מ)", qWeight: "משקל (ק״ג)", qAge: "גיל", qFill: "מלאו גובה, משקל וגיל, והתוצאה תופיע כאן.", qYoung: "המחשבון מתאים מגיל 5. לילדים צעירים יותר, בדקו מול עקומות הגדילה אצל רופא/ת הילדים.", qCat0: "תת משקל", qCat1: "משקל תקין", qCat2: "עודף משקל", qCat3: "השמנה", qRange: "משקל תקין לגובה ולגיל שלך: בין {a} ל־{b} ק״ג", qOk: "המשקל שלך בטווח התקין. כל הכבוד!", qUnderTip: "חסרים לך בערך {n} ק״ג כדי להגיע לטווח התקין.", qOverTip: "יש לך בערך {n} ק״ג מעל הטווח התקין.", qKidTip: "בגיל צעיר הגוף עוד גדל, אז לא מומלץ לעשות דיאטה לבד. כדאי להתייעץ עם רופא/ה או דיאטנית.", qNote: "לפי BMI למבוגרים. BMI לא מבדיל בין שריר לשומן, אז ספורטאים עם הרבה שריר עלולים לקבל \"עודף משקל\" בטעות.", qNoteKid: "עד גיל 19 החישוב לפי טבלאות ארגון הבריאות העולמי לפי גיל ומין, בקירוב. זה לא מחליף בדיקה אצל רופא/ה.", a11yOpen: "תפריט נגישות", a11yH: "נגישות", a11ySize: "גודל טקסט", a11ySmaller: "הקטנת טקסט", a11yBigger: "הגדלת טקסט", a11yContrast: "ניגודיות גבוהה", a11yDark: "מצב כהה", a11yGray: "גווני אפור", a11yLinks: "הדגשת קישורים", a11yFont: "גופן קריא", a11ySpace: "ריווח טקסט", a11yStill: "עצירת אנימציות", a11yCursor: "סמן גדול", a11yFocus: "הדגשת מיקוד", a11yReset: "איפוס הגדרות נגישות", a11yStmtH: "הצהרת נגישות", a11yStmt: "אנחנו משתדלים שהאתר יהיה נגיש לכולם: ניווט מלא במקלדת (Tab, Enter ו־Esc), תיאורים לקוראי מסך, תמיכה בהגדלת טקסט עד 160%, ניגודיות גבוהה ומצב כהה. ההגדרות נשמרות בדפדפן שלך. מצאת בעיית נגישות? ספרו לנו ונתקן.", scClaudeH: "סורק האוכל נמצא באפליקציה של Claude", scClaudeP: "הזיהוי של האוכל מהתמונה נעשה בעזרת AI, וזה עובד רק בגרסה של האתר בתוך Claude. שם אפשר לצלם צלחת, לקבל קלוריות וחלבון ולתקן את התוצאה.", scClaudeGo: "פתיחת סורק האוכל", scClaudeS: "בגרסה ב־Claude לוחצים על \"סורק אוכל\" בתפריט. צריך חשבון Claude.", fcStart: "התחילו לבצע את התרגיל", fcRepGood: "חזרה טובה!", fcReps: "{n} חזרות", gDeeper: "רדו עמוק יותר, החזרה לא נספרה", gDeeperArms: "רדו נמוך יותר עם החזה, החזרה לא נספרה", gUpright: "שמרו על הגב זקוף", gJacksFull: "ידיים מעל הראש ורגליים פתוחות עד הסוף", gKneesHigher: "הרימו את הברכיים גבוה יותר", gSitHigher: "עלו גבוה יותר", gHipsHigher: "הרימו את האגן גבוה יותר", gLockout: "ישרו את הידיים עד הסוף למעלה", gFullCurl: "כופפו את היד עד הסוף", gArmsHigher: "הרימו את הידיים עד גובה הכתפיים", gKnee90: "ברכיים בזווית של 90°", gHoldGood: "מחזיקים! המשיכו כך", gHoldBtn: "התחלה", gBestHold: "שיא:", gSec: " שנ׳", gEndHold: "סיום!", gNextHold: "עוד {n} שניות לדרגת {r}", g_lunge: "לאנג׳ים", g_lunge_p: "עמדו מהצד למצלמה. צעד אחורה, רדו עד שהברך הקדמית בזווית של 90° וחזרו. החליפו רגליים.", g_highknees: "ברכיים גבוהות", g_highknees_p: "עמדו מול המצלמה ורוצו במקום. כל ברך שעולה עד גובה האגן נספרת.", g_situp: "כפיפות בטן", g_situp_p: "שכבו מהצד למצלמה, ברכיים כפופות. עלו עד הישיבה ורדו חזרה.", g_bridge: "גשר אגן", g_bridge_p: "שכבו על הגב מהצד למצלמה. הרימו את האגן עד קו ישר מהכתפיים לברכיים, והורידו.", g_press: "לחיצת כתפיים", g_press_p: "עמדו מול המצלמה, עם או בלי משקולות. דחפו את הידיים ישר מעל הראש והורידו לגובה הכתפיים.", g_curl: "כפיפת מרפקים", g_curl_p: "עמדו מהצד למצלמה. כופפו את היד עד הכתף, עם המרפק צמוד לגוף, ויישרו.", g_lateral: "הרחקה לצדדים", g_lateral_p: "עמדו מול המצלמה. הרימו את הידיים לצדדים עד גובה הכתפיים והורידו.", g_climbers: "מטפסי הרים", g_climbers_p: "בתנוחת פלאנק מהצד למצלמה. משכו ברך לחזה לסירוגין, מהר.", g_plank: "פלאנק", g_plank_p: "החזיקו פלאנק מהצד למצלמה. השעון רץ רק כשהגוף ישר. כמה זמן תחזיקו?", g_wallsit: "ישיבה על הקיר", g_wallsit_p: "גב לקיר, מהצד למצלמה, ברכיים ב־90°. השעון רץ רק בתנוחה הנכונה.", gGetIn_lunge: "עמדו זקוף מהצד, כל הגוף בתמונה", gGetIn_highknees: "עמדו מול המצלמה, כל הגוף בתמונה", gGetIn_situp: "שכבו על הגב מהצד, ברכיים כפופות", gGetIn_bridge: "שכבו על הגב מהצד, ברכיים כפופות", gGetIn_press: "עמדו מול המצלמה, ידיים בגובה הכתפיים", gGetIn_curl: "עמדו מהצד, יד ישרה למטה", gGetIn_lateral: "עמדו מול המצלמה, ידיים לצדי הגוף", gGetIn_climbers: "היכנסו לפלאנק על ידיים ישרות, מהצד", gGetIn_plank: "היכנסו לפלאנק מהצד, כל הגוף בתמונה", gGetIn_wallsit: "שבו על הקיר מהצד, ברכיים ב־90°", v_games: "משחקים", gH: "משחקי כושר", gIntro: "13 משחקים. המצלמה סופרת לך חזרות. חזרה נספרת רק כשהטכניקה נכונה: נורה ירוקה. שברו שיאים, עלו בדרגות וצברו נקודות.", g_pushup: "שכיבות סמיכה", g_pushup_p: "הניחו את הטלפון על הרצפה מהצד. רדו עד שהמרפק בזווית של 90° ועלו עד יישור הידיים, עם גוף ישר.", g_squat: "סקוואט", g_squat_p: "עמדו מהצד למצלמה. רדו עד שהברכיים מתחת ל־100° ועלו עד הסוף, עם חזה למעלה.", g_jacks: "קפיצות פיסוק", g_jacks_p: "עמדו מול המצלמה. ידיים מעל הראש ורגליים פתוחות, ואז חזרה לעמידה. כל פתיחה וסגירה היא חזרה.", gPlay60: "אתגר 60 שניות", gPlayFree: "משחק חופשי", gBest: "שיא 60 שניות:", gBestFree: "שיא חופשי:", gTotal: "סה״כ:", gLvl: "רמה {n}", gXp: "{n} נקודות · עוד {m} לרמה הבאה", gGetIn_pushup: "היכנסו לתנוחת שכיבת סמיכה, ידיים ישרות, כל הגוף בתמונה", gGetIn_squat: "עמדו זקוף מהצד, כל הגוף בתמונה", gGetIn_jacks: "עמדו מול המצלמה, ידיים לצדי הגוף, כל הגוף בתמונה", gGo: "קדימה!", gRep: "יפה! עוד אחת", gTen: "וואו! עוד עשר!", gNoRep: "החזרה לא נספרה, תקנו את הטכניקה", gEnd60: "הזמן נגמר!", gEndFree: "סיום משחק", gNewRec: "שיא חדש!", gNext: "עוד {n} חזרות לדרגת {r}", gAgain: "שוב", rk0: "מתחיל", rk1: "ברזל", rk2: "ארד", rk3: "כסף", rk4: "זהב", rk5: "יהלום", rk6: "אגדה", fcBtn: "בדיקת טכניקה", fcClose: "סגירה", fcLoading: "פותח מצלמה וטוען זיהוי תנוחה…", fcStep: "התרחקו מהמצלמה כך שכל הגוף ייראה", fcGood: "טכניקה נכונה, המשיכו כך", fcLineBad: "שמרו על קו ישר מהכתפיים ועד הרגליים: הירכיים שוקעות או גבוהות מדי", fcSquatBad: "הרימו את החזה: הגב נוטה קדימה יותר מדי", fcHingeBad: "שמרו על הראש בקו אחד עם הגב", fcLeanBad: "אל תיטו את הגב לאחור, עמדו זקוף", fcPressBad: "דחפו ישר למעלה, מעל הכתפיים", fcCurlBad: "הצמידו את המרפקים לגוף", fcRaiseBad: "אל תרימו את המרפקים מעל גובה הכתפיים", fcBridgeBad: "קרבו או הרחיקו את כפות הרגליים, כך שהברך תהיה בזווית של כ־90°", fcLevelBad: "שמרו על הכתפיים ישרות ובאותו גובה", fcNoCam: "אין גישה למצלמה. אשרו מצלמה בדפדפן. בתוך Claude המצלמה חסומה, פתחו את האתר: roy-code2013.github.io/pocket-coach/muscle", fcNoModel: "לא הצלחתי לטעון את זיהוי התנוחה. בדקו חיבור לאינטרנט, או פתחו את האתר: roy-code2013.github.io/pocket-coach/muscle", fcHint: "הניחו את הטלפון או המחשב מהצד, במרחק 2–3 מטרים, כך שכל הגוף ייראה. הווידאו לא נשלח לשום מקום.", scCam: "צילום", camCancel: "ביטול", camShot: "צילום התמונה", camBlocked: "אין גישה למצלמה. אשרו גישה למצלמה בדפדפן, או לחצו על \"העלאת תמונה\".", scGal: "העלאת תמונה", scClear: "הסרת התמונה", scDrop: "צלמו את הצלחת או גררו לכאן תמונה",
+      gOppH: "יריב", gOpp0: "בלי בוט", gOpp1: "בוט קל", gOpp2: "בוט בינוני", gOpp3: "בוט קשה", gOpp4: "בוט אלוף", gTolH: "רמת קפדנות של הבדיקה", gTol0: "קלה", gTol1: "רגילה", gTol2: "קפדנית", gBotShort: "בוט", gBotFell: "הבוט נשבר! תמשיכו להחזיק", gWin: "ניצחת את הבוט!", gLose: "הבוט ניצח הפעם", gTie: "תיקו!", gVs: "את/ה {a} · {l} {b}", gWins: "ניצחונות נגד בוטים: {n}", scDel: "מחיקת פריט", scFixH: "משהו לא נכון? כתבו מה לתקן", scFixPh: "למשל: זה קינואה ולא אורז, ויש גם כוס מיץ", scFixGo: "תיקון", wqH: "מחשבון משקל מהיר", qHeight: "גובה (ס״מ)", qWeight: "משקל (ק״ג)", qAge: "גיל", qFill: "מלאו גובה, משקל וגיל, והתוצאה תופיע כאן.", qYoung: "המחשבון מתאים מגיל 5. לילדים צעירים יותר, בדקו מול עקומות הגדילה אצל רופא/ת הילדים.", qCat0: "תת משקל", qCat1: "משקל תקין", qCat2: "עודף משקל", qCat3: "השמנה", qRange: "משקל תקין לגובה ולגיל שלך: בין {a} ל־{b} ק״ג", qOk: "המשקל שלך בטווח התקין. כל הכבוד!", qUnderTip: "חסרים לך בערך {n} ק״ג כדי להגיע לטווח התקין.", qOverTip: "יש לך בערך {n} ק״ג מעל הטווח התקין.", qKidTip: "בגיל צעיר הגוף עוד גדל, אז לא מומלץ לעשות דיאטה לבד. כדאי להתייעץ עם רופא/ה או דיאטנית.", qNote: "לפי BMI למבוגרים. BMI לא מבדיל בין שריר לשומן, אז ספורטאים עם הרבה שריר עלולים לקבל \"עודף משקל\" בטעות.", qNoteKid: "עד גיל 19 החישוב לפי טבלאות ארגון הבריאות העולמי לפי גיל ומין, בקירוב. זה לא מחליף בדיקה אצל רופא/ה.", a11yOpen: "תפריט נגישות", a11yH: "נגישות", a11ySize: "גודל טקסט", a11ySmaller: "הקטנת טקסט", a11yBigger: "הגדלת טקסט", a11yContrast: "ניגודיות גבוהה", a11yDark: "מצב כהה", a11yGray: "גווני אפור", a11yLinks: "הדגשת קישורים", a11yFont: "גופן קריא", a11ySpace: "ריווח טקסט", a11yStill: "עצירת אנימציות", a11yCursor: "סמן גדול", a11yFocus: "הדגשת מיקוד", a11yReset: "איפוס הגדרות נגישות", a11yStmtH: "הצהרת נגישות", a11yStmt: "אנחנו משתדלים שהאתר יהיה נגיש לכולם: ניווט מלא במקלדת (Tab, Enter ו־Esc), תיאורים לקוראי מסך, תמיכה בהגדלת טקסט עד 160%, ניגודיות גבוהה ומצב כהה. ההגדרות נשמרות בדפדפן שלך. מצאת בעיית נגישות? ספרו לנו ונתקן.", lfNote: "הזיהוי נעשה בתוך הדפדפן ומכיר 101 מנות. צלמו מנה אחת מקרוב. אפשר לתקן את המנה ואת הכמות, ולהוסיף מאכלים מהרשימה.", lfLoad: "טוען את מודל הזיהוי (רק בפעם הראשונה, כ־60MB)…", lfDetect: "מזהה את האוכל…", lfFail: "לא הצלחתי לזהות. בדקו חיבור לאינטרנט, נסו תמונה אחרת, או הוסיפו את המאכל מהרשימה למטה.", lfNotes: "ערכים משוערים למנה ממוצעת. שנו את הכמות בגרמים לפי מה שאכלתם.", lfGuess: "לא זה? אולי:", lfAddH: "הוספה או תיקון מהרשימה", lfAddPh: "חפשו מאכל, למשל: אורז, חזה עוף, ביצים", lfAddGo: "הוספה", logBrowser: "היומן נשמר בדפדפן הזה בלבד.", fcStart: "התחילו לבצע את התרגיל", fcRepGood: "חזרה טובה!", fcReps: "{n} חזרות", gDeeper: "רדו עמוק יותר, החזרה לא נספרה", gDeeperArms: "רדו נמוך יותר עם החזה, החזרה לא נספרה", gUpright: "שמרו על הגב זקוף", gJacksFull: "ידיים מעל הראש ורגליים פתוחות עד הסוף", gKneesHigher: "הרימו את הברכיים גבוה יותר", gSitHigher: "עלו גבוה יותר", gHipsHigher: "הרימו את האגן גבוה יותר", gLockout: "ישרו את הידיים עד הסוף למעלה", gFullCurl: "כופפו את היד עד הסוף", gArmsHigher: "הרימו את הידיים עד גובה הכתפיים", gKnee90: "ברכיים בזווית של 90°", gHoldGood: "מחזיקים! המשיכו כך", gHoldBtn: "התחלה", gBestHold: "שיא:", gSec: " שנ׳", gEndHold: "סיום!", gNextHold: "עוד {n} שניות לדרגת {r}", g_lunge: "לאנג׳ים", g_lunge_p: "עמדו מהצד למצלמה. צעד אחורה, רדו עד שהברך הקדמית בזווית של 90° וחזרו. החליפו רגליים.", g_highknees: "ברכיים גבוהות", g_highknees_p: "עמדו מול המצלמה ורוצו במקום. כל ברך שעולה עד גובה האגן נספרת.", g_situp: "כפיפות בטן", g_situp_p: "שכבו מהצד למצלמה, ברכיים כפופות. עלו עד הישיבה ורדו חזרה.", g_bridge: "גשר אגן", g_bridge_p: "שכבו על הגב מהצד למצלמה. הרימו את האגן עד קו ישר מהכתפיים לברכיים, והורידו.", g_press: "לחיצת כתפיים", g_press_p: "עמדו מול המצלמה, עם או בלי משקולות. דחפו את הידיים ישר מעל הראש והורידו לגובה הכתפיים.", g_curl: "כפיפת מרפקים", g_curl_p: "עמדו מהצד למצלמה. כופפו את היד עד הכתף, עם המרפק צמוד לגוף, ויישרו.", g_lateral: "הרחקה לצדדים", g_lateral_p: "עמדו מול המצלמה. הרימו את הידיים לצדדים עד גובה הכתפיים והורידו.", g_climbers: "מטפסי הרים", g_climbers_p: "בתנוחת פלאנק מהצד למצלמה. משכו ברך לחזה לסירוגין, מהר.", g_plank: "פלאנק", g_plank_p: "החזיקו פלאנק מהצד למצלמה. השעון רץ רק כשהגוף ישר. כמה זמן תחזיקו?", g_wallsit: "ישיבה על הקיר", g_wallsit_p: "גב לקיר, מהצד למצלמה, ברכיים ב־90°. השעון רץ רק בתנוחה הנכונה.", gGetIn_lunge: "עמדו זקוף מהצד, כל הגוף בתמונה", gGetIn_highknees: "עמדו מול המצלמה, כל הגוף בתמונה", gGetIn_situp: "שכבו על הגב מהצד, ברכיים כפופות", gGetIn_bridge: "שכבו על הגב מהצד, ברכיים כפופות", gGetIn_press: "עמדו מול המצלמה, ידיים בגובה הכתפיים", gGetIn_curl: "עמדו מהצד, יד ישרה למטה", gGetIn_lateral: "עמדו מול המצלמה, ידיים לצדי הגוף", gGetIn_climbers: "היכנסו לפלאנק על ידיים ישרות, מהצד", gGetIn_plank: "היכנסו לפלאנק מהצד, כל הגוף בתמונה", gGetIn_wallsit: "שבו על הקיר מהצד, ברכיים ב־90°", v_games: "משחקים", gH: "משחקי כושר", gIntro: "13 משחקים. המצלמה סופרת לך חזרות. חזרה נספרת רק כשהטכניקה נכונה: נורה ירוקה. שברו שיאים, עלו בדרגות וצברו נקודות.", g_pushup: "שכיבות סמיכה", g_pushup_p: "הניחו את הטלפון על הרצפה מהצד. רדו עד שהמרפק בזווית של 90° ועלו עד יישור הידיים, עם גוף ישר.", g_squat: "סקוואט", g_squat_p: "עמדו מהצד למצלמה. רדו עד שהברכיים מתחת ל־100° ועלו עד הסוף, עם חזה למעלה.", g_jacks: "קפיצות פיסוק", g_jacks_p: "עמדו מול המצלמה. ידיים מעל הראש ורגליים פתוחות, ואז חזרה לעמידה. כל פתיחה וסגירה היא חזרה.", gPlay60: "אתגר 60 שניות", gPlayFree: "משחק חופשי", gBest: "שיא 60 שניות:", gBestFree: "שיא חופשי:", gTotal: "סה״כ:", gLvl: "רמה {n}", gXp: "{n} נקודות · עוד {m} לרמה הבאה", gGetIn_pushup: "היכנסו לתנוחת שכיבת סמיכה, ידיים ישרות, כל הגוף בתמונה", gGetIn_squat: "עמדו זקוף מהצד, כל הגוף בתמונה", gGetIn_jacks: "עמדו מול המצלמה, ידיים לצדי הגוף, כל הגוף בתמונה", gGo: "קדימה!", gRep: "יפה! עוד אחת", gTen: "וואו! עוד עשר!", gNoRep: "החזרה לא נספרה, תקנו את הטכניקה", gEnd60: "הזמן נגמר!", gEndFree: "סיום משחק", gNewRec: "שיא חדש!", gNext: "עוד {n} חזרות לדרגת {r}", gAgain: "שוב", rk0: "מתחיל", rk1: "ברזל", rk2: "ארד", rk3: "כסף", rk4: "זהב", rk5: "יהלום", rk6: "אגדה", fcBtn: "בדיקת טכניקה", fcClose: "סגירה", fcLoading: "פותח מצלמה וטוען זיהוי תנוחה…", fcStep: "התרחקו מהמצלמה כך שכל הגוף ייראה", fcGood: "טכניקה נכונה, המשיכו כך", fcLineBad: "שמרו על קו ישר מהכתפיים ועד הרגליים: הירכיים שוקעות או גבוהות מדי", fcSquatBad: "הרימו את החזה: הגב נוטה קדימה יותר מדי", fcHingeBad: "שמרו על הראש בקו אחד עם הגב", fcLeanBad: "אל תיטו את הגב לאחור, עמדו זקוף", fcPressBad: "דחפו ישר למעלה, מעל הכתפיים", fcCurlBad: "הצמידו את המרפקים לגוף", fcRaiseBad: "אל תרימו את המרפקים מעל גובה הכתפיים", fcBridgeBad: "קרבו או הרחיקו את כפות הרגליים, כך שהברך תהיה בזווית של כ־90°", fcLevelBad: "שמרו על הכתפיים ישרות ובאותו גובה", fcNoCam: "אין גישה למצלמה. אשרו מצלמה בדפדפן. בתוך Claude המצלמה חסומה, פתחו את האתר: roy-code2013.github.io/pocket-coach/muscle", fcNoModel: "לא הצלחתי לטעון את זיהוי התנוחה. בדקו חיבור לאינטרנט, או פתחו את האתר: roy-code2013.github.io/pocket-coach/muscle", fcHint: "הניחו את הטלפון או המחשב מהצד, במרחק 2–3 מטרים, כך שכל הגוף ייראה. הווידאו לא נשלח לשום מקום.", scCam: "צילום", camCancel: "ביטול", camShot: "צילום התמונה", camBlocked: "אין גישה למצלמה. אשרו גישה למצלמה בדפדפן, או לחצו על \"העלאת תמונה\".", scGal: "העלאת תמונה", scClear: "הסרת התמונה", scDrop: "צלמו את הצלחת או גררו לכאן תמונה",
       scNoteLbl: "פרטים נוספים <small>לא חובה, משפר את הדיוק</small>", scNotePh: "למשל: 150 גרם חזה עוף, כוס אורז, כף שמן זית",
       scGo: "ניתוח הארוחה", scLoading: "מזהה את האוכל ומחשב ערכים…", scStop: "עצירה", scMeal: "ארוחה",
       scEmpty: "כאן יופיעו כל המרכיבים בצלחת, המשקל המשוער של כל אחד והערכים התזונתיים. אפשר לתקן משקל של מרכיב והכל יחושב מחדש. אין תמונה? תארו את הארוחה במילים.",
@@ -1503,7 +1502,7 @@ footer .wrap { padding-block: 28px 36px; }
       logSlow: "היומן עדיין נטען…", logOff: "היומן לא זמין כרגע, והארוחות לא יישמרו.",
       logLocal: "היומן נשמר רק כשהאתר פתוח ב־Claude. ארוחות שנרשמו כאן יימחקו ברענון.",
       logReadonly: "אין לך הרשאה לשמור ביומן.", logFail: "השמירה נכשלה. נסו שוב.",
-      aiNoAccess: "המאמן והסורק החכם עובדים רק בגרסה המלאה ב־Claude: https://claude.ai/artifact/PSrz687qio2pK5w5Vj78Vs",
+      aiNoAccess: "מאמן ה־AI עובד רק בגרסה המלאה ב־Claude: https://claude.ai/artifact/PSrz687qio2pK5w5Vj78Vs",
       aiBusy: "יותר מדי בקשות כרגע. נסו שוב בעוד דקה.", aiBadImg: "התמונה לא התקבלה. נסו תמונה אחרת, JPG או PNG.",
       aiRefused: "ה־AI לא יכול לענות על זה. נסו לנסח אחרת.", aiFail: "משהו השתבש. נסו שוב.",
       coachT: "המאמן האישי", coachSub: "מבוסס AI · מכיר את התוכנית והיומן שלך",
@@ -1645,7 +1644,7 @@ footer .wrap { padding-block: 28px 36px; }
       dLeft: "left", dOver: "over target", dEaten: "{a} of {b}", dWater: "Water", dGlass: "Glass", dStreak: "{n}-day streak", kcalS: "kcal",
       n8: "Food scanner", ctaScan: "Scan your food", ctaCoach: "Ask the coach",
       scH: "Food scanner", scP: "Snap your plate or a food label, or just type what you ate. The AI identifies each item, estimates portions and works out calories, protein, carbs, fat and fiber, and it all goes into your daily log.",
-      gOppH: "Opponent", gOpp0: "No bot", gOpp1: "Easy bot", gOpp2: "Medium bot", gOpp3: "Hard bot", gOpp4: "Champion bot", gTolH: "How strict the check is", gTol0: "Easy", gTol1: "Normal", gTol2: "Strict", gBotShort: "Bot", gBotFell: "The bot broke! Keep holding", gWin: "You beat the bot!", gLose: "The bot won this time", gTie: "Tie!", gVs: "You {a} · {l} {b}", gWins: "Wins against bots: {n}", scDel: "Remove item", scFixH: "Something wrong? Say what to fix", scFixPh: "e.g. it is quinoa, not rice, and add a glass of juice", scFixGo: "Fix", wqH: "Quick weight check", qHeight: "Height (cm)", qWeight: "Weight (kg)", qAge: "Age", qFill: "Fill in height, weight and age and the result shows here.", qYoung: "This calculator works from age 5. For younger children, check the growth charts with a pediatrician.", qCat0: "Underweight", qCat1: "Healthy weight", qCat2: "Overweight", qCat3: "Obesity", qRange: "Healthy weight for your height and age: {a} to {b} kg", qOk: "Your weight is in the healthy range. Well done!", qUnderTip: "You are about {n} kg below the healthy range.", qOverTip: "You are about {n} kg above the healthy range.", qKidTip: "Your body is still growing, so don\u2019t diet on your own. Talk to a doctor or dietitian.", qNote: "Based on adult BMI. BMI can\u2019t tell muscle from fat, so very muscular people may show as \"overweight\" by mistake.", qNoteKid: "Under 19 this uses WHO BMI-for-age tables by age and sex, approximately. It does not replace a check-up with a doctor.", a11yOpen: "Accessibility menu", a11yH: "Accessibility", a11ySize: "Text size", a11ySmaller: "Smaller text", a11yBigger: "Bigger text", a11yContrast: "High contrast", a11yDark: "Dark mode", a11yGray: "Grayscale", a11yLinks: "Highlight links", a11yFont: "Readable font", a11ySpace: "Text spacing", a11yStill: "Stop animations", a11yCursor: "Big cursor", a11yFocus: "Strong focus", a11yReset: "Reset accessibility settings", a11yStmtH: "Accessibility statement", a11yStmt: "We aim to make this site usable by everyone: full keyboard navigation (Tab, Enter and Esc), screen reader labels, text up to 160%, high contrast and dark mode. Your settings are saved in your browser. Found an accessibility problem? Tell us and we will fix it.", scClaudeH: "The food scanner lives in the Claude app", scClaudeP: "Recognising food from a photo uses AI, which only works in the version of this site inside Claude. There you can snap a plate, get calories and protein and fix the result.", scClaudeGo: "Open the food scanner", scClaudeS: "In the Claude version, tap \"Food scanner\" in the menu. You need a Claude account.", fcStart: "Start the exercise", fcRepGood: "Good rep!", fcReps: "{n} reps", gDeeper: "Go deeper, that rep did not count", gDeeperArms: "Lower your chest more, that rep did not count", gUpright: "Keep your back upright", gJacksFull: "Arms all the way overhead and feet wide", gKneesHigher: "Lift your knees higher", gSitHigher: "Come up higher", gHipsHigher: "Lift your hips higher", gLockout: "Straighten your arms fully at the top", gFullCurl: "Curl all the way up", gArmsHigher: "Raise your arms to shoulder height", gKnee90: "Knees at 90°", gHoldGood: "Holding! Keep it up", gHoldBtn: "Start", gBestHold: "Best:", gSec: "s", gEndHold: "Done!", gNextHold: "{n} more seconds to {r}", g_lunge: "Lunges", g_lunge_p: "Stand side-on. Step back, lower until your front knee is at 90° and come back. Switch legs.", g_highknees: "High knees", g_highknees_p: "Face the camera and run in place. Every knee that reaches hip height counts.", g_situp: "Sit-ups", g_situp_p: "Lie side-on to the camera, knees bent. Sit all the way up and lower back down.", g_bridge: "Glute bridge", g_bridge_p: "Lie on your back side-on. Lift your hips to a straight line from shoulders to knees, then lower.", g_press: "Shoulder press", g_press_p: "Face the camera, with or without weights. Press straight overhead and lower to shoulder height.", g_curl: "Biceps curl", g_curl_p: "Stand side-on. Curl up to your shoulder with your elbow tucked, then straighten.", g_lateral: "Lateral raise", g_lateral_p: "Face the camera. Raise your arms out to shoulder height and lower.", g_climbers: "Mountain climbers", g_climbers_p: "In a plank side-on to the camera, drive alternate knees to your chest, fast.", g_plank: "Plank", g_plank_p: "Hold a plank side-on. The clock only runs while your body is straight. How long can you go?", g_wallsit: "Wall sit", g_wallsit_p: "Back to a wall, side-on, knees at 90°. The clock only runs in the right position.", gGetIn_lunge: "Stand tall side-on, whole body in view", gGetIn_highknees: "Face the camera, whole body in view", gGetIn_situp: "Lie on your back side-on, knees bent", gGetIn_bridge: "Lie on your back side-on, knees bent", gGetIn_press: "Face the camera, hands at shoulder height", gGetIn_curl: "Stand side-on, arm straight down", gGetIn_lateral: "Face the camera, arms at your sides", gGetIn_climbers: "Get into a straight-arm plank, side-on", gGetIn_plank: "Get into a plank side-on, whole body in view", gGetIn_wallsit: "Sit against the wall side-on, knees at 90°", v_games: "Games", gH: "Fitness games", gIntro: "13 games. The camera counts your reps. A rep only counts with good form, a green light. Break records, rank up and earn points.", g_pushup: "Push-ups", g_pushup_p: "Put your phone on the floor to your side. Lower until your elbows reach 90° and push up to straight arms, body in a line.", g_squat: "Squats", g_squat_p: "Stand side-on to the camera. Go down until your knees pass 100° and stand all the way up, chest up.", g_jacks: "Jumping jacks", g_jacks_p: "Face the camera. Arms overhead and feet apart, then back together. Each open and close is one rep.", gPlay60: "60-second challenge", gPlayFree: "Free play", gBest: "60s best:", gBestFree: "Free best:", gTotal: "Total:", gLvl: "Level {n}", gXp: "{n} points · {m} to next level", gGetIn_pushup: "Get into push-up position, arms straight, whole body in view", gGetIn_squat: "Stand tall side-on, whole body in view", gGetIn_jacks: "Face the camera, arms at your sides, whole body in view", gGo: "Go!", gRep: "Nice! One more", gTen: "Wow! Ten more!", gNoRep: "That rep did not count, fix your form", gEnd60: "Time's up!", gEndFree: "Game over", gNewRec: "New record!", gNext: "{n} more reps to {r}", gAgain: "Again", rk0: "Rookie", rk1: "Iron", rk2: "Bronze", rk3: "Silver", rk4: "Gold", rk5: "Diamond", rk6: "Legend", fcBtn: "Form check", fcClose: "Close", fcLoading: "Opening camera and loading pose detection…", fcStep: "Step back so your whole body is in view", fcGood: "Good form, keep going", fcLineBad: "Keep a straight line from shoulders to feet: hips are sagging or too high", fcSquatBad: "Chest up: you are leaning too far forward", fcHingeBad: "Keep your head in line with your back", fcLeanBad: "Don't lean back, stand tall", fcPressBad: "Press straight up, over your shoulders", fcCurlBad: "Keep your elbows close to your body", fcRaiseBad: "Don't lift your elbows above shoulder height", fcBridgeBad: "Move your feet so your knees are at about 90°", fcLevelBad: "Keep your shoulders level", fcNoCam: "No camera access. Allow the camera in your browser. Inside Claude the camera is blocked, open the site: roy-code2013.github.io/pocket-coach/muscle", fcNoModel: "Couldn't load pose detection. Check your connection, or open the site: roy-code2013.github.io/pocket-coach/muscle", fcHint: "Place your phone or computer to the side, 2–3 m away, so your whole body is visible. The video never leaves your device.", scCam: "Take photo", camCancel: "Cancel", camShot: "Take the picture", camBlocked: "No camera access. Allow the camera in your browser, or use \"Upload photo\".", scGal: "Upload photo", scClear: "Remove photo", scDrop: "Take a photo of your plate or drop one here",
+      gOppH: "Opponent", gOpp0: "No bot", gOpp1: "Easy bot", gOpp2: "Medium bot", gOpp3: "Hard bot", gOpp4: "Champion bot", gTolH: "How strict the check is", gTol0: "Easy", gTol1: "Normal", gTol2: "Strict", gBotShort: "Bot", gBotFell: "The bot broke! Keep holding", gWin: "You beat the bot!", gLose: "The bot won this time", gTie: "Tie!", gVs: "You {a} · {l} {b}", gWins: "Wins against bots: {n}", scDel: "Remove item", scFixH: "Something wrong? Say what to fix", scFixPh: "e.g. it is quinoa, not rice, and add a glass of juice", scFixGo: "Fix", wqH: "Quick weight check", qHeight: "Height (cm)", qWeight: "Weight (kg)", qAge: "Age", qFill: "Fill in height, weight and age and the result shows here.", qYoung: "This calculator works from age 5. For younger children, check the growth charts with a pediatrician.", qCat0: "Underweight", qCat1: "Healthy weight", qCat2: "Overweight", qCat3: "Obesity", qRange: "Healthy weight for your height and age: {a} to {b} kg", qOk: "Your weight is in the healthy range. Well done!", qUnderTip: "You are about {n} kg below the healthy range.", qOverTip: "You are about {n} kg above the healthy range.", qKidTip: "Your body is still growing, so don\u2019t diet on your own. Talk to a doctor or dietitian.", qNote: "Based on adult BMI. BMI can\u2019t tell muscle from fat, so very muscular people may show as \"overweight\" by mistake.", qNoteKid: "Under 19 this uses WHO BMI-for-age tables by age and sex, approximately. It does not replace a check-up with a doctor.", a11yOpen: "Accessibility menu", a11yH: "Accessibility", a11ySize: "Text size", a11ySmaller: "Smaller text", a11yBigger: "Bigger text", a11yContrast: "High contrast", a11yDark: "Dark mode", a11yGray: "Grayscale", a11yLinks: "Highlight links", a11yFont: "Readable font", a11ySpace: "Text spacing", a11yStill: "Stop animations", a11yCursor: "Big cursor", a11yFocus: "Strong focus", a11yReset: "Reset accessibility settings", a11yStmtH: "Accessibility statement", a11yStmt: "We aim to make this site usable by everyone: full keyboard navigation (Tab, Enter and Esc), screen reader labels, text up to 160%, high contrast and dark mode. Your settings are saved in your browser. Found an accessibility problem? Tell us and we will fix it.", lfNote: "Recognition runs in your browser and knows 101 dishes. Snap one dish up close. You can fix the dish and the amount, and add foods from the list.", lfLoad: "Loading the recognition model (first time only, about 60 MB)…", lfDetect: "Recognising your food…", lfFail: "Couldn't recognise it. Check your connection, try another photo, or add the food from the list below.", lfNotes: "Estimated values for an average portion. Change the grams to what you ate.", lfGuess: "Not this? Maybe:", lfAddH: "Add or fix from the list", lfAddPh: "Search a food, e.g. rice, chicken breast, eggs", lfAddGo: "Add", logBrowser: "Your log is saved in this browser only.", fcStart: "Start the exercise", fcRepGood: "Good rep!", fcReps: "{n} reps", gDeeper: "Go deeper, that rep did not count", gDeeperArms: "Lower your chest more, that rep did not count", gUpright: "Keep your back upright", gJacksFull: "Arms all the way overhead and feet wide", gKneesHigher: "Lift your knees higher", gSitHigher: "Come up higher", gHipsHigher: "Lift your hips higher", gLockout: "Straighten your arms fully at the top", gFullCurl: "Curl all the way up", gArmsHigher: "Raise your arms to shoulder height", gKnee90: "Knees at 90°", gHoldGood: "Holding! Keep it up", gHoldBtn: "Start", gBestHold: "Best:", gSec: "s", gEndHold: "Done!", gNextHold: "{n} more seconds to {r}", g_lunge: "Lunges", g_lunge_p: "Stand side-on. Step back, lower until your front knee is at 90° and come back. Switch legs.", g_highknees: "High knees", g_highknees_p: "Face the camera and run in place. Every knee that reaches hip height counts.", g_situp: "Sit-ups", g_situp_p: "Lie side-on to the camera, knees bent. Sit all the way up and lower back down.", g_bridge: "Glute bridge", g_bridge_p: "Lie on your back side-on. Lift your hips to a straight line from shoulders to knees, then lower.", g_press: "Shoulder press", g_press_p: "Face the camera, with or without weights. Press straight overhead and lower to shoulder height.", g_curl: "Biceps curl", g_curl_p: "Stand side-on. Curl up to your shoulder with your elbow tucked, then straighten.", g_lateral: "Lateral raise", g_lateral_p: "Face the camera. Raise your arms out to shoulder height and lower.", g_climbers: "Mountain climbers", g_climbers_p: "In a plank side-on to the camera, drive alternate knees to your chest, fast.", g_plank: "Plank", g_plank_p: "Hold a plank side-on. The clock only runs while your body is straight. How long can you go?", g_wallsit: "Wall sit", g_wallsit_p: "Back to a wall, side-on, knees at 90°. The clock only runs in the right position.", gGetIn_lunge: "Stand tall side-on, whole body in view", gGetIn_highknees: "Face the camera, whole body in view", gGetIn_situp: "Lie on your back side-on, knees bent", gGetIn_bridge: "Lie on your back side-on, knees bent", gGetIn_press: "Face the camera, hands at shoulder height", gGetIn_curl: "Stand side-on, arm straight down", gGetIn_lateral: "Face the camera, arms at your sides", gGetIn_climbers: "Get into a straight-arm plank, side-on", gGetIn_plank: "Get into a plank side-on, whole body in view", gGetIn_wallsit: "Sit against the wall side-on, knees at 90°", v_games: "Games", gH: "Fitness games", gIntro: "13 games. The camera counts your reps. A rep only counts with good form, a green light. Break records, rank up and earn points.", g_pushup: "Push-ups", g_pushup_p: "Put your phone on the floor to your side. Lower until your elbows reach 90° and push up to straight arms, body in a line.", g_squat: "Squats", g_squat_p: "Stand side-on to the camera. Go down until your knees pass 100° and stand all the way up, chest up.", g_jacks: "Jumping jacks", g_jacks_p: "Face the camera. Arms overhead and feet apart, then back together. Each open and close is one rep.", gPlay60: "60-second challenge", gPlayFree: "Free play", gBest: "60s best:", gBestFree: "Free best:", gTotal: "Total:", gLvl: "Level {n}", gXp: "{n} points · {m} to next level", gGetIn_pushup: "Get into push-up position, arms straight, whole body in view", gGetIn_squat: "Stand tall side-on, whole body in view", gGetIn_jacks: "Face the camera, arms at your sides, whole body in view", gGo: "Go!", gRep: "Nice! One more", gTen: "Wow! Ten more!", gNoRep: "That rep did not count, fix your form", gEnd60: "Time's up!", gEndFree: "Game over", gNewRec: "New record!", gNext: "{n} more reps to {r}", gAgain: "Again", rk0: "Rookie", rk1: "Iron", rk2: "Bronze", rk3: "Silver", rk4: "Gold", rk5: "Diamond", rk6: "Legend", fcBtn: "Form check", fcClose: "Close", fcLoading: "Opening camera and loading pose detection…", fcStep: "Step back so your whole body is in view", fcGood: "Good form, keep going", fcLineBad: "Keep a straight line from shoulders to feet: hips are sagging or too high", fcSquatBad: "Chest up: you are leaning too far forward", fcHingeBad: "Keep your head in line with your back", fcLeanBad: "Don't lean back, stand tall", fcPressBad: "Press straight up, over your shoulders", fcCurlBad: "Keep your elbows close to your body", fcRaiseBad: "Don't lift your elbows above shoulder height", fcBridgeBad: "Move your feet so your knees are at about 90°", fcLevelBad: "Keep your shoulders level", fcNoCam: "No camera access. Allow the camera in your browser. Inside Claude the camera is blocked, open the site: roy-code2013.github.io/pocket-coach/muscle", fcNoModel: "Couldn't load pose detection. Check your connection, or open the site: roy-code2013.github.io/pocket-coach/muscle", fcHint: "Place your phone or computer to the side, 2–3 m away, so your whole body is visible. The video never leaves your device.", scCam: "Take photo", camCancel: "Cancel", camShot: "Take the picture", camBlocked: "No camera access. Allow the camera in your browser, or use \"Upload photo\".", scGal: "Upload photo", scClear: "Remove photo", scDrop: "Take a photo of your plate or drop one here",
       scNoteLbl: "Extra details <small>optional, improves accuracy</small>", scNotePh: "e.g. 150 g chicken breast, a cup of rice, a tablespoon of olive oil",
       scGo: "Analyze meal", scLoading: "Identifying food and calculating…", scStop: "Stop", scMeal: "Meal",
       scEmpty: "Every item on the plate shows up here, with its estimated weight and nutrition values. Fix an item's weight and everything recalculates. No photo? Describe the meal in words.",
@@ -1661,7 +1660,7 @@ footer .wrap { padding-block: 28px 36px; }
       logSlow: "Your log is still loading…", logOff: "Your log isn't available right now, so meals won't be saved.",
       logLocal: "The log is saved only when this page is open in Claude. Meals logged here disappear on refresh.",
       logReadonly: "You don't have permission to save to the log.", logFail: "Saving failed. Try again.",
-      aiNoAccess: "The AI coach and smart scanner work only in the full version in Claude: https://claude.ai/artifact/PSrz687qio2pK5w5Vj78Vs",
+      aiNoAccess: "The AI coach works only in the full version in Claude: https://claude.ai/artifact/PSrz687qio2pK5w5Vj78Vs",
       aiBusy: "Too many requests right now. Try again in a minute.", aiBadImg: "That photo didn't go through. Try another one, JPG or PNG.",
       aiRefused: "The AI can't answer that. Try asking another way.", aiFail: "Something went wrong. Try again.",
       coachT: "Personal coach", coachSub: "AI powered · knows your plan and log",
@@ -2797,7 +2796,7 @@ footer .wrap { padding-block: 28px 36px; }
 
   /* scanner: plate photo, nutrition label, or words */
   var scanMode = "plate", scanThumb = "", scanPreview = "";
-  var todayWater = 0, streak = 0;
+  var todayWater = 0, streak = 0, localLog = false;
   var pendingCode = null, products = {}, prodRef = null, prodSaving = false, prodDirty = false, zxingP = null;
   try { products = JSON.parse(localStorage.getItem("products") || "{}") || {}; } catch (e) { products = {}; }
   function saveProducts() {
@@ -2911,14 +2910,20 @@ footer .wrap { padding-block: 28px 36px; }
     var bn = $("bc-new");
     bn.hidden = !(pendingCode && scanMode === "label");
     if (!bn.hidden) bn.innerHTML = esc(t("bcNewLbl")).replace("{c}", '<span class="bc-code">' + esc(pendingCode) + "</span>");
-    var imgOk = aiState === "loading" || (aiState === "on" && canImages);
+    var local = aiState === "off";
+    if (local && scanMode !== "plate") scanMode = "plate";
+    document.querySelectorAll('[data-mode="label"], [data-mode="text"]').forEach(function (b) { b.hidden = local; });
+    $("sc-note").hidden = bc || local;
+    $("sc-note-lbl").hidden = bc || local;
+    $("sc-go").hidden = bc || local;
+    var imgOk = aiState === "loading" || local || (aiState === "on" && canImages);
     $("sc-btns").hidden = !imgMode || (!imgOk && !bc);
     $("sc-drop").hidden = !imgMode || (!imgOk && !bc);
     document.querySelectorAll("[data-mode]").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-mode") === scanMode ? "true" : "false"); });
     $("sc-drop-txt").textContent = t(bc ? "bcDrop" : scanMode === "label" ? "scDropLabel" : "scDrop");
     $("sc-note").placeholder = t(scanMode === "text" ? "scTextPh" : scanMode === "label" ? "scNoteLabelPh" : "scNotePh");
     $("sc-note-lbl").innerHTML = t(scanMode === "text" ? "scTextLbl" : scanMode === "label" ? "scLabelLbl" : "scNoteLbl");
-    if (aiState === "off") { warn.hidden = false; warn.textContent = t("aiNoAccess"); }
+    if (aiState === "off") { warn.hidden = false; warn.textContent = t("lfNote"); }
     else if (imgMode && !bc && aiState === "on" && !canImages) { warn.hidden = false; warn.textContent = t("scNoImg"); }
     else warn.hidden = true;
     updateGo();
@@ -2950,6 +2955,7 @@ footer .wrap { padding-block: 28px 36px; }
     makeThumb(f).then(function (d) { if (scanFile === f) scanThumb = d; });
     updateGo();
     if (scanMode === "barcode") runDecode(f);
+    else if (aiState === "off") localDetect(f);
   }
   function clearFile() {
     scanFile = null; scanThumb = ""; scanPreview = "";
@@ -2965,8 +2971,8 @@ footer .wrap { padding-block: 28px 36px; }
     }
     if (state === "error") { out.innerHTML = '<div class="pad"><p class="sc-err">' + esc(msg) + "</p></div>"; return; }
     var r = scanResult;
-    if (!r) { out.innerHTML = ""; return; }
-    if (!r.items.length) { out.innerHTML = '<div class="pad"><p>' + esc(r.notes || t("scNone")) + "</p></div>"; return; }
+    if (!r) { out.innerHTML = aiState === "off" ? '<div class="pad">' + lfAddHtml() + "</div>" : ""; return; }
+    if (!r.items.length) { out.innerHTML = '<div class="pad"><p>' + esc(r.notes || t("scNone")) + "</p>" + (aiState === "off" ? lfAddHtml() : "") + "</div>"; return; }
     var conf = ["high", "medium", "low"].indexOf(r.confidence) !== -1 ? r.confidence : "medium";
     var score = Math.max(1, Math.min(10, Math.round(num(r.score))));
     var badge = num(r.score) ? '<div class="score"><b>' + score + "</b><small>/10</small><span>" + esc(t("scScore")) + "</span></div>" : "";
@@ -2977,6 +2983,7 @@ footer .wrap { padding-block: 28px 36px; }
       '<div class="kbig"><b id="sc-kbig"></b><span>' + esc(t("kcal")) + "</span></div>" +
       '<div class="chips4" id="sc-chips"></div>' +
       '<div class="split" id="sc-split" aria-hidden="true"><span style="background:var(--red)"></span><span style="background:#e8b200"></span><span style="background:#1f9a52"></span></div>' +
+      lfGuessHtml(r) +
       '<ul class="items">' + r.items.map(function (it, k) {
         return '<li class="item"><span class="nm">' + esc(it.name) + '</span><span class="mx" id="sc-mx-' + k + '"></span>' +
           '<span class="step"><button type="button" data-step="' + k + '" data-d="-10" aria-label="−10 ' + esc(t("g")) + '">−</button>' +
@@ -2985,6 +2992,7 @@ footer .wrap { padding-block: 28px 36px; }
           '<button type="button" class="item-x" data-del="' + k + '" aria-label="' + esc(t("scDel") + ": " + it.name) + '">×</button></li>';
       }).join("") + "</ul>" +
       (r.notes ? '<p class="sc-note">' + esc(r.notes) + "</p>" : "") +
+      lfAddHtml() +
       (aiState === "on" ? '<div class="sc-fix"><label for="sc-fix-in">' + esc(t("scFixH")) + '</label><div class="sc-fix-row"><input type="text" id="sc-fix-in" maxlength="300" placeholder="' + esc(t("scFixPh")) + '"><button type="button" class="btn" id="sc-fix-go">' + esc(t("scFixGo")) + "</button></div></div>" : "") +
       (r.tip ? '<div class="coachtip"><div class="coach-av" aria-hidden="true">AI</div><div class="bubble"><span>' + esc(r.tip) + '</span><button type="button" class="linkbtn" id="sc-ask">' + esc(t("askCoach")) + "</button></div></div>" : "") +
       '<p class="sc-disc">' + esc(t("scEstimate")) + "</p>" +
@@ -3019,6 +3027,249 @@ footer .wrap { padding-block: 28px 36px; }
     NUT.forEach(function (n) { it[n] = it.base[n] * f; });
     if (scanResult.added) { scanResult.added = false; var b = $("sc-add"); b.disabled = false; b.textContent = t("scAdd"); }
     updateTotals();
+  }
+  /* in-browser food recognition (no Claude): Food-101 classifier + a nutrition table */
+  // [id, he, en, portion g, per 100 g: kcal, protein, carbs, fat, fiber] — typical values, approximate
+  var FOODS = [
+    ["apple_pie", "פאי תפוחים", "Apple pie", 125, 265, 2.4, 37, 12.5, 1.6],
+    ["baby_back_ribs", "צלעות חזיר בגריל", "Baby back ribs", 250, 280, 22, 5, 19, 0],
+    ["baklava", "בקלאווה", "Baklava", 60, 430, 7, 48, 24, 2.5],
+    ["beef_carpaccio", "קרפצ׳יו בקר", "Beef carpaccio", 100, 150, 22, 1, 6, 0],
+    ["beef_tartare", "טרטר בקר", "Beef tartare", 150, 190, 19, 2, 12, 0],
+    ["beet_salad", "סלט סלק", "Beet salad", 200, 90, 2.5, 10, 4.5, 2.5],
+    ["beignets", "בניֵיה (סופגניות צרפתיות)", "Beignets", 100, 390, 6, 45, 21, 1],
+    ["bibimbap", "ביבימבאפ", "Bibimbap", 450, 140, 6, 20, 4, 1.5],
+    ["bread_pudding", "פודינג לחם", "Bread pudding", 150, 230, 6, 32, 8, 1],
+    ["breakfast_burrito", "בוריטו ארוחת בוקר", "Breakfast burrito", 250, 210, 10, 20, 10, 2],
+    ["bruschetta", "ברוסקטה", "Bruschetta", 120, 200, 5, 26, 8, 2],
+    ["caesar_salad", "סלט קיסר", "Caesar salad", 250, 120, 5, 6, 9, 1.5],
+    ["cannoli", "קנולי", "Cannoli", 80, 360, 8, 35, 21, 1],
+    ["caprese_salad", "סלט קפרזה", "Caprese salad", 200, 180, 10, 4, 14, 1],
+    ["carrot_cake", "עוגת גזר", "Carrot cake", 120, 410, 5, 50, 22, 1.5],
+    ["ceviche", "סביצ׳ה", "Ceviche", 200, 90, 14, 6, 1.5, 1],
+    ["cheesecake", "עוגת גבינה", "Cheesecake", 125, 320, 6, 26, 22, 0.4],
+    ["cheese_plate", "פלטת גבינות", "Cheese plate", 100, 360, 23, 2, 29, 0],
+    ["chicken_curry", "קארי עוף", "Chicken curry", 350, 140, 11, 6, 8, 1.5],
+    ["chicken_quesadilla", "קסדיה עוף", "Chicken quesadilla", 250, 250, 14, 22, 12, 1.5],
+    ["chicken_wings", "כנפיים", "Chicken wings", 200, 250, 22, 3, 17, 0],
+    ["chocolate_cake", "עוגת שוקולד", "Chocolate cake", 110, 370, 5, 52, 16, 2.5],
+    ["chocolate_mousse", "מוס שוקולד", "Chocolate mousse", 120, 250, 5, 22, 16, 1.5],
+    ["churros", "צ׳ורוס", "Churros", 100, 420, 5, 45, 25, 1.5],
+    ["clam_chowder", "מרק צדפות", "Clam chowder", 300, 85, 4, 9, 4, 0.5],
+    ["club_sandwich", "קלאב סנדוויץ׳", "Club sandwich", 300, 230, 13, 20, 11, 1.5],
+    ["crab_cakes", "קציצות סרטנים", "Crab cakes", 150, 210, 13, 10, 13, 0.5],
+    ["creme_brulee", "קרם ברולה", "Crème brûlée", 130, 300, 4, 28, 19, 0],
+    ["croque_madame", "קרוק מדאם", "Croque madame", 250, 260, 15, 18, 15, 1],
+    ["cup_cakes", "קאפקייקס", "Cupcakes", 70, 380, 4, 52, 18, 1],
+    ["deviled_eggs", "ביצים ממולאות", "Deviled eggs", 100, 200, 11, 1, 17, 0],
+    ["donuts", "דונאטס", "Donuts", 70, 420, 5, 50, 23, 1.5],
+    ["dumplings", "כיסונים", "Dumplings", 200, 200, 9, 25, 7, 1.5],
+    ["edamame", "אדממה", "Edamame", 150, 120, 12, 9, 5, 5],
+    ["eggs_benedict", "ביצים בנדיקט", "Eggs benedict", 250, 230, 12, 13, 15, 0.5],
+    ["escargots", "אסקרגו (חלזונות)", "Escargots", 100, 230, 15, 2, 18, 0],
+    ["falafel", "פלאפל", "Falafel", 150, 330, 13, 32, 18, 5],
+    ["filet_mignon", "פילה בקר", "Filet mignon", 200, 230, 28, 0, 13, 0],
+    ["fish_and_chips", "פיש אנד צ׳יפס", "Fish and chips", 400, 220, 11, 20, 11, 1.5],
+    ["foie_gras", "כבד אווז", "Foie gras", 60, 460, 11, 5, 44, 0],
+    ["french_fries", "צ׳יפס", "French fries", 150, 310, 3.5, 41, 15, 3.8],
+    ["french_onion_soup", "מרק בצל", "French onion soup", 350, 60, 3, 6, 2.5, 0.5],
+    ["french_toast", "פרנץ׳ טוסט", "French toast", 150, 230, 8, 25, 11, 1],
+    ["fried_calamari", "קלמרי מטוגן", "Fried calamari", 150, 260, 15, 13, 16, 0.5],
+    ["fried_rice", "אורז מוקפץ", "Fried rice", 300, 175, 5, 26, 6, 1],
+    ["frozen_yogurt", "פרוזן יוגורט", "Frozen yogurt", 150, 160, 4, 28, 4, 0],
+    ["garlic_bread", "לחם שום", "Garlic bread", 80, 350, 8, 42, 17, 2],
+    ["gnocchi", "ניוקי", "Gnocchi", 250, 150, 4, 30, 1.5, 1.5],
+    ["greek_salad", "סלט יווני", "Greek salad", 250, 105, 3, 5, 8.5, 1.5],
+    ["grilled_cheese_sandwich", "טוסט גבינה", "Grilled cheese sandwich", 150, 330, 13, 28, 19, 1.5],
+    ["grilled_salmon", "סלמון בגריל", "Grilled salmon", 180, 205, 23, 0, 12, 0],
+    ["guacamole", "גואקמולי", "Guacamole", 100, 160, 2, 9, 15, 6.5],
+    ["gyoza", "גיוזה", "Gyoza", 150, 210, 9, 24, 9, 1.5],
+    ["hamburger", "המבורגר", "Hamburger", 250, 260, 14, 22, 13, 1.3],
+    ["hot_and_sour_soup", "מרק חמוץ חריף", "Hot and sour soup", 350, 40, 2.5, 4.5, 1.5, 0.5],
+    ["hot_dog", "נקניקייה בלחמנייה", "Hot dog", 150, 280, 10, 24, 16, 1],
+    ["huevos_rancheros", "ביצים מקסיקניות", "Huevos rancheros", 350, 150, 7, 12, 8, 3],
+    ["hummus", "חומוס", "Hummus", 150, 240, 8, 14, 17, 6],
+    ["ice_cream", "גלידה", "Ice cream", 130, 210, 3.5, 24, 11, 0.7],
+    ["lasagna", "לזניה", "Lasagna", 350, 150, 9, 13, 7, 1],
+    ["lobster_bisque", "ביסק לובסטר", "Lobster bisque", 300, 110, 4, 7, 7, 0.3],
+    ["lobster_roll_sandwich", "כריך לובסטר", "Lobster roll", 200, 230, 13, 22, 10, 1],
+    ["macaroni_and_cheese", "מקרוני וגבינה", "Macaroni and cheese", 300, 165, 7, 18, 7, 1],
+    ["macarons", "מקרונים", "Macarons", 40, 410, 7, 55, 18, 2],
+    ["miso_soup", "מרק מיסו", "Miso soup", 250, 25, 2, 3, 1, 0.5],
+    ["mussels", "מולים", "Mussels", 300, 110, 15, 5, 3, 0],
+    ["nachos", "נאצ׳וס", "Nachos", 250, 300, 8, 30, 17, 3],
+    ["omelette", "חביתה", "Omelette", 150, 155, 11, 1, 12, 0],
+    ["onion_rings", "טבעות בצל", "Onion rings", 150, 330, 4, 38, 18, 2],
+    ["oysters", "צדפות (אויסטרים)", "Oysters", 150, 70, 8, 4, 2.5, 0],
+    ["pad_thai", "פאד תאי", "Pad thai", 350, 170, 8, 23, 6, 1.5],
+    ["paella", "פאייה", "Paella", 400, 150, 9, 18, 5, 1],
+    ["pancakes", "פנקייק", "Pancakes", 200, 230, 6, 32, 9, 1],
+    ["panna_cotta", "פנה קוטה", "Panna cotta", 130, 250, 3, 22, 17, 0],
+    ["peking_duck", "ברווז פקיני", "Peking duck", 200, 300, 18, 6, 23, 0],
+    ["pho", "מרק פו", "Pho", 600, 50, 4, 6, 1, 0.5],
+    ["pizza", "פיצה", "Pizza", 250, 270, 11, 33, 10, 2],
+    ["pork_chop", "צלע חזיר", "Pork chop", 200, 230, 27, 0, 13, 0],
+    ["poutine", "פוטין", "Poutine", 400, 230, 6, 24, 12, 2],
+    ["prime_rib", "צלע בקר", "Prime rib", 250, 330, 24, 0, 26, 0],
+    ["pulled_pork_sandwich", "כריך בשר משוך", "Pulled pork sandwich", 300, 240, 15, 24, 9, 1],
+    ["ramen", "ראמן", "Ramen", 600, 75, 4, 9, 2.5, 0.5],
+    ["ravioli", "רביולי", "Ravioli", 300, 190, 8, 25, 6, 1.5],
+    ["red_velvet_cake", "עוגת רד ולווט", "Red velvet cake", 110, 370, 4, 50, 18, 1],
+    ["risotto", "ריזוטו", "Risotto", 300, 150, 4, 22, 5, 0.5],
+    ["samosa", "סמוסה", "Samosa", 100, 260, 5, 30, 13, 2.5],
+    ["sashimi", "סשימי", "Sashimi", 150, 130, 22, 0, 4.5, 0],
+    ["scallops", "סקאלופס", "Scallops", 150, 110, 20, 3, 1.5, 0],
+    ["seaweed_salad", "סלט אצות", "Seaweed salad", 100, 70, 1, 10, 3, 3],
+    ["shrimp_and_grits", "שרימפס עם דייסת תירס", "Shrimp and grits", 350, 140, 9, 13, 6, 1],
+    ["spaghetti_bolognese", "ספגטי בולונז", "Spaghetti bolognese", 350, 150, 7, 19, 5, 1.5],
+    ["spaghetti_carbonara", "ספגטי קרבונרה", "Spaghetti carbonara", 350, 200, 8, 23, 8, 1],
+    ["spring_rolls", "אגרולים", "Spring rolls", 150, 220, 5, 26, 11, 2],
+    ["steak", "סטייק", "Steak", 250, 250, 26, 0, 16, 0],
+    ["strawberry_shortcake", "עוגת תותים", "Strawberry shortcake", 150, 260, 4, 35, 12, 1.5],
+    ["sushi", "סושי", "Sushi", 250, 150, 6, 28, 1.5, 1],
+    ["tacos", "טאקו", "Tacos", 250, 220, 11, 18, 11, 2.5],
+    ["takoyaki", "טאקויאקי", "Takoyaki", 150, 190, 7, 22, 8, 1],
+    ["tiramisu", "טירמיסו", "Tiramisu", 120, 280, 6, 30, 15, 0.5],
+    ["tuna_tartare", "טרטר טונה", "Tuna tartare", 150, 150, 22, 3, 6, 0.5],
+    ["waffles", "וופל בלגי", "Waffles", 120, 290, 8, 35, 14, 1.5],
+    ["b_rice", "אורז מבושל", "Cooked rice", 200, 130, 2.7, 28, 0.3, 0.4],
+    ["b_pasta", "פסטה מבושלת", "Cooked pasta", 220, 158, 5.8, 31, 0.9, 1.8],
+    ["b_chicken", "חזה עוף צלוי", "Grilled chicken breast", 150, 165, 31, 0, 3.6, 0],
+    ["b_schnitzel", "שניצל", "Schnitzel", 150, 260, 18, 14, 15, 1],
+    ["b_eggs", "ביצים (2)", "Eggs (2)", 100, 143, 12.6, 0.7, 9.5, 0],
+    ["b_bread", "לחם (2 פרוסות)", "Bread (2 slices)", 60, 265, 9, 49, 3.2, 2.7],
+    ["b_pita", "פיתה", "Pita", 100, 275, 9, 56, 1.2, 2.2],
+    ["b_tuna", "טונה בקופסה", "Canned tuna", 80, 116, 26, 0, 1, 0],
+    ["b_cottage", "קוטג׳ 5%", "Cottage cheese 5%", 125, 98, 11, 3.4, 5, 0],
+    ["b_yogurt", "יוגורט חלבון", "Protein yogurt", 200, 60, 10, 4, 0.5, 0],
+    ["b_milk", "חלב (כוס)", "Milk (glass)", 250, 62, 3.3, 4.8, 3, 0],
+    ["b_cheese", "גבינה צהובה", "Yellow cheese", 30, 350, 25, 1, 27, 0],
+    ["b_salad", "סלט ירקות", "Vegetable salad", 200, 30, 1, 6, 0.3, 2],
+    ["b_tahini", "טחינה", "Tahini", 30, 600, 17, 21, 54, 9],
+    ["b_banana", "בננה", "Banana", 120, 89, 1.1, 23, 0.3, 2.6],
+    ["b_apple", "תפוח", "Apple", 180, 52, 0.3, 14, 0.2, 2.4],
+    ["b_oats", "שיבולת שועל", "Oats", 50, 380, 13, 67, 6.5, 10],
+    ["b_pb", "חמאת בוטנים", "Peanut butter", 32, 590, 25, 20, 50, 6],
+    ["b_almonds", "שקדים", "Almonds", 30, 580, 21, 22, 50, 12],
+    ["b_shake", "שייק חלבון (עם מים)", "Protein shake (with water)", 300, 40, 8, 1, 0.5, 0],
+    ["b_avocado", "אבוקדו", "Avocado", 70, 160, 2, 9, 15, 6.7],
+    ["b_potato", "תפוח אדמה מבושל", "Boiled potato", 200, 87, 1.9, 20, 0.1, 1.8],
+    ["b_sweetpotato", "בטטה", "Sweet potato", 200, 90, 2, 21, 0.2, 3.3],
+    ["b_beef", "בשר טחון מבושל", "Cooked ground beef", 150, 250, 26, 0, 15, 0],
+    ["b_shakshuka", "שקשוקה", "Shakshuka", 300, 90, 6, 5, 6, 1.5],
+    ["b_shawarma", "שווארמה בפיתה", "Shawarma in pita", 350, 230, 13, 22, 10, 1.5],
+    ["b_sabich", "סביח", "Sabich", 350, 220, 7, 25, 10, 4],
+    ["b_chocolate", "שוקולד", "Chocolate", 40, 540, 7, 58, 31, 3],
+    ["b_cola", "קולה (פחית)", "Cola (can)", 330, 42, 0, 10.6, 0, 0],
+    ["b_juice", "מיץ תפוזים", "Orange juice", 250, 45, 0.7, 10.4, 0.2, 0.2],
+    ["b_granola", "גרנולה", "Granola", 50, 470, 10, 64, 20, 7],
+    ["b_bamba", "במבה", "Bamba", 50, 540, 15, 38, 36, 5],
+    ["b_cornflakes", "קורנפלקס עם חלב", "Cornflakes with milk", 250, 110, 4, 19, 2, 0.5],
+    ["b_tofu", "טופו", "Tofu", 150, 144, 15, 3, 8.7, 2.3],
+    ["b_lentils", "עדשים מבושלות", "Cooked lentils", 200, 116, 9, 20, 0.4, 8],
+    ["b_cucumber", "מלפפון", "Cucumber", 100, 15, 0.7, 3.6, 0.1, 0.5]
+  ];
+  var FOOD_BY = {};
+  FOODS.forEach(function (f) { FOOD_BY[f[0]] = f; });
+  var LF_LIB = "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.5.1/dist/transformers.min.js", LF_MODEL = "onnx-community/swin-finetuned-food101-ONNX";
+  var lfClf = null, lfLoading = null;
+  function foodName(f) { return f[lang === "he" ? 1 : 2]; }
+  function foodItem(f, grams) {
+    var g = grams || f[3], o = { name: foodName(f), grams: g, fid: f[0] };
+    NUT.forEach(function (k, i) { o[k] = f[4 + i] * g / 100; });
+    o.base = { grams: g, kcal: o.kcal, protein: o.protein, carbs: o.carbs, fat: o.fat, fiber: o.fiber };
+    return o;
+  }
+  function lfProgress(pct) {
+    var el = $("lf-pct");
+    if (el) el.textContent = pct >= 0 ? Math.round(pct) + "%" : "";
+  }
+  function lfBusy(key) {
+    $("sc-out").innerHTML = '<div class="pad"><div class="sc-loading"><span class="spinner"></span><span>' + esc(t(key)) + ' <b id="lf-pct"></b></span></div><div class="skel" style="width:70%"></div><div class="skel"></div></div>';
+  }
+  function lfLoad() {
+    if (lfClf) return Promise.resolve(lfClf);
+    if (lfLoading) return lfLoading;
+    var files = {};
+    lfLoading = import(LF_LIB).then(function (m) {
+      return m.pipeline("image-classification", LF_MODEL, {
+        dtype: "q4",
+        progress_callback: function (p) {
+          if (p && p.status === "progress" && p.total) {
+            files[p.file] = [p.loaded, p.total];
+            var a = 0, b = 0; Object.keys(files).forEach(function (k) { a += files[k][0]; b += files[k][1]; });
+            lfProgress(b ? 100 * a / b : -1);
+          }
+        }
+      });
+    }).then(function (c) { lfClf = c; return c; }, function (e) { lfLoading = null; throw e; });
+    return lfLoading;
+  }
+  function localDetect(f) {
+    if (scanBusy) return;
+    scanBusy = true; scanResult = null;
+    lfBusy(lfClf ? "lfDetect" : "lfLoad");
+    var url = URL.createObjectURL(f), img = scanPreview;
+    lfLoad().then(function (clf) {
+      lfBusy("lfDetect");
+      return clf(url, { top_k: 5 });
+    }).then(function (res) {
+      var g = (res || []).filter(function (r) { return FOOD_BY[r.label]; }).map(function (r) { return { id: r.label, score: r.score }; });
+      if (!g.length) throw new Error("none");
+      var top = FOOD_BY[g[0].id];
+      scanResult = {
+        dish: foodName(top), items: [foodItem(top)], confidence: g[0].score > 0.7 ? "high" : g[0].score > 0.35 ? "medium" : "low",
+        score: 0, notes: t("lfNotes"), tip: "", added: false, img: img, withImg: true, mtype: mealTypeFor(new Date()), guesses: g.slice(0, 3), local: true
+      };
+      renderScan();
+      try { $("sc-out").scrollIntoView({ behavior: "smooth", block: "start" }); } catch (e2) {}
+    }).catch(function () {
+      renderScan("error", t("lfFail"));
+    }).then(function () { scanBusy = false; try { URL.revokeObjectURL(url); } catch (e3) {} });
+  }
+  function lfFind(q) {
+    q = String(q || "").trim().toLowerCase();
+    if (!q) return null;
+    // exact name first, then names that start with the query, then any match; everyday foods before dishes
+    var best = null, bestRank = 99;
+    FOODS.forEach(function (f) {
+      var a = f[1].toLowerCase(), b = f[2].toLowerCase(), r = 99;
+      if (a === q || b === q) r = 0;
+      else if (a.indexOf(q) === 0 || b.indexOf(q) === 0) r = 2;
+      else if (a.indexOf(q) !== -1 || b.indexOf(q) !== -1) r = 4;
+      if (r < 99 && f[0].indexOf("b_") !== 0) r += 1;
+      if (r < bestRank) { bestRank = r; best = f; }
+    });
+    return best;
+  }
+  function lfAddHtml() {
+    return '<div class="lf-add"><label for="lf-q">' + esc(t("lfAddH")) + '</label><div class="sc-fix-row"><input type="text" id="lf-q" list="lf-foods" autocomplete="off" placeholder="' + esc(t("lfAddPh")) + '"><button type="button" class="btn" id="lf-add-go">' + esc(t("lfAddGo")) + "</button></div>" +
+      '<datalist id="lf-foods">' + FOODS.map(function (f) { return '<option value="' + esc(foodName(f)) + '">'; }).join("") + "</datalist></div>";
+  }
+  function lfGuessHtml(r) {
+    if (!r.guesses || r.guesses.length < 2) return "";
+    var cur = r.items[0] && r.items[0].fid;
+    return '<div class="lf-guess"><span>' + esc(t("lfGuess")) + "</span>" + r.guesses.map(function (g) {
+      return '<button type="button" class="chip" data-guess="' + g.id + '" aria-pressed="' + (g.id === cur) + '">' + esc(foodName(FOOD_BY[g.id])) + " · " + Math.round(g.score * 100) + "%</button>";
+    }).join("") + "</div>";
+  }
+  function lfAdd() {
+    var inp = $("lf-q"), f = inp && lfFind(inp.value);
+    if (!f) { if (inp) inp.setAttribute("aria-invalid", "true"); return; }
+    if (!scanResult) scanResult = { dish: foodName(f), items: [], confidence: "high", score: 0, notes: "", tip: "", added: false, img: "", withImg: false, mtype: mealTypeFor(new Date()), local: true };
+    scanResult.items.push(foodItem(f));
+    if (scanResult.items.length === 1) scanResult.dish = foodName(f);
+    scanResult.added = false;
+    renderScan();
+    var q = $("lf-q"); if (q) q.focus();
+  }
+  function lfGuess(id) {
+    var f = FOOD_BY[id];
+    if (!f || !scanResult) return;
+    scanResult.items[0] = foodItem(f);
+    scanResult.dish = foodName(f);
+    scanResult.added = false;
+    renderScan();
   }
   function analyze() {
     if (aiState !== "on" || scanBusy) return;
@@ -3206,8 +3457,11 @@ footer .wrap { padding-block: 28px 36px; }
     if (e.target.closest("#bc-relabel") && scanResult && scanResult.code) { startLabelFor(scanResult.code); return; }
     if (e.target.closest("#sc-stop") && scanCtl) scanCtl.abort();
     if (e.target.closest("#sc-add")) addMeal();
-    if (e.target.closest("#sc-again")) analyze();
+    if (e.target.closest("#sc-again")) { if (aiState === "off") { if (scanFile) localDetect(scanFile); } else analyze(); }
     if (e.target.closest("#sc-fix-go")) fixScan();
+    if (e.target.closest("#lf-add-go")) lfAdd();
+    var gs = e.target.closest("[data-guess]");
+    if (gs) lfGuess(gs.getAttribute("data-guess"));
     var dl = e.target.closest("[data-del]");
     if (dl && scanResult) {
       scanResult.items.splice(+dl.getAttribute("data-del"), 1);
@@ -3220,7 +3474,10 @@ footer .wrap { padding-block: 28px 36px; }
       sendCoach(t("askCoachQ").replace("{d}", scanResult.dish || t("scMeal")).replace("{k}", fmt(s.kcal)).replace("{p}", fmt(s.protein)));
     }
   });
-  $("sc-out").addEventListener("keydown", function (e) { if (e.key === "Enter" && e.target.id === "sc-fix-in") { e.preventDefault(); fixScan(); } });
+  $("sc-out").addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && e.target.id === "sc-fix-in") { e.preventDefault(); fixScan(); }
+    if (e.key === "Enter" && e.target.id === "lf-q") { e.preventDefault(); lfAdd(); }
+  });
   $("sc-out").addEventListener("input", function (e) {
     var k = e.target.getAttribute && e.target.getAttribute("data-i");
     if (k === null || !scanResult) return;
@@ -3229,7 +3486,10 @@ footer .wrap { padding-block: 28px 36px; }
 
   /* daily dashboard + meal log */
   function saveDay() {
-    if (!dayRef) return;
+    if (!dayRef) {
+      if (localLog) { try { localStorage.setItem("day-" + todayKey(), JSON.stringify({ day: todayKey(), meals: todayMeals.slice(-40), water: todayWater })); } catch (e) {} }
+      return;
+    }
     if (saving) { dirty = true; return; }
     saving = true;
     dayRef.set({ day: todayKey(), meals: todayMeals.slice(), water: todayWater }).then(function () {
@@ -3267,7 +3527,7 @@ footer .wrap { padding-block: 28px 36px; }
     var e = eatenToday(), tk = targets.kcal;
     var C = 2 * Math.PI * 44, pct = tk ? Math.min(1, e.kcal / tk) : 0, left = Math.round(tk - e.kcal);
     var gT = glassTarget();
-    var note = logNote || (dbChecked && !dayRef ? t("logLocal") : "");
+    var note = logNote || (dbChecked && !dayRef ? t(localLog ? "logBrowser" : "logLocal") : "");
     var dateTxt = new Date().toLocaleDateString(lang === "he" ? "he-IL" : "en-US", { weekday: "long", day: "numeric", month: "long" });
     function macro(key, eaten, target, color) {
       return '<div class="mac-row"><div class="top"><span><span class="dot" style="background:' + color + '"></span>' + esc(t(key)) + "</span><b>" + fmt(eaten) + "<small> / " + fmt(target) + " " + esc(t("g")) + "</small></b></div>" +
@@ -3950,7 +4210,11 @@ footer .wrap { padding-block: 28px 36px; }
     var db = caps[0], user = caps[1];
     return (user ? Promise.resolve(user.id()).catch(function () { return null; }) : Promise.resolve(null)).then(function (uid) {
       dbChecked = true;
-      if (!db || !uid) { renderToday(); return; }
+      if (!db || !uid) {
+        localLog = true;
+        try { var ld = JSON.parse(localStorage.getItem("day-" + todayKey()) || "null"); if (ld) { todayMeals = Array.isArray(ld.meals) ? ld.meals : []; todayWater = Math.min(20, Math.round(num(ld.water))); } } catch (e) {}
+        renderToday(); return;
+      }
       try { dayRef = db.collection("data/users/" + uid).doc("day-" + todayKey()); } catch (e) { dayRef = null; renderToday(); return; }
       userCol = db.collection("data/users/" + uid);
       subscribeChats();
