@@ -825,7 +825,7 @@ footer .wrap { padding-block: 28px 36px; }
   </div>
   <div class="fcmodal" id="fcmodal" hidden role="dialog" aria-modal="true" data-ta="fcBtn">
     <div class="fc-stage"><video id="fc-v" playsinline muted autoplay></video><canvas id="fc-c"></canvas></div>
-    <div class="fc-top"><span class="fc-light" id="fc-light" aria-hidden="true"></span><div class="fc-txt"><b id="fc-name"></b><span id="fc-msg" aria-live="polite"></span></div><button type="button" class="qrx" id="fc-x" data-ta="fcClose">×</button></div>
+    <div class="fc-top"><span class="fc-light" id="fc-light" aria-hidden="true"></span><div class="fc-txt"><b id="fc-name"></b><span id="fc-msg" aria-live="polite"></span></div><span class="g-time" id="fc-reps"></span><button type="button" class="qrx" id="fc-x" data-ta="fcClose">×</button></div>
     <p class="fc-hint" data-t="fcHint"></p>
   </div>
   <div class="cammodal" id="cammodal" hidden role="dialog" aria-modal="true" data-ta="scCam">
@@ -1381,7 +1381,7 @@ footer .wrap { padding-block: 28px 36px; }
       dLeft: "נשארו", dOver: "מעל היעד", dEaten: "{a} מתוך {b}", dWater: "מים", dGlass: "כוס", dStreak: "{n} ימים ברצף", kcalS: "קל׳",
       n8: "סורק אוכל", ctaScan: "סריקת אוכל", ctaCoach: "שאלו את המאמן",
       scH: "סורק האוכל", scP: "צלמו את הצלחת, את תווית המזון, או פשוט כתבו מה אכלתם. ה־AI מזהה כל מרכיב, מעריך כמויות ומחשב קלוריות, חלבון, פחמימות, שומן וסיבים, והכל נכנס ליומן היומי.",
-      v_games: "משחקים", gH: "משחקי כושר", gIntro: "המצלמה סופרת לך חזרות. חזרה נספרת רק כשהטכניקה נכונה: נורה ירוקה. שברו שיאים, עלו בדרגות וצברו נקודות.", g_pushup: "שכיבות סמיכה", g_pushup_p: "הניחו את הטלפון על הרצפה מהצד. רדו עד שהמרפק בזווית של 90° ועלו עד יישור הידיים, עם גוף ישר.", g_squat: "סקוואט", g_squat_p: "עמדו מהצד למצלמה. רדו עד שהברכיים מתחת ל־100° ועלו עד הסוף, עם חזה למעלה.", g_jacks: "קפיצות פיסוק", g_jacks_p: "עמדו מול המצלמה. ידיים מעל הראש ורגליים פתוחות, ואז חזרה לעמידה. כל פתיחה וסגירה היא חזרה.", gPlay60: "אתגר 60 שניות", gPlayFree: "משחק חופשי", gBest: "שיא 60 שניות:", gBestFree: "שיא חופשי:", gTotal: "סה״כ:", gLvl: "רמה {n}", gXp: "{n} נקודות · עוד {m} לרמה הבאה", gGetIn_pushup: "היכנסו לתנוחת שכיבת סמיכה, ידיים ישרות, כל הגוף בתמונה", gGetIn_squat: "עמדו זקוף מהצד, כל הגוף בתמונה", gGetIn_jacks: "עמדו מול המצלמה, ידיים לצדי הגוף, כל הגוף בתמונה", gGo: "קדימה!", gRep: "יפה! עוד אחת", gTen: "וואו! עוד עשר!", gNoRep: "החזרה לא נספרה, תקנו את הטכניקה", gEnd60: "הזמן נגמר!", gEndFree: "סיום משחק", gNewRec: "שיא חדש!", gNext: "עוד {n} חזרות לדרגת {r}", gAgain: "שוב", rk0: "מתחיל", rk1: "ברזל", rk2: "ארד", rk3: "כסף", rk4: "זהב", rk5: "יהלום", rk6: "אגדה", fcBtn: "בדיקת טכניקה", fcClose: "סגירה", fcLoading: "פותח מצלמה וטוען זיהוי תנוחה…", fcStep: "התרחקו מהמצלמה כך שכל הגוף ייראה", fcGood: "טכניקה נכונה, המשיכו כך", fcLineBad: "שמרו על קו ישר מהכתפיים ועד הרגליים: הירכיים שוקעות או גבוהות מדי", fcSquatBad: "הרימו את החזה: הגב נוטה קדימה יותר מדי", fcHingeBad: "שמרו על הראש בקו אחד עם הגב", fcLeanBad: "אל תיטו את הגב לאחור, עמדו זקוף", fcPressBad: "דחפו ישר למעלה, מעל הכתפיים", fcCurlBad: "הצמידו את המרפקים לגוף", fcRaiseBad: "אל תרימו את המרפקים מעל גובה הכתפיים", fcBridgeBad: "קרבו או הרחיקו את כפות הרגליים, כך שהברך תהיה בזווית של כ־90°", fcLevelBad: "שמרו על הכתפיים ישרות ובאותו גובה", fcNoCam: "אין גישה למצלמה. אשרו מצלמה בדפדפן. בתוך Claude המצלמה חסומה, פתחו את האתר: roy-code2013.github.io/pocket-coach/muscle", fcNoModel: "לא הצלחתי לטעון את זיהוי התנוחה. בדקו חיבור לאינטרנט, או פתחו את האתר: roy-code2013.github.io/pocket-coach/muscle", fcHint: "הניחו את הטלפון או המחשב מהצד, במרחק 2–3 מטרים, כך שכל הגוף ייראה. הווידאו לא נשלח לשום מקום.", scCam: "צילום", camCancel: "ביטול", camShot: "צילום התמונה", camBlocked: "אין גישה למצלמה. אשרו גישה למצלמה בדפדפן, או לחצו על \"העלאת תמונה\".", scGal: "העלאת תמונה", scClear: "הסרת התמונה", scDrop: "צלמו את הצלחת או גררו לכאן תמונה",
+      fcStart: "התחילו לבצע את התרגיל", fcRepGood: "חזרה טובה!", fcReps: "{n} חזרות", gDeeper: "רדו עמוק יותר, החזרה לא נספרה", gDeeperArms: "רדו נמוך יותר עם החזה, החזרה לא נספרה", gUpright: "שמרו על הגב זקוף", gJacksFull: "ידיים מעל הראש ורגליים פתוחות עד הסוף", gKneesHigher: "הרימו את הברכיים גבוה יותר", gSitHigher: "עלו גבוה יותר", gHipsHigher: "הרימו את האגן גבוה יותר", gLockout: "ישרו את הידיים עד הסוף למעלה", gFullCurl: "כופפו את היד עד הסוף", gArmsHigher: "הרימו את הידיים עד גובה הכתפיים", gKnee90: "ברכיים בזווית של 90°", gHoldGood: "מחזיקים! המשיכו כך", gHoldBtn: "התחלה", gBestHold: "שיא:", gSec: " שנ׳", gEndHold: "סיום!", gNextHold: "עוד {n} שניות לדרגת {r}", g_lunge: "לאנג׳ים", g_lunge_p: "עמדו מהצד למצלמה. צעד אחורה, רדו עד שהברך הקדמית בזווית של 90° וחזרו. החליפו רגליים.", g_highknees: "ברכיים גבוהות", g_highknees_p: "עמדו מול המצלמה ורוצו במקום. כל ברך שעולה עד גובה האגן נספרת.", g_situp: "כפיפות בטן", g_situp_p: "שכבו מהצד למצלמה, ברכיים כפופות. עלו עד הישיבה ורדו חזרה.", g_bridge: "גשר אגן", g_bridge_p: "שכבו על הגב מהצד למצלמה. הרימו את האגן עד קו ישר מהכתפיים לברכיים, והורידו.", g_press: "לחיצת כתפיים", g_press_p: "עמדו מול המצלמה, עם או בלי משקולות. דחפו את הידיים ישר מעל הראש והורידו לגובה הכתפיים.", g_curl: "כפיפת מרפקים", g_curl_p: "עמדו מהצד למצלמה. כופפו את היד עד הכתף, עם המרפק צמוד לגוף, ויישרו.", g_lateral: "הרחקה לצדדים", g_lateral_p: "עמדו מול המצלמה. הרימו את הידיים לצדדים עד גובה הכתפיים והורידו.", g_climbers: "מטפסי הרים", g_climbers_p: "בתנוחת פלאנק מהצד למצלמה. משכו ברך לחזה לסירוגין, מהר.", g_plank: "פלאנק", g_plank_p: "החזיקו פלאנק מהצד למצלמה. השעון רץ רק כשהגוף ישר. כמה זמן תחזיקו?", g_wallsit: "ישיבה על הקיר", g_wallsit_p: "גב לקיר, מהצד למצלמה, ברכיים ב־90°. השעון רץ רק בתנוחה הנכונה.", gGetIn_lunge: "עמדו זקוף מהצד, כל הגוף בתמונה", gGetIn_highknees: "עמדו מול המצלמה, כל הגוף בתמונה", gGetIn_situp: "שכבו על הגב מהצד, ברכיים כפופות", gGetIn_bridge: "שכבו על הגב מהצד, ברכיים כפופות", gGetIn_press: "עמדו מול המצלמה, ידיים בגובה הכתפיים", gGetIn_curl: "עמדו מהצד, יד ישרה למטה", gGetIn_lateral: "עמדו מול המצלמה, ידיים לצדי הגוף", gGetIn_climbers: "היכנסו לפלאנק על ידיים ישרות, מהצד", gGetIn_plank: "היכנסו לפלאנק מהצד, כל הגוף בתמונה", gGetIn_wallsit: "שבו על הקיר מהצד, ברכיים ב־90°", v_games: "משחקים", gH: "משחקי כושר", gIntro: "13 משחקים. המצלמה סופרת לך חזרות. חזרה נספרת רק כשהטכניקה נכונה: נורה ירוקה. שברו שיאים, עלו בדרגות וצברו נקודות.", g_pushup: "שכיבות סמיכה", g_pushup_p: "הניחו את הטלפון על הרצפה מהצד. רדו עד שהמרפק בזווית של 90° ועלו עד יישור הידיים, עם גוף ישר.", g_squat: "סקוואט", g_squat_p: "עמדו מהצד למצלמה. רדו עד שהברכיים מתחת ל־100° ועלו עד הסוף, עם חזה למעלה.", g_jacks: "קפיצות פיסוק", g_jacks_p: "עמדו מול המצלמה. ידיים מעל הראש ורגליים פתוחות, ואז חזרה לעמידה. כל פתיחה וסגירה היא חזרה.", gPlay60: "אתגר 60 שניות", gPlayFree: "משחק חופשי", gBest: "שיא 60 שניות:", gBestFree: "שיא חופשי:", gTotal: "סה״כ:", gLvl: "רמה {n}", gXp: "{n} נקודות · עוד {m} לרמה הבאה", gGetIn_pushup: "היכנסו לתנוחת שכיבת סמיכה, ידיים ישרות, כל הגוף בתמונה", gGetIn_squat: "עמדו זקוף מהצד, כל הגוף בתמונה", gGetIn_jacks: "עמדו מול המצלמה, ידיים לצדי הגוף, כל הגוף בתמונה", gGo: "קדימה!", gRep: "יפה! עוד אחת", gTen: "וואו! עוד עשר!", gNoRep: "החזרה לא נספרה, תקנו את הטכניקה", gEnd60: "הזמן נגמר!", gEndFree: "סיום משחק", gNewRec: "שיא חדש!", gNext: "עוד {n} חזרות לדרגת {r}", gAgain: "שוב", rk0: "מתחיל", rk1: "ברזל", rk2: "ארד", rk3: "כסף", rk4: "זהב", rk5: "יהלום", rk6: "אגדה", fcBtn: "בדיקת טכניקה", fcClose: "סגירה", fcLoading: "פותח מצלמה וטוען זיהוי תנוחה…", fcStep: "התרחקו מהמצלמה כך שכל הגוף ייראה", fcGood: "טכניקה נכונה, המשיכו כך", fcLineBad: "שמרו על קו ישר מהכתפיים ועד הרגליים: הירכיים שוקעות או גבוהות מדי", fcSquatBad: "הרימו את החזה: הגב נוטה קדימה יותר מדי", fcHingeBad: "שמרו על הראש בקו אחד עם הגב", fcLeanBad: "אל תיטו את הגב לאחור, עמדו זקוף", fcPressBad: "דחפו ישר למעלה, מעל הכתפיים", fcCurlBad: "הצמידו את המרפקים לגוף", fcRaiseBad: "אל תרימו את המרפקים מעל גובה הכתפיים", fcBridgeBad: "קרבו או הרחיקו את כפות הרגליים, כך שהברך תהיה בזווית של כ־90°", fcLevelBad: "שמרו על הכתפיים ישרות ובאותו גובה", fcNoCam: "אין גישה למצלמה. אשרו מצלמה בדפדפן. בתוך Claude המצלמה חסומה, פתחו את האתר: roy-code2013.github.io/pocket-coach/muscle", fcNoModel: "לא הצלחתי לטעון את זיהוי התנוחה. בדקו חיבור לאינטרנט, או פתחו את האתר: roy-code2013.github.io/pocket-coach/muscle", fcHint: "הניחו את הטלפון או המחשב מהצד, במרחק 2–3 מטרים, כך שכל הגוף ייראה. הווידאו לא נשלח לשום מקום.", scCam: "צילום", camCancel: "ביטול", camShot: "צילום התמונה", camBlocked: "אין גישה למצלמה. אשרו גישה למצלמה בדפדפן, או לחצו על \"העלאת תמונה\".", scGal: "העלאת תמונה", scClear: "הסרת התמונה", scDrop: "צלמו את הצלחת או גררו לכאן תמונה",
       scNoteLbl: "פרטים נוספים <small>לא חובה, משפר את הדיוק</small>", scNotePh: "למשל: 150 גרם חזה עוף, כוס אורז, כף שמן זית",
       scGo: "ניתוח הארוחה", scLoading: "מזהה את האוכל ומחשב ערכים…", scStop: "עצירה", scMeal: "ארוחה",
       scEmpty: "כאן יופיעו כל המרכיבים בצלחת, המשקל המשוער של כל אחד והערכים התזונתיים. אפשר לתקן משקל של מרכיב והכל יחושב מחדש. אין תמונה? תארו את הארוחה במילים.",
@@ -1539,7 +1539,7 @@ footer .wrap { padding-block: 28px 36px; }
       dLeft: "left", dOver: "over target", dEaten: "{a} of {b}", dWater: "Water", dGlass: "Glass", dStreak: "{n}-day streak", kcalS: "kcal",
       n8: "Food scanner", ctaScan: "Scan your food", ctaCoach: "Ask the coach",
       scH: "Food scanner", scP: "Snap your plate or a food label, or just type what you ate. The AI identifies each item, estimates portions and works out calories, protein, carbs, fat and fiber, and it all goes into your daily log.",
-      v_games: "Games", gH: "Fitness games", gIntro: "The camera counts your reps. A rep only counts with good form, a green light. Break records, rank up and earn points.", g_pushup: "Push-ups", g_pushup_p: "Put your phone on the floor to your side. Lower until your elbows reach 90° and push up to straight arms, body in a line.", g_squat: "Squats", g_squat_p: "Stand side-on to the camera. Go down until your knees pass 100° and stand all the way up, chest up.", g_jacks: "Jumping jacks", g_jacks_p: "Face the camera. Arms overhead and feet apart, then back together. Each open and close is one rep.", gPlay60: "60-second challenge", gPlayFree: "Free play", gBest: "60s best:", gBestFree: "Free best:", gTotal: "Total:", gLvl: "Level {n}", gXp: "{n} points · {m} to next level", gGetIn_pushup: "Get into push-up position, arms straight, whole body in view", gGetIn_squat: "Stand tall side-on, whole body in view", gGetIn_jacks: "Face the camera, arms at your sides, whole body in view", gGo: "Go!", gRep: "Nice! One more", gTen: "Wow! Ten more!", gNoRep: "That rep did not count, fix your form", gEnd60: "Time's up!", gEndFree: "Game over", gNewRec: "New record!", gNext: "{n} more reps to {r}", gAgain: "Again", rk0: "Rookie", rk1: "Iron", rk2: "Bronze", rk3: "Silver", rk4: "Gold", rk5: "Diamond", rk6: "Legend", fcBtn: "Form check", fcClose: "Close", fcLoading: "Opening camera and loading pose detection…", fcStep: "Step back so your whole body is in view", fcGood: "Good form, keep going", fcLineBad: "Keep a straight line from shoulders to feet: hips are sagging or too high", fcSquatBad: "Chest up: you are leaning too far forward", fcHingeBad: "Keep your head in line with your back", fcLeanBad: "Don't lean back, stand tall", fcPressBad: "Press straight up, over your shoulders", fcCurlBad: "Keep your elbows close to your body", fcRaiseBad: "Don't lift your elbows above shoulder height", fcBridgeBad: "Move your feet so your knees are at about 90°", fcLevelBad: "Keep your shoulders level", fcNoCam: "No camera access. Allow the camera in your browser. Inside Claude the camera is blocked, open the site: roy-code2013.github.io/pocket-coach/muscle", fcNoModel: "Couldn't load pose detection. Check your connection, or open the site: roy-code2013.github.io/pocket-coach/muscle", fcHint: "Place your phone or computer to the side, 2–3 m away, so your whole body is visible. The video never leaves your device.", scCam: "Take photo", camCancel: "Cancel", camShot: "Take the picture", camBlocked: "No camera access. Allow the camera in your browser, or use \"Upload photo\".", scGal: "Upload photo", scClear: "Remove photo", scDrop: "Take a photo of your plate or drop one here",
+      fcStart: "Start the exercise", fcRepGood: "Good rep!", fcReps: "{n} reps", gDeeper: "Go deeper, that rep did not count", gDeeperArms: "Lower your chest more, that rep did not count", gUpright: "Keep your back upright", gJacksFull: "Arms all the way overhead and feet wide", gKneesHigher: "Lift your knees higher", gSitHigher: "Come up higher", gHipsHigher: "Lift your hips higher", gLockout: "Straighten your arms fully at the top", gFullCurl: "Curl all the way up", gArmsHigher: "Raise your arms to shoulder height", gKnee90: "Knees at 90°", gHoldGood: "Holding! Keep it up", gHoldBtn: "Start", gBestHold: "Best:", gSec: "s", gEndHold: "Done!", gNextHold: "{n} more seconds to {r}", g_lunge: "Lunges", g_lunge_p: "Stand side-on. Step back, lower until your front knee is at 90° and come back. Switch legs.", g_highknees: "High knees", g_highknees_p: "Face the camera and run in place. Every knee that reaches hip height counts.", g_situp: "Sit-ups", g_situp_p: "Lie side-on to the camera, knees bent. Sit all the way up and lower back down.", g_bridge: "Glute bridge", g_bridge_p: "Lie on your back side-on. Lift your hips to a straight line from shoulders to knees, then lower.", g_press: "Shoulder press", g_press_p: "Face the camera, with or without weights. Press straight overhead and lower to shoulder height.", g_curl: "Biceps curl", g_curl_p: "Stand side-on. Curl up to your shoulder with your elbow tucked, then straighten.", g_lateral: "Lateral raise", g_lateral_p: "Face the camera. Raise your arms out to shoulder height and lower.", g_climbers: "Mountain climbers", g_climbers_p: "In a plank side-on to the camera, drive alternate knees to your chest, fast.", g_plank: "Plank", g_plank_p: "Hold a plank side-on. The clock only runs while your body is straight. How long can you go?", g_wallsit: "Wall sit", g_wallsit_p: "Back to a wall, side-on, knees at 90°. The clock only runs in the right position.", gGetIn_lunge: "Stand tall side-on, whole body in view", gGetIn_highknees: "Face the camera, whole body in view", gGetIn_situp: "Lie on your back side-on, knees bent", gGetIn_bridge: "Lie on your back side-on, knees bent", gGetIn_press: "Face the camera, hands at shoulder height", gGetIn_curl: "Stand side-on, arm straight down", gGetIn_lateral: "Face the camera, arms at your sides", gGetIn_climbers: "Get into a straight-arm plank, side-on", gGetIn_plank: "Get into a plank side-on, whole body in view", gGetIn_wallsit: "Sit against the wall side-on, knees at 90°", v_games: "Games", gH: "Fitness games", gIntro: "13 games. The camera counts your reps. A rep only counts with good form, a green light. Break records, rank up and earn points.", g_pushup: "Push-ups", g_pushup_p: "Put your phone on the floor to your side. Lower until your elbows reach 90° and push up to straight arms, body in a line.", g_squat: "Squats", g_squat_p: "Stand side-on to the camera. Go down until your knees pass 100° and stand all the way up, chest up.", g_jacks: "Jumping jacks", g_jacks_p: "Face the camera. Arms overhead and feet apart, then back together. Each open and close is one rep.", gPlay60: "60-second challenge", gPlayFree: "Free play", gBest: "60s best:", gBestFree: "Free best:", gTotal: "Total:", gLvl: "Level {n}", gXp: "{n} points · {m} to next level", gGetIn_pushup: "Get into push-up position, arms straight, whole body in view", gGetIn_squat: "Stand tall side-on, whole body in view", gGetIn_jacks: "Face the camera, arms at your sides, whole body in view", gGo: "Go!", gRep: "Nice! One more", gTen: "Wow! Ten more!", gNoRep: "That rep did not count, fix your form", gEnd60: "Time's up!", gEndFree: "Game over", gNewRec: "New record!", gNext: "{n} more reps to {r}", gAgain: "Again", rk0: "Rookie", rk1: "Iron", rk2: "Bronze", rk3: "Silver", rk4: "Gold", rk5: "Diamond", rk6: "Legend", fcBtn: "Form check", fcClose: "Close", fcLoading: "Opening camera and loading pose detection…", fcStep: "Step back so your whole body is in view", fcGood: "Good form, keep going", fcLineBad: "Keep a straight line from shoulders to feet: hips are sagging or too high", fcSquatBad: "Chest up: you are leaning too far forward", fcHingeBad: "Keep your head in line with your back", fcLeanBad: "Don't lean back, stand tall", fcPressBad: "Press straight up, over your shoulders", fcCurlBad: "Keep your elbows close to your body", fcRaiseBad: "Don't lift your elbows above shoulder height", fcBridgeBad: "Move your feet so your knees are at about 90°", fcLevelBad: "Keep your shoulders level", fcNoCam: "No camera access. Allow the camera in your browser. Inside Claude the camera is blocked, open the site: roy-code2013.github.io/pocket-coach/muscle", fcNoModel: "Couldn't load pose detection. Check your connection, or open the site: roy-code2013.github.io/pocket-coach/muscle", fcHint: "Place your phone or computer to the side, 2–3 m away, so your whole body is visible. The video never leaves your device.", scCam: "Take photo", camCancel: "Cancel", camShot: "Take the picture", camBlocked: "No camera access. Allow the camera in your browser, or use \"Upload photo\".", scGal: "Upload photo", scClear: "Remove photo", scDrop: "Take a photo of your plate or drop one here",
       scNoteLbl: "Extra details <small>optional, improves accuracy</small>", scNotePh: "e.g. 150 g chicken breast, a cup of rice, a tablespoon of olive oil",
       scGo: "Analyze meal", scLoading: "Identifying food and calculating…", scStop: "Stop", scMeal: "Meal",
       scEmpty: "Every item on the plate shows up here, with its estimated weight and nutrition values. Fix an item's weight and everything recalculates. No photo? Describe the meal in words.",
@@ -1897,7 +1897,7 @@ footer .wrap { padding-block: 28px 36px; }
     9: "hinge", 13: "hinge", 16: "hinge", 23: "hinge", 29: "hinge", 31: "press", 32: "press", 37: "curl", 38: "curl", 39: "curl", 33: "raise", 27: "bridge", 28: "bridge" };
   var BONES = [[11, 12], [11, 13], [13, 15], [12, 14], [14, 16], [11, 23], [12, 24], [23, 24], [23, 25], [25, 27], [24, 26], [26, 28], [27, 31], [28, 32]];
   var POSE = "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14";
-  var POSE_MODEL = "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task";
+  var POSE_MODEL = "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_full/float16/1/pose_landmarker_full.task";
   var fcLm = null, fcStream = null, fcRaf = 0, fcEx = -1, fcHist = [], fcState = "", fcKey = "";
   function ang(a, b, c) {
     var ax = a.x - b.x, ay = a.y - b.y, cx = c.x - b.x, cy = c.y - b.y, d = Math.hypot(ax, ay) * Math.hypot(cx, cy);
@@ -1910,7 +1910,7 @@ footer .wrap { padding-block: 28px 36px; }
     var sd = vis(Ls) >= vis(Rs) ? Ls : Rs;
     var S = p[sd[0]], E = p[sd[1]], W = p[sd[2]], H = p[sd[3]], K = p[sd[4]], A = p[sd[5]], EAR = p[sd[6]];
     var need = { line: [0, 3, 5], knee: [0, 3, 4], squat: [0, 3, 4], hinge: [0, 3, 6], press: [0, 1, 2, 3], curl: [0, 1, 3], raise: [0, 1, 3], bridge: [3, 4, 5] }[pat] || [0, 3];
-    if (need.some(function (k) { return p[sd[k]].v < 0.5; })) return ["wait", "fcStep"];
+    if (need.some(function (k) { return p[sd[k]].v < 0.45; })) return ["wait", "fcStep"];
     var torso = Math.hypot(S.x - H.x, S.y - H.y) || 1;
     switch (pat) {
       case "line": return ang(S, H, A) >= 160 ? ["ok", "fcGood"] : ["bad", "fcLineBad"];
@@ -1961,24 +1961,41 @@ footer .wrap { padding-block: 28px 36px; }
       ctx.fillStyle = "#fff"; ctx.fill(); ctx.lineWidth = w / 2; ctx.stroke(); ctx.lineWidth = w;
     });
   }
+  var FC_REP = { 0: "pushup", 1: "pushup", 2: "pushup", 41: "pushup", 17: "squat", 18: "squat", 19: "squat", 21: "lunge", 22: "lunge",
+    27: "bridge", 28: "bridge", 31: "press", 32: "press", 37: "curl", 38: "curl", 33: "lateral" };
+  var fc = null;
   function fcTick() {
     if (!fcStream) return;
-    var v = $("fc-v"), c = $("fc-c");
+    var v = $("fc-v"), c = $("fc-c"), now = performance.now();
     if (v.readyState >= 2 && v.videoWidth) {
       if (c.width !== v.videoWidth) { c.width = v.videoWidth; c.height = v.videoHeight; }
       var r = null;
-      try { r = fcLm.detectForVideo(v, performance.now()); } catch (e) {}
+      try { r = fcLm.detectForVideo(v, now); } catch (e) {}
       var ctx = c.getContext("2d"), lm = r && r.landmarks && r.landmarks[0];
       ctx.clearRect(0, 0, c.width, c.height);
       if (lm) {
-        var p = lm.map(function (q) { return { x: q.x * c.width, y: q.y * c.height, v: q.visibility == null ? 1 : q.visibility }; });
-        var j = judge(p, FC_PAT[fcEx]);
+        var p = fc.prev = smooth(fc.prev, pts(lm, c.width, c.height));
+        var j = judge(p, FC_PAT[fcEx]), rk = FC_REP[fcEx];
+        if (rk && j[0] !== "wait") {
+          var rd = GREAD[rk](p);
+          if (rd.seen) {
+            if (rd.phase !== "up") fc.moved = true;
+            var ev = repStep(fc.st, rd);
+            if (ev === "rep") { fc.reps++; fc.hold = { st: "ok", key: "fcRepGood", until: now + 1200 }; }
+            else if (ev === "bad") fc.hold = { st: "bad", key: rd.why || j[1], until: now + 1600 };
+            else if (ev === "partial") fc.hold = { st: "bad", key: rd.miss, until: now + 1600 };
+          }
+          // standing still at the start is not "good form" yet
+          if (!fc.moved) j = ["wait", "fcStart"];
+        }
+        if (fc.hold && now < fc.hold.until) j = [fc.hold.st, fc.hold.key];
         fcHist.push(j[0] + "|" + j[1]);
         if (fcHist.length > 6) fcHist.shift();
         // only switch the light when the last frames agree, so it does not flicker
-        if (fcHist.filter(function (x) { return x === fcHist[fcHist.length - 1]; }).length >= 5) fcSet(j[0], j[1]);
+        if ((fc.hold && now < fc.hold.until) || fcHist.filter(function (x) { return x === fcHist[fcHist.length - 1]; }).length >= 4) fcSet(j[0], j[1]);
+        $("fc-reps").textContent = rk && fc.reps ? t("fcReps").replace("{n}", fc.reps) : "";
         fcDraw(ctx, p, fcState);
-      } else fcSet("wait", "fcStep");
+      } else { fc.prev = null; fcSet("wait", "fcStep"); }
     }
     fcRaf = requestAnimationFrame(fcTick);
   }
@@ -1991,6 +2008,8 @@ footer .wrap { padding-block: 28px 36px; }
   }
   function openForm(idx) {
     fcEx = idx; fcHist = []; fcState = ""; fcKey = "";
+    fc = { prev: null, st: { phase: "up", mid: 0, tot: 0, bad: 0 }, moved: false, reps: 0, hold: null };
+    $("fc-reps").textContent = "";
     $("fc-name").textContent = EX[idx][lang === "he" ? 6 : 7];
     var c = $("fc-c"); c.getContext("2d").clearRect(0, 0, c.width, c.height);
     $("fcmodal").hidden = false;
@@ -2009,16 +2028,134 @@ footer .wrap { padding-block: 28px 36px; }
     }, function () { fcSet("bad", "fcNoCam"); });
   }
   /* games: camera counts reps; a rep only counts when the form check passes */
+  function pts(lm, w, h) { return lm.map(function (q) { return { x: q.x * w, y: q.y * h, v: q.visibility == null ? 1 : q.visibility }; }); }
+  // light smoothing so joints and the light don't jitter between frames
+  function smooth(prev, p) {
+    if (!prev || prev.length !== p.length) return p;
+    return p.map(function (q, i) { return { x: prev[i].x * 0.45 + q.x * 0.55, y: prev[i].y * 0.45 + q.y * 0.55, v: q.v }; });
+  }
+  function gPick(p) {
+    var Ls = [11, 13, 15, 23, 25, 27], Rs = [12, 14, 16, 24, 26, 28];
+    var sum = function (ids) { return ids.reduce(function (s, i) { return s + p[i].v; }, 0); };
+    var sd = sum(Ls) >= sum(Rs) ? Ls : Rs;
+    return { S: p[sd[0]], E: p[sd[1]], W: p[sd[2]], H: p[sd[3]], K: p[sd[4]], A: p[sd[5]] };
+  }
+  function seen(a, min) { return a.every(function (q) { return q.v >= (min || 0.45); }); }
+  function ph(down, up) { return down ? "down" : up ? "up" : "mid"; }
+  // each read returns { seen, ok, why, phase: "up" (start) | "down" (the work) | "mid", miss: message for a half rep }
+  var GREAD = {
+    pushup: function (p) {
+      var j = gPick(p); if (!seen([j.S, j.E, j.W, j.H])) return { seen: false };
+      var el = ang(j.S, j.E, j.W), body = j.A.v >= 0.35 ? ang(j.S, j.H, j.A) : ang(j.S, j.H, j.K);
+      return { seen: true, ok: body >= 150, why: "fcLineBad", phase: ph(el < 110, el > 145), miss: "gDeeperArms" };
+    },
+    squat: function (p) {
+      var j = gPick(p); if (!seen([j.S, j.H, j.K, j.A])) return { seen: false };
+      var kn = ang(j.H, j.K, j.A), thigh = j.K.y - j.H.y, shin = Math.max(1, j.A.y - j.K.y);
+      return { seen: true, ok: fromVert(j.S, j.H) <= 55, why: "fcSquatBad", phase: ph(kn < 115 || thigh < 0.3 * shin, kn > 155 && thigh > 0.6 * shin), miss: "gDeeper" };
+    },
+    lunge: function (p) {
+      if (!seen([p[23], p[24], p[25], p[26]], 0.3) || !seen([p[27], p[28]], 0.25)) return { seen: false };
+      var a = ang(p[23], p[25], p[27]), b = ang(p[24], p[26], p[28]), j = gPick(p);
+      return { seen: true, ok: fromVert(j.S, j.H) <= 30, why: "gUpright", phase: ph(Math.min(a, b) < 110, a > 155 && b > 155), miss: "gDeeper" };
+    },
+    jacks: function (p) {
+      var ls = p[11], rs = p[12], lw = p[15], rw = p[16], la = p[27], ra = p[28];
+      if (!seen([ls, rs, lw, rw, la, ra], 0.4)) return { seen: false };
+      var sw = Math.abs(ls.x - rs.x) || 1, feet = Math.abs(la.x - ra.x), top = Math.min(ls.y, rs.y);
+      var open = lw.y < top - 0.3 * sw && rw.y < top - 0.3 * sw && feet > 1.4 * sw;
+      return { seen: true, ok: true, phase: ph(open, lw.y > ls.y && rw.y > rs.y && feet < 1.2 * sw), miss: "gJacksFull" };
+    },
+    highknees: function (p) {
+      var lh = p[23], rh = p[24], lk = p[25], rk = p[26], la = p[27], ra = p[28];
+      if (!seen([lh, rh, lk, rk], 0.4)) return { seen: false };
+      var leg = Math.max(1, ((la.y - lh.y) + (ra.y - rh.y)) / 2);
+      var up = lk.y < lh.y + 0.18 * leg || rk.y < rh.y + 0.18 * leg, down = lk.y > lh.y + 0.38 * leg && rk.y > rh.y + 0.38 * leg;
+      return { seen: true, ok: true, phase: ph(up, down), miss: "gKneesHigher" };
+    },
+    situp: function (p) {
+      var j = gPick(p); if (!seen([j.S, j.H, j.K])) return { seen: false };
+      var a = ang(j.S, j.H, j.K);
+      return { seen: true, ok: true, phase: ph(a < 75, a > 115), miss: "gSitHigher" };
+    },
+    bridge: function (p) {
+      var j = gPick(p); if (!seen([j.S, j.H, j.K, j.A])) return { seen: false };
+      var a = ang(j.S, j.H, j.K), kn = ang(j.H, j.K, j.A);
+      return { seen: true, ok: kn >= 55 && kn <= 125, why: "fcBridgeBad", phase: ph(a > 160, a < 135), miss: "gHipsHigher" };
+    },
+    press: function (p) {
+      var ls = p[11], rs = p[12], le = p[13], re = p[14], lw = p[15], rw = p[16], n = p[0];
+      if (!seen([ls, rs, le, re, lw, rw], 0.4)) return { seen: false };
+      var sw = Math.abs(ls.x - rs.x) || 1, la = ang(ls, le, lw), ra = ang(rs, re, rw);
+      var top = lw.y < n.y - 0.3 * sw && rw.y < n.y - 0.3 * sw && la > 150 && ra > 150;
+      return { seen: true, ok: Math.abs(ls.y - rs.y) < 0.25 * sw, why: "fcLevelBad", phase: ph(top, lw.y > n.y && rw.y > n.y), miss: "gLockout" };
+    },
+    curl: function (p) {
+      var j = gPick(p); if (!seen([j.S, j.E, j.W, j.H])) return { seen: false };
+      var el = ang(j.S, j.E, j.W);
+      return { seen: true, ok: ang(j.E, j.S, j.H) <= 35, why: "fcCurlBad", phase: ph(el < 60, el > 145), miss: "gFullCurl" };
+    },
+    lateral: function (p) {
+      var ls = p[11], rs = p[12], lw = p[15], rw = p[16], lh = p[23], rh = p[24];
+      if (!seen([ls, rs, lw, rw, lh, rh], 0.4)) return { seen: false };
+      var sw = Math.abs(ls.x - rs.x) || 1, torso = Math.max(1, (lh.y + rh.y - ls.y - rs.y) / 2);
+      var wide = Math.abs(lw.x - ls.x) > 0.8 * sw && Math.abs(rw.x - rs.x) > 0.8 * sw;
+      var top = wide && lw.y < ls.y + 0.25 * torso && rw.y < rs.y + 0.25 * torso;
+      var ok = lw.y > ls.y - 0.35 * sw && rw.y > rs.y - 0.35 * sw;
+      return { seen: true, ok: ok, why: "fcRaiseBad", phase: ph(top, lw.y > lh.y - 0.25 * torso && rw.y > rh.y - 0.25 * torso), miss: "gArmsHigher" };
+    },
+    climbers: function (p) {
+      var j = gPick(p); if (!seen([j.S, j.H]) || !seen([p[25], p[26]], 0.25)) return { seen: false };
+      var a = Math.min(ang(j.S, j.H, p[25]), ang(j.S, j.H, p[26]));
+      return { seen: true, ok: true, phase: ph(a < 100, a > 145), miss: "gKneesHigher" };
+    },
+    plank: function (p) {
+      var j = gPick(p); if (!seen([j.S, j.H, j.A], 0.4)) return { seen: false };
+      return { seen: true, ok: ang(j.S, j.H, j.A) >= 160, why: "fcLineBad" };
+    },
+    wallsit: function (p) {
+      var j = gPick(p); if (!seen([j.S, j.H, j.K, j.A])) return { seen: false };
+      var kn = ang(j.H, j.K, j.A), ok = kn >= 70 && kn <= 115, up = fromVert(j.S, j.H) <= 25;
+      return { seen: true, ok: ok && up, why: ok ? "gUpright" : "gKnee90" };
+    }
+  };
+  // rep state machine: up -> down -> up is one rep; up -> mid -> up is a half rep
+  function repStep(st, rd) {
+    if (!rd.seen) return null;
+    if (st.phase !== "up") { st.tot++; if (!rd.ok) st.bad++; }
+    if (rd.phase === "down") { st.phase = "down"; return null; }
+    if (rd.phase === "up") {
+      var was = st.phase, clean = !st.tot || st.bad / st.tot <= 0.35, res = null;
+      if (was === "down") res = clean ? "rep" : "bad";
+      else if (was === "mid" && st.mid > 6) res = "partial";
+      st.phase = "up"; st.mid = 0; st.tot = 0; st.bad = 0;
+      return res;
+    }
+    if (st.phase === "up") { st.phase = "mid"; st.mid = 0; }
+    if (st.phase === "mid") st.mid++;
+    return null;
+  }
   var GAMES = [
     { id: "pushup", ranks: [0, 5, 10, 20, 30, 40, 50] },
     { id: "squat", ranks: [0, 8, 15, 25, 35, 45, 55] },
-    { id: "jacks", ranks: [0, 10, 20, 35, 50, 65, 80] }
+    { id: "jacks", ranks: [0, 10, 20, 35, 50, 65, 80] },
+    { id: "lunge", ranks: [0, 6, 12, 20, 28, 36, 45] },
+    { id: "highknees", ranks: [0, 20, 40, 60, 80, 100, 120] },
+    { id: "situp", ranks: [0, 6, 12, 20, 28, 36, 45] },
+    { id: "bridge", ranks: [0, 8, 15, 25, 35, 45, 55] },
+    { id: "press", ranks: [0, 6, 12, 20, 28, 36, 45] },
+    { id: "curl", ranks: [0, 8, 15, 25, 35, 45, 55] },
+    { id: "lateral", ranks: [0, 6, 12, 18, 25, 32, 40] },
+    { id: "climbers", ranks: [0, 15, 30, 45, 60, 80, 100] },
+    { id: "plank", hold: true, ranks: [0, 15, 30, 60, 90, 120, 180] },
+    { id: "wallsit", hold: true, ranks: [0, 15, 30, 45, 60, 90, 120] }
   ];
   var RANK_C = ["#9ca3af", "#78716c", "#c2773c", "#cbd5e1", "#eab308", "#38bdf8", "#a855f7"];
   var gStats = {};
   try { gStats = JSON.parse(localStorage.getItem("games") || "{}") || {}; } catch (e) { gStats = {}; }
   function gSave() { try { localStorage.setItem("games", JSON.stringify(gStats)); } catch (e) {} }
   function gStat(id) { return gStats[id] || (gStats[id] = { best: 0, bestFree: 0, total: 0, plays: 0 }); }
+  function gDef(id) { return GAMES.filter(function (g) { return g.id === id; })[0]; }
   function rankOf(g, score) { var r = 0; g.ranks.forEach(function (v, i) { if (score >= v) r = i; }); return r; }
   function rankHtml(r, on) { return '<span class="rank' + (on ? " on" : "") + '" style="--rc:' + RANK_C[r] + '">' + esc(t("rk" + r)) + "</span>"; }
   function gXp() { return GAMES.reduce(function (s, g) { return s + gStat(g.id).total; }, 0); }
@@ -2028,11 +2165,15 @@ footer .wrap { padding-block: 28px 36px; }
       '<div class="g-bar"><i style="width:' + Math.round(100 * (xp - lo) / (hi - lo)) + '%"></i></div>';
     $("g-grid").innerHTML = GAMES.map(function (g) {
       var s = gStat(g.id), r = rankOf(g, s.best);
+      var stats = g.hold ? '<span>' + esc(t("gBestHold")) + " <b>" + s.best + esc(t("gSec")) + "</b></span>"
+        : '<span>' + esc(t("gBest")) + " <b>" + s.best + "</b></span><span>" + esc(t("gBestFree")) + " <b>" + s.bestFree + "</b></span>";
+      var btns = g.hold ? '<button type="button" class="btn primary" data-game="' + g.id + '" data-gmode="hold">' + esc(t("gHoldBtn")) + "</button>"
+        : '<button type="button" class="btn primary" data-game="' + g.id + '" data-gmode="60">' + esc(t("gPlay60")) + '</button><button type="button" class="btn" data-game="' + g.id + '" data-gmode="free">' + esc(t("gPlayFree")) + "</button>";
       return '<article class="g-game"><div class="ex-top">' + rankHtml(r, true) + "</div>" +
         "<h3>" + esc(t("g_" + g.id)) + "</h3><p>" + esc(t("g_" + g.id + "_p")) + "</p>" +
-        '<div class="g-stats"><span>' + esc(t("gBest")) + " <b>" + s.best + "</b></span><span>" + esc(t("gBestFree")) + " <b>" + s.bestFree + "</b></span><span>" + esc(t("gTotal")) + " <b>" + s.total + "</b></span></div>" +
+        '<div class="g-stats">' + stats + "<span>" + esc(t("gTotal")) + " <b>" + s.total + "</b></span></div>" +
         '<div class="g-ladder">' + g.ranks.map(function (v, i) { return rankHtml(i, i <= r); }).join("") + "</div>" +
-        '<div class="g-btns"><button type="button" class="btn primary" data-game="' + g.id + '" data-gmode="60">' + esc(t("gPlay60")) + '</button><button type="button" class="btn" data-game="' + g.id + '" data-gmode="free">' + esc(t("gPlayFree")) + "</button></div></article>";
+        '<div class="g-btns">' + btns + "</div></article>";
     }).join("");
   }
   $("g-grid").addEventListener("click", function (e) {
@@ -2046,46 +2187,30 @@ footer .wrap { padding-block: 28px 36px; }
     gState = st;
     ["ok", "bad", "wait"].forEach(function (k) { $("gmodal").classList.toggle(k, st === k); });
   }
-  function gMsg(key) { if (gm && gm.msg !== key) { gm.msg = key; $("g-msg").textContent = t(key); } }
-  function gPick(p) {
-    var Ls = [11, 13, 15, 23, 25, 27], Rs = [12, 14, 16, 24, 26, 28];
-    var sum = function (ids) { return ids.reduce(function (s, i) { return s + p[i].v; }, 0); };
-    var sd = sum(Ls) >= sum(Rs) ? Ls : Rs;
-    return { S: p[sd[0]], E: p[sd[1]], W: p[sd[2]], H: p[sd[3]], K: p[sd[4]], A: p[sd[5]] };
+  function gMsg(key, hold) {
+    if (!gm) return;
+    var now = performance.now();
+    if (!hold && now < gm.msgUntil) return;
+    if (hold) gm.msgUntil = now + 1400;
+    if (gm.msg !== key) { gm.msg = key; $("g-msg").textContent = t(key); }
   }
-  // returns { seen, ok, phase: "up" | "down" | "" , why }
-  function gRead(p, id) {
-    var j = gPick(p), vis = function (a) { return a.every(function (q) { return q.v >= 0.5; }); };
-    if (id === "pushup") {
-      if (!vis([j.S, j.E, j.W, j.H, j.A])) return { seen: false };
-      var el = ang(j.S, j.E, j.W), line = ang(j.S, j.H, j.A) >= 150;
-      return { seen: true, ok: line, why: "fcLineBad", phase: el > 150 ? "up" : el < 95 ? "down" : "" };
-    }
-    if (id === "squat") {
-      if (!vis([j.S, j.H, j.K, j.A])) return { seen: false };
-      var kn = ang(j.H, j.K, j.A), chest = fromVert(j.S, j.H) <= 50;
-      return { seen: true, ok: chest, why: "fcSquatBad", phase: kn > 160 ? "up" : kn < 100 ? "down" : "" };
-    }
-    var ls = p[11], rs = p[12], lw = p[15], rw = p[16], la = p[27], ra = p[28];
-    if (!vis([ls, rs, lw, rw, la, ra])) return { seen: false };
-    var sw = Math.abs(ls.x - rs.x) || 1, feet = Math.abs(la.x - ra.x);
-    var open = lw.y < Math.min(ls.y, rs.y) - 0.3 * sw && rw.y < Math.min(ls.y, rs.y) - 0.3 * sw && feet > 1.5 * sw;
-    var closed = lw.y > ls.y && rw.y > rs.y && feet < 1.2 * sw;
-    return { seen: true, ok: true, phase: open ? "down" : closed ? "up" : "" };
+  function gBump() {
+    var ce = $("g-count"); ce.textContent = gm.count; ce.classList.remove("pop"); void ce.offsetWidth; ce.classList.add("pop");
+    var md = $("gmodal"); md.classList.remove("flash"); void md.offsetWidth; md.classList.add("flash");
   }
   function gFinish() {
     if (!gm || gm.over) return;
     gm.over = true;
-    var g = GAMES.filter(function (x) { return x.id === gm.id; })[0], s = gStat(gm.id), rec = false;
+    var g = gDef(gm.id), s = gStat(gm.id), rec = false, timed = gm.mode !== "free";
     s.total += gm.count; s.plays += 1;
-    if (gm.mode === "60") { if (gm.count > s.best) { s.best = gm.count; rec = gm.count > 0; } }
+    if (timed) { if (gm.count > s.best) { s.best = gm.count; rec = gm.count > 0; } }
     else if (gm.count > s.bestFree) { s.bestFree = gm.count; rec = gm.count > 0; }
     gSave();
-    var r = rankOf(g, s.best);
-    $("g-card").innerHTML = "<h3>" + esc(t(gm.mode === "60" ? "gEnd60" : "gEndFree")) + '</h3><div class="g-score">' + gm.count + "</div>" +
-      (rec ? '<div class="g-rec">' + esc(t("gNewRec")) + "</div>" : "<div>" + esc(t("gBest")) + " " + (gm.mode === "60" ? s.best : s.bestFree) + "</div>") +
+    var r = rankOf(g, s.best), unit = g.hold ? t("gSec") : "";
+    $("g-card").innerHTML = "<h3>" + esc(t(g.hold ? "gEndHold" : gm.mode === "60" ? "gEnd60" : "gEndFree")) + '</h3><div class="g-score">' + gm.count + esc(unit) + "</div>" +
+      (rec ? '<div class="g-rec">' + esc(t("gNewRec")) + "</div>" : "<div>" + esc(t(g.hold ? "gBestHold" : "gBest")) + " " + (timed ? s.best : s.bestFree) + esc(unit) + "</div>") +
       rankHtml(r, true) +
-      (r < g.ranks.length - 1 ? "<div>" + esc(t("gNext").replace("{n}", g.ranks[r + 1] - s.best).replace("{r}", t("rk" + (r + 1)))) + "</div>" : "") +
+      (r < g.ranks.length - 1 ? "<div>" + esc(t(g.hold ? "gNextHold" : "gNext").replace("{n}", g.ranks[r + 1] - s.best).replace("{r}", t("rk" + (r + 1)))) + "</div>" : "") +
       '<div class="g-btns"><button type="button" class="btn primary" id="g-again">' + esc(t("gAgain")) + '</button><button type="button" class="btn" id="g-done">' + esc(t("fcClose")) + "</button></div>";
     $("g-end").hidden = false;
     $("g-again").addEventListener("click", function () { var id = gm.id, mode = gm.mode; closeGame(); openGame(id, mode); });
@@ -2094,37 +2219,37 @@ footer .wrap { padding-block: 28px 36px; }
   }
   function gTick() {
     if (!gStream || !gm) return;
-    var v = $("g-v"), c = $("g-c"), now = performance.now();
+    var v = $("g-v"), c = $("g-c"), now = performance.now(), dt = Math.min(200, now - (gm.last || now));
+    gm.last = now;
     if (!gm.over && v.readyState >= 2 && v.videoWidth) {
       if (c.width !== v.videoWidth) { c.width = v.videoWidth; c.height = v.videoHeight; }
       var r = null;
       try { r = fcLm.detectForVideo(v, now); } catch (e) {}
       var ctx = c.getContext("2d"), lm = r && r.landmarks && r.landmarks[0];
       ctx.clearRect(0, 0, c.width, c.height);
-      var p = lm ? lm.map(function (q) { return { x: q.x * c.width, y: q.y * c.height, v: q.visibility == null ? 1 : q.visibility }; }) : null;
-      var rd = p ? gRead(p, gm.id) : { seen: false };
-      if (!rd.seen) { gm.seenRun = 0; gSetLight("wait"); gMsg(gm.started ? "fcStep" : "gGetIn_" + gm.id); }
+      var p = lm ? (gm.prev = smooth(gm.prev, pts(lm, c.width, c.height))) : (gm.prev = null);
+      var g = gDef(gm.id), rd = p ? GREAD[gm.id](p) : { seen: false };
+      if (!rd.seen) { gm.seenRun = 0; gSetLight("wait"); gMsg(gm.started ? "fcStep" : "gGetIn_" + gm.id); if (gm.live && g.hold) { gm.bad += dt; if (gm.count && gm.bad > 3000) gFinish(); } }
       else {
         gm.seenRun++;
         if (!gm.started) {
           gSetLight("wait"); gMsg("gGetIn_" + gm.id);
-          if (gm.seenRun > 8 && rd.phase === "up") { gm.started = true; gm.go = now + 3000; }
+          if (gm.seenRun > 8 && (g.hold ? rd.ok : rd.phase === "up")) { gm.started = true; gm.go = now + 3000; }
         } else if (now < gm.go) {
           $("g-big").textContent = String(Math.ceil((gm.go - now) / 1000));
         } else {
-          if (!gm.live) { gm.live = true; gm.end = gm.mode === "60" ? now + 60000 : 0; $("g-big").textContent = ""; gMsg("gGo"); }
+          if (!gm.live) { gm.live = true; gm.end = gm.mode === "60" ? now + 60000 : 0; $("g-big").textContent = ""; gMsg("gGo", true); }
           gSetLight(rd.ok ? "ok" : "bad");
-          if (!rd.ok) gm.cleanRep = false;
-          if (rd.phase === "down" && gm.phase !== "down") { gm.phase = "down"; gm.cleanRep = rd.ok; }
-          else if (rd.phase === "up" && gm.phase === "down") {
-            gm.phase = "up";
-            if (gm.cleanRep) {
-              gm.count++;
-              var ce = $("g-count"); ce.textContent = gm.count; ce.classList.remove("pop"); void ce.offsetWidth; ce.classList.add("pop");
-              var md = $("gmodal"); md.classList.remove("flash"); void md.offsetWidth; md.classList.add("flash");
-              gMsg(gm.count % 10 === 0 ? "gTen" : "gRep");
-            } else gMsg(rd.why || "gNoRep");
-          } else if (!rd.ok) gMsg(rd.why);
+          if (g.hold) {
+            if (rd.ok) { gm.bad = 0; gm.held += dt; var sec = Math.floor(gm.held / 1000); if (sec !== gm.count) { gm.count = sec; $("g-count").textContent = sec; if (sec && sec % 10 === 0) gBump(); } gMsg("gHoldGood"); }
+            else { gm.bad += dt; gMsg(rd.why); if (gm.count && gm.bad > 2000) gFinish(); }
+          } else {
+            var ev = repStep(gm.st, rd);
+            if (ev === "rep") { gm.count++; gBump(); gMsg(gm.count % 10 === 0 ? "gTen" : "gRep", true); }
+            else if (ev === "bad") gMsg(rd.why || "gNoRep", true);
+            else if (ev === "partial") gMsg(rd.miss || "gNoRep", true);
+            else if (!rd.ok) gMsg(rd.why);
+          }
         }
       }
       if (p) fcDraw(ctx, p, gState);
@@ -2146,9 +2271,10 @@ footer .wrap { padding-block: 28px 36px; }
     renderGames();
   }
   function openGame(id, mode) {
-    gm = { id: id, mode: mode, count: 0, started: false, live: false, over: false, phase: "up", cleanRep: true, seenRun: 0, msg: "" };
+    var g = gDef(id);
+    gm = { id: id, mode: mode, count: 0, started: false, live: false, over: false, st: { phase: "up", mid: 0, tot: 0, bad: 0 }, seenRun: 0, msg: "", msgUntil: 0, held: 0, bad: 0, prev: null, last: 0 };
     gState = "";
-    $("g-name").textContent = t("g_" + id) + " · " + t(mode === "60" ? "gPlay60" : "gPlayFree");
+    $("g-name").textContent = t("g_" + id) + " · " + t(g.hold ? "gHoldBtn" : mode === "60" ? "gPlay60" : "gPlayFree");
     $("g-time").textContent = mode === "60" ? "60" : "";
     $("g-count").textContent = "0";
     $("g-big").textContent = "";
@@ -2165,7 +2291,7 @@ footer .wrap { padding-block: 28px 36px; }
     }, function () { gSetLight("bad"); gMsg("fcNoCam"); });
   }
   // in free play the close button ends the round and shows the score first
-  function gClose() { if (gm && gm.live && !gm.over && gm.mode === "free") gFinish(); else closeGame(); }
+  function gClose() { if (gm && gm.live && !gm.over && (gm.mode === "free" || gm.mode === "hold")) gFinish(); else closeGame(); }
   $("g-x").addEventListener("click", gClose);
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !$("gmodal").hidden) gClose(); });
   exgrid.addEventListener("click", function (e) {
