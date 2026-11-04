@@ -156,12 +156,51 @@ a { color: var(--accent); }
 .side .qrbox { grid-template-columns: 44px minmax(0, 1fr); padding: 8px 10px; gap: 10px; }
 .side .qrimg { width: 44px; height: 44px; padding: 2px; border-radius: 6px; }
 [hidden] { display: none !important; }
+/* ---------- games: camera rep counter ---------- */
+.fcmodal.ok .fc-stage, .gmodal.ok .g-stage { box-shadow: inset 0 0 0 6px #22c55e, inset 0 0 90px 30px rgba(34,197,94,.55); }
+.fcmodal.bad .fc-stage, .gmodal.bad .g-stage { box-shadow: inset 0 0 0 6px #ef4444, inset 0 0 90px 30px rgba(239,68,68,.55); }
+.fcmodal.wait .fc-stage, .gmodal.wait .g-stage { box-shadow: inset 0 0 0 6px #eab308, inset 0 0 70px 20px rgba(234,179,8,.35); }
+.gmodal.flash .g-stage { animation: gflash .35s ease-out; }
+@keyframes gflash { from { box-shadow: inset 0 0 0 14px #fff, inset 0 0 160px 60px rgba(34,197,94,.9); } }
+.gmodal { position: fixed; z-index: 62; inset: 0; background: #000; color: #fff; font-family: var(--f-body); }
+.g-stage { position: absolute; inset: 0; display: grid; transition: box-shadow .2s; }
+.g-stage video, .g-stage canvas { grid-area: 1 / 1; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); min-height: 0; }
+.g-top { position: absolute; top: 0; inset-inline: 0; display: flex; align-items: center; gap: 12px; padding: 16px 16px 40px; background: linear-gradient(rgba(0,0,0,.8), transparent); }
+.g-top b { flex: 1; font-size: 1.05rem; min-width: 0; }
+.g-time { font-family: var(--f-num); font-size: 1.6rem; font-weight: 600; min-width: 3ch; text-align: center; }
+.g-top .qrx { position: static; flex: none; }
+.g-count { position: absolute; inset-inline: 0; bottom: calc(96px + env(safe-area-inset-bottom, 0px)); text-align: center; font-family: var(--f-display); font-size: clamp(5rem, 22vw, 9rem); line-height: 1; text-shadow: 0 6px 30px rgba(0,0,0,.6); pointer-events: none; }
+.g-count.pop { animation: gpop .3s ease-out; }
+@keyframes gpop { from { transform: scale(1.35); color: #4ade80; } }
+.g-big { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--f-display); font-size: clamp(6rem, 30vw, 12rem); text-shadow: 0 6px 30px rgba(0,0,0,.7); pointer-events: none; }
+.g-msg { position: absolute; bottom: 0; inset-inline: 0; margin: 0; padding: 40px 16px calc(22px + env(safe-area-inset-bottom, 0px)); text-align: center; font-size: 1.05rem; font-weight: 600; background: linear-gradient(transparent, rgba(0,0,0,.85)); }
+.g-end { position: absolute; inset: 0; display: grid; place-items: center; padding: 16px; background: rgba(0,0,0,.6); }
+.g-card { width: min(380px, 100%); background: var(--surface); color: var(--ink); border-radius: 22px; padding: 26px 22px; display: grid; gap: 12px; justify-items: center; text-align: center; }
+.g-card .g-score { font-family: var(--f-display); font-size: 4.2rem; line-height: 1; }
+.g-card .g-rec { color: var(--green); font-weight: 700; }
+.g-card .g-btns { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.rank { display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px 5px 8px; border-radius: 999px; font-weight: 700; font-size: .85rem; background: color-mix(in srgb, var(--rc) 18%, transparent); color: var(--ink); border: 1px solid color-mix(in srgb, var(--rc) 55%, transparent); }
+.rank::before { content: ""; width: 14px; height: 14px; border-radius: 4px; transform: rotate(45deg); background: var(--rc); box-shadow: 0 0 10px var(--rc); }
+.g-level { display: grid; gap: 8px; background: var(--iron); color: var(--iron-ink); border-radius: 18px; padding: 18px 20px; margin-top: 18px; }
+.g-level-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.g-level-row b { font-family: var(--f-display); font-size: 1.6rem; }
+.g-level-row span { color: var(--iron-muted); font-size: .9rem; }
+.g-bar { height: 10px; border-radius: 99px; background: var(--iron-2); overflow: hidden; }
+.g-bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--green), var(--yellow)); border-radius: 99px; }
+.g-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; margin-top: 16px; }
+.g-game { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px; display: grid; gap: 10px; align-content: start; }
+.g-game h3 { font-size: 1.25rem; }
+.g-game p { color: var(--muted); font-size: .92rem; line-height: 1.5; margin: 0; }
+.g-stats { display: flex; gap: 16px; flex-wrap: wrap; font-size: .88rem; color: var(--muted); }
+.g-stats b { font-family: var(--f-num); color: var(--ink); font-size: 1.05rem; }
+.g-game .g-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.g-ladder { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+.g-ladder .rank { font-size: .74rem; opacity: .45; }
+.g-ladder .rank.on { opacity: 1; }
 /* ---------- form check: live pose skeleton ---------- */
 .fcmodal { position: fixed; z-index: 62; inset: 0; background: #000; color: #fff; }
 .fc-stage { position: absolute; inset: 0; display: grid; transition: box-shadow .2s; }
 .fc-stage video, .fc-stage canvas { grid-area: 1 / 1; width: 100%; height: 100%; object-fit: contain; transform: scaleX(-1); min-height: 0; }
-.fcmodal.ok .fc-stage { box-shadow: inset 0 0 0 8px #22c55e; }
-.fcmodal.bad .fc-stage { box-shadow: inset 0 0 0 8px #ef4444; }
 .fc-top { position: absolute; top: 0; inset-inline: 0; display: flex; align-items: center; gap: 14px; padding: 16px 16px 28px; background: linear-gradient(rgba(0,0,0,.8), transparent); }
 .fc-light { width: 48px; height: 48px; border-radius: 50%; flex: none; background: #eab308; box-shadow: 0 0 18px 4px rgba(234,179,8,.55); transition: background .2s, box-shadow .2s; }
 .fc-light.ok { background: #22c55e; box-shadow: 0 0 26px 8px rgba(34,197,94,.75); }
@@ -745,6 +784,7 @@ footer .wrap { padding-block: 28px 36px; }
         <button type="button" class="nv" data-go="plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3h6v3H9z"/><path d="M9 11h6M9 15h4"/></svg><span data-t="v_plan"></span></button>
         <button type="button" class="nv nv-x" data-go="sched"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M12 13v3l2 1"/></svg><span data-t="v_sched"></span></button>
         <button type="button" class="nv nv-x" data-go="library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7v10M18 7v10M3 9v6M21 9v6M6 12h12"/></svg><span data-t="v_library"></span></button>
+        <button type="button" class="nv nv-x" data-go="games"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg><span data-t="v_games"></span></button>
         <button type="button" class="nv" data-go="coach"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h8"/></svg><span data-t="v_coach"></span><span class="ai-badge sm">AI</span></button>
         <button type="button" class="nv nv-x" data-go="tips"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg><span data-t="v_tips"></span></button>
         <button type="button" class="nv nv-more" id="nv-more" aria-expanded="false" aria-controls="msheet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg><span data-t="v_more"></span></button>
@@ -764,6 +804,7 @@ footer .wrap { padding-block: 28px 36px; }
         <button type="button" class="nv2" data-go="weight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M7.5 10a4.5 4.5 0 0 1 9 0"/><path d="M12 10l1.6-2.2"/></svg><span data-t="v_weight"></span></button>
         <button type="button" class="nv2" data-go="sched"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M12 13v3l2 1"/></svg><span data-t="v_sched"></span></button>
         <button type="button" class="nv2" data-go="library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7v10M18 7v10M3 9v6M21 9v6M6 12h12"/></svg><span data-t="v_library"></span></button>
+        <button type="button" class="nv2" data-go="games"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg><span data-t="v_games"></span></button>
         <button type="button" class="nv2" data-go="tips"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg><span data-t="v_tips"></span></button>
       </div>
       <div class="qrbox" role="button" tabindex="0" data-qr data-ta="qrOpen"><div class="qrimg"><svg class="qr" viewBox="0 0 164 164" shape-rendering="crispEdges" role="img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><g transform="scale(4)"><path fill="#fff" d="M0 0h41v41h-41z"/><path class="qrline" stroke="#14171d" d="M2 2.5h7m4 0h2m3 0h1m3 0h2m3 0h4m1 0h7m-37 1h1m5 0h1m3 0h1m1 0h1m7 0h1m1 0h4m2 0h1m1 0h1m5 0h1m-37 1h1m1 0h3m1 0h1m1 0h1m2 0h1m1 0h1m2 0h1m2 0h1m1 0h1m2 0h1m5 0h1m1 0h3m1 0h1m-37 1h1m1 0h3m1 0h1m4 0h2m1 0h4m1 0h1m5 0h1m1 0h2m1 0h1m1 0h3m1 0h1m-37 1h1m1 0h3m1 0h1m1 0h3m2 0h1m3 0h2m1 0h1m2 0h1m2 0h2m2 0h1m1 0h3m1 0h1m-37 1h1m5 0h1m1 0h2m2 0h2m5 0h3m6 0h1m1 0h1m5 0h1m-37 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-23 1h3m1 0h1m2 0h3m1 0h1m-25 1h1m2 0h1m1 0h1m1 0h5m1 0h3m3 0h2m2 0h2m1 0h1m1 0h1m1 0h2m1 0h1m-33 1h1m1 0h1m3 0h1m2 0h1m1 0h5m1 0h1m3 0h1m2 0h1m5 0h2m-34 1h1m2 0h1m1 0h3m1 0h1m1 0h1m3 0h2m1 0h3m1 0h8m4 0h2m-36 1h1m2 0h1m4 0h2m2 0h1m3 0h1m4 0h1m1 0h2m1 0h4m1 0h2m1 0h1m1 0h1m-35 1h3m1 0h1m1 0h1m1 0h2m7 0h4m1 0h1m3 0h4m1 0h3m-36 1h2m1 0h2m2 0h2m1 0h2m2 0h2m2 0h3m2 0h2m2 0h3m2 0h1m1 0h1m-33 1h6m1 0h3m3 0h2m1 0h1m2 0h4m2 0h1m1 0h1m1 0h4m-34 1h3m1 0h1m2 0h3m1 0h1m1 0h2m1 0h2m1 0h2m1 0h1m2 0h2m3 0h2m1 0h2m-34 1h3m1 0h1m1 0h3m1 0h2m1 0h1m1 0h2m1 0h1m2 0h1m6 0h1m2 0h4m-37 1h1m1 0h3m6 0h2m2 0h2m1 0h3m1 0h1m1 0h1m2 0h3m1 0h3m-33 1h3m2 0h1m1 0h1m1 0h1m1 0h5m5 0h3m1 0h4m4 0h1m-34 1h1m5 0h1m1 0h1m3 0h1m1 0h1m1 0h1m3 0h1m1 0h1m2 0h1m3 0h1m2 0h2m1 0h1m-37 1h1m1 0h7m1 0h2m2 0h1m4 0h4m1 0h1m2 0h1m1 0h2m2 0h2m1 0h1m-37 1h1m1 0h1m5 0h1m1 0h1m3 0h1m1 0h1m1 0h4m1 0h1m1 0h3m4 0h4m-35 1h2m1 0h4m1 0h3m1 0h3m4 0h1m2 0h2m2 0h2m-29 1h2m2 0h1m3 0h2m4 0h1m2 0h1m1 0h1m1 0h2m1 0h1m1 0h1m1 0h1m2 0h1m2 0h1m-33 1h3m1 0h3m1 0h3m1 0h1m2 0h7m1 0h3m2 0h2m1 0h3m-36 1h1m4 0h1m1 0h2m3 0h1m1 0h1m2 0h2m1 0h2m1 0h1m1 0h1m6 0h1m-28 1h6m1 0h2m1 0h2m1 0h1m2 0h3m1 0h1m1 0h1m1 0h1m1 0h2m-28 1h1m1 0h1m1 0h1m1 0h2m1 0h1m2 0h2m2 0h3m6 0h1m3 0h1m-35 1h2m3 0h3m2 0h2m2 0h1m1 0h6m1 0h1m3 0h6m1 0h1m-27 1h1m2 0h3m3 0h1m3 0h1m1 0h1m1 0h2m1 0h1m3 0h2m-34 1h7m2 0h4m1 0h2m1 0h4m2 0h2m1 0h1m1 0h1m1 0h1m1 0h3m-35 1h1m5 0h1m2 0h2m1 0h1m2 0h4m1 0h1m1 0h1m1 0h1m3 0h1m3 0h1m1 0h1m1 0h1m-37 1h1m1 0h3m1 0h1m1 0h5m1 0h3m1 0h1m3 0h3m3 0h8m-36 1h1m1 0h3m1 0h1m2 0h1m1 0h2m3 0h1m2 0h3m3 0h4m1 0h2m3 0h1m-36 1h1m1 0h3m1 0h1m4 0h1m1 0h1m2 0h1m3 0h1m4 0h1m1 0h1m2 0h2m1 0h1m1 0h1m-36 1h1m5 0h1m1 0h2m1 0h1m1 0h1m1 0h1m2 0h1m2 0h1m2 0h1m1 0h2m1 0h1m3 0h3m-36 1h7m2 0h4m1 0h3m1 0h7m4 0h1m1 0h6"/></g></svg></div><div><b data-t="qrH"></b><small data-t="qrSub"></small></div></div>
@@ -774,6 +815,14 @@ footer .wrap { padding-block: 28px 36px; }
     </div>
   </div>
 
+  <div class="gmodal" id="gmodal" hidden role="dialog" aria-modal="true" data-ta="v_games">
+    <div class="g-stage"><video id="g-v" playsinline muted autoplay></video><canvas id="g-c"></canvas></div>
+    <div class="g-top"><b id="g-name"></b><span class="g-time" id="g-time"></span><button type="button" class="qrx" id="g-x" data-ta="fcClose">×</button></div>
+    <div class="g-big" id="g-big"></div>
+    <div class="g-count" id="g-count">0</div>
+    <p class="g-msg" id="g-msg" aria-live="polite"></p>
+    <div class="g-end" id="g-end" hidden><div class="g-card" id="g-card"></div></div>
+  </div>
   <div class="fcmodal" id="fcmodal" hidden role="dialog" aria-modal="true" data-ta="fcBtn">
     <div class="fc-stage"><video id="fc-v" playsinline muted autoplay></video><canvas id="fc-c"></canvas></div>
     <div class="fc-top"><span class="fc-light" id="fc-light" aria-hidden="true"></span><div class="fc-txt"><b id="fc-name"></b><span id="fc-msg" aria-live="polite"></span></div><button type="button" class="qrx" id="fc-x" data-ta="fcClose">×</button></div>
@@ -1175,6 +1224,18 @@ footer .wrap { padding-block: 28px 36px; }
       </section>
       </div>
     </div>
+    <div class="view" data-view="games" hidden>
+      <div class="wrap">
+      <section id="games">
+        <div class="sec-head">
+          <h2 data-t="gH"></h2>
+          <p class="intro" data-t="gIntro"></p>
+        </div>
+        <div class="g-level" id="g-level"></div>
+        <div class="g-grid" id="g-grid"></div>
+      </section>
+      </div>
+    </div>
     <div class="view" data-view="tips" hidden>
       <div class="wrap">
       <section id="mistakes">
@@ -1320,7 +1381,7 @@ footer .wrap { padding-block: 28px 36px; }
       dLeft: "נשארו", dOver: "מעל היעד", dEaten: "{a} מתוך {b}", dWater: "מים", dGlass: "כוס", dStreak: "{n} ימים ברצף", kcalS: "קל׳",
       n8: "סורק אוכל", ctaScan: "סריקת אוכל", ctaCoach: "שאלו את המאמן",
       scH: "סורק האוכל", scP: "צלמו את הצלחת, את תווית המזון, או פשוט כתבו מה אכלתם. ה־AI מזהה כל מרכיב, מעריך כמויות ומחשב קלוריות, חלבון, פחמימות, שומן וסיבים, והכל נכנס ליומן היומי.",
-      fcBtn: "בדיקת טכניקה", fcClose: "סגירה", fcLoading: "פותח מצלמה וטוען זיהוי תנוחה…", fcStep: "התרחקו מהמצלמה כך שכל הגוף ייראה", fcGood: "טכניקה נכונה, המשיכו כך", fcLineBad: "שמרו על קו ישר מהכתפיים ועד הרגליים: הירכיים שוקעות או גבוהות מדי", fcSquatBad: "הרימו את החזה: הגב נוטה קדימה יותר מדי", fcHingeBad: "שמרו על הראש בקו אחד עם הגב", fcLeanBad: "אל תיטו את הגב לאחור, עמדו זקוף", fcPressBad: "דחפו ישר למעלה, מעל הכתפיים", fcCurlBad: "הצמידו את המרפקים לגוף", fcRaiseBad: "אל תרימו את המרפקים מעל גובה הכתפיים", fcBridgeBad: "קרבו או הרחיקו את כפות הרגליים, כך שהברך תהיה בזווית של כ־90°", fcLevelBad: "שמרו על הכתפיים ישרות ובאותו גובה", fcNoCam: "אין גישה למצלמה. אשרו מצלמה בדפדפן. בתוך Claude המצלמה חסומה, פתחו את האתר: roy-code2013.github.io/pocket-coach/muscle", fcNoModel: "לא הצלחתי לטעון את זיהוי התנוחה. בדקו חיבור לאינטרנט, או פתחו את האתר: roy-code2013.github.io/pocket-coach/muscle", fcHint: "הניחו את הטלפון או המחשב מהצד, במרחק 2–3 מטרים, כך שכל הגוף ייראה. הווידאו לא נשלח לשום מקום.", scCam: "צילום", camCancel: "ביטול", camShot: "צילום התמונה", camBlocked: "אין גישה למצלמה. אשרו גישה למצלמה בדפדפן, או לחצו על \"העלאת תמונה\".", scGal: "העלאת תמונה", scClear: "הסרת התמונה", scDrop: "צלמו את הצלחת או גררו לכאן תמונה",
+      v_games: "משחקים", gH: "משחקי כושר", gIntro: "המצלמה סופרת לך חזרות. חזרה נספרת רק כשהטכניקה נכונה: נורה ירוקה. שברו שיאים, עלו בדרגות וצברו נקודות.", g_pushup: "שכיבות סמיכה", g_pushup_p: "הניחו את הטלפון על הרצפה מהצד. רדו עד שהמרפק בזווית של 90° ועלו עד יישור הידיים, עם גוף ישר.", g_squat: "סקוואט", g_squat_p: "עמדו מהצד למצלמה. רדו עד שהברכיים מתחת ל־100° ועלו עד הסוף, עם חזה למעלה.", g_jacks: "קפיצות פיסוק", g_jacks_p: "עמדו מול המצלמה. ידיים מעל הראש ורגליים פתוחות, ואז חזרה לעמידה. כל פתיחה וסגירה היא חזרה.", gPlay60: "אתגר 60 שניות", gPlayFree: "משחק חופשי", gBest: "שיא 60 שניות:", gBestFree: "שיא חופשי:", gTotal: "סה״כ:", gLvl: "רמה {n}", gXp: "{n} נקודות · עוד {m} לרמה הבאה", gGetIn_pushup: "היכנסו לתנוחת שכיבת סמיכה, ידיים ישרות, כל הגוף בתמונה", gGetIn_squat: "עמדו זקוף מהצד, כל הגוף בתמונה", gGetIn_jacks: "עמדו מול המצלמה, ידיים לצדי הגוף, כל הגוף בתמונה", gGo: "קדימה!", gRep: "יפה! עוד אחת", gTen: "וואו! עוד עשר!", gNoRep: "החזרה לא נספרה, תקנו את הטכניקה", gEnd60: "הזמן נגמר!", gEndFree: "סיום משחק", gNewRec: "שיא חדש!", gNext: "עוד {n} חזרות לדרגת {r}", gAgain: "שוב", rk0: "מתחיל", rk1: "ברזל", rk2: "ארד", rk3: "כסף", rk4: "זהב", rk5: "יהלום", rk6: "אגדה", fcBtn: "בדיקת טכניקה", fcClose: "סגירה", fcLoading: "פותח מצלמה וטוען זיהוי תנוחה…", fcStep: "התרחקו מהמצלמה כך שכל הגוף ייראה", fcGood: "טכניקה נכונה, המשיכו כך", fcLineBad: "שמרו על קו ישר מהכתפיים ועד הרגליים: הירכיים שוקעות או גבוהות מדי", fcSquatBad: "הרימו את החזה: הגב נוטה קדימה יותר מדי", fcHingeBad: "שמרו על הראש בקו אחד עם הגב", fcLeanBad: "אל תיטו את הגב לאחור, עמדו זקוף", fcPressBad: "דחפו ישר למעלה, מעל הכתפיים", fcCurlBad: "הצמידו את המרפקים לגוף", fcRaiseBad: "אל תרימו את המרפקים מעל גובה הכתפיים", fcBridgeBad: "קרבו או הרחיקו את כפות הרגליים, כך שהברך תהיה בזווית של כ־90°", fcLevelBad: "שמרו על הכתפיים ישרות ובאותו גובה", fcNoCam: "אין גישה למצלמה. אשרו מצלמה בדפדפן. בתוך Claude המצלמה חסומה, פתחו את האתר: roy-code2013.github.io/pocket-coach/muscle", fcNoModel: "לא הצלחתי לטעון את זיהוי התנוחה. בדקו חיבור לאינטרנט, או פתחו את האתר: roy-code2013.github.io/pocket-coach/muscle", fcHint: "הניחו את הטלפון או המחשב מהצד, במרחק 2–3 מטרים, כך שכל הגוף ייראה. הווידאו לא נשלח לשום מקום.", scCam: "צילום", camCancel: "ביטול", camShot: "צילום התמונה", camBlocked: "אין גישה למצלמה. אשרו גישה למצלמה בדפדפן, או לחצו על \"העלאת תמונה\".", scGal: "העלאת תמונה", scClear: "הסרת התמונה", scDrop: "צלמו את הצלחת או גררו לכאן תמונה",
       scNoteLbl: "פרטים נוספים <small>לא חובה, משפר את הדיוק</small>", scNotePh: "למשל: 150 גרם חזה עוף, כוס אורז, כף שמן זית",
       scGo: "ניתוח הארוחה", scLoading: "מזהה את האוכל ומחשב ערכים…", scStop: "עצירה", scMeal: "ארוחה",
       scEmpty: "כאן יופיעו כל המרכיבים בצלחת, המשקל המשוער של כל אחד והערכים התזונתיים. אפשר לתקן משקל של מרכיב והכל יחושב מחדש. אין תמונה? תארו את הארוחה במילים.",
@@ -1478,7 +1539,7 @@ footer .wrap { padding-block: 28px 36px; }
       dLeft: "left", dOver: "over target", dEaten: "{a} of {b}", dWater: "Water", dGlass: "Glass", dStreak: "{n}-day streak", kcalS: "kcal",
       n8: "Food scanner", ctaScan: "Scan your food", ctaCoach: "Ask the coach",
       scH: "Food scanner", scP: "Snap your plate or a food label, or just type what you ate. The AI identifies each item, estimates portions and works out calories, protein, carbs, fat and fiber, and it all goes into your daily log.",
-      fcBtn: "Form check", fcClose: "Close", fcLoading: "Opening camera and loading pose detection…", fcStep: "Step back so your whole body is in view", fcGood: "Good form, keep going", fcLineBad: "Keep a straight line from shoulders to feet: hips are sagging or too high", fcSquatBad: "Chest up: you are leaning too far forward", fcHingeBad: "Keep your head in line with your back", fcLeanBad: "Don't lean back, stand tall", fcPressBad: "Press straight up, over your shoulders", fcCurlBad: "Keep your elbows close to your body", fcRaiseBad: "Don't lift your elbows above shoulder height", fcBridgeBad: "Move your feet so your knees are at about 90°", fcLevelBad: "Keep your shoulders level", fcNoCam: "No camera access. Allow the camera in your browser. Inside Claude the camera is blocked, open the site: roy-code2013.github.io/pocket-coach/muscle", fcNoModel: "Couldn't load pose detection. Check your connection, or open the site: roy-code2013.github.io/pocket-coach/muscle", fcHint: "Place your phone or computer to the side, 2–3 m away, so your whole body is visible. The video never leaves your device.", scCam: "Take photo", camCancel: "Cancel", camShot: "Take the picture", camBlocked: "No camera access. Allow the camera in your browser, or use \"Upload photo\".", scGal: "Upload photo", scClear: "Remove photo", scDrop: "Take a photo of your plate or drop one here",
+      v_games: "Games", gH: "Fitness games", gIntro: "The camera counts your reps. A rep only counts with good form, a green light. Break records, rank up and earn points.", g_pushup: "Push-ups", g_pushup_p: "Put your phone on the floor to your side. Lower until your elbows reach 90° and push up to straight arms, body in a line.", g_squat: "Squats", g_squat_p: "Stand side-on to the camera. Go down until your knees pass 100° and stand all the way up, chest up.", g_jacks: "Jumping jacks", g_jacks_p: "Face the camera. Arms overhead and feet apart, then back together. Each open and close is one rep.", gPlay60: "60-second challenge", gPlayFree: "Free play", gBest: "60s best:", gBestFree: "Free best:", gTotal: "Total:", gLvl: "Level {n}", gXp: "{n} points · {m} to next level", gGetIn_pushup: "Get into push-up position, arms straight, whole body in view", gGetIn_squat: "Stand tall side-on, whole body in view", gGetIn_jacks: "Face the camera, arms at your sides, whole body in view", gGo: "Go!", gRep: "Nice! One more", gTen: "Wow! Ten more!", gNoRep: "That rep did not count, fix your form", gEnd60: "Time's up!", gEndFree: "Game over", gNewRec: "New record!", gNext: "{n} more reps to {r}", gAgain: "Again", rk0: "Rookie", rk1: "Iron", rk2: "Bronze", rk3: "Silver", rk4: "Gold", rk5: "Diamond", rk6: "Legend", fcBtn: "Form check", fcClose: "Close", fcLoading: "Opening camera and loading pose detection…", fcStep: "Step back so your whole body is in view", fcGood: "Good form, keep going", fcLineBad: "Keep a straight line from shoulders to feet: hips are sagging or too high", fcSquatBad: "Chest up: you are leaning too far forward", fcHingeBad: "Keep your head in line with your back", fcLeanBad: "Don't lean back, stand tall", fcPressBad: "Press straight up, over your shoulders", fcCurlBad: "Keep your elbows close to your body", fcRaiseBad: "Don't lift your elbows above shoulder height", fcBridgeBad: "Move your feet so your knees are at about 90°", fcLevelBad: "Keep your shoulders level", fcNoCam: "No camera access. Allow the camera in your browser. Inside Claude the camera is blocked, open the site: roy-code2013.github.io/pocket-coach/muscle", fcNoModel: "Couldn't load pose detection. Check your connection, or open the site: roy-code2013.github.io/pocket-coach/muscle", fcHint: "Place your phone or computer to the side, 2–3 m away, so your whole body is visible. The video never leaves your device.", scCam: "Take photo", camCancel: "Cancel", camShot: "Take the picture", camBlocked: "No camera access. Allow the camera in your browser, or use \"Upload photo\".", scGal: "Upload photo", scClear: "Remove photo", scDrop: "Take a photo of your plate or drop one here",
       scNoteLbl: "Extra details <small>optional, improves accuracy</small>", scNotePh: "e.g. 150 g chicken breast, a cup of rice, a tablespoon of olive oil",
       scGo: "Analyze meal", scLoading: "Identifying food and calculating…", scStop: "Stop", scMeal: "Meal",
       scEmpty: "Every item on the plate shows up here, with its estimated weight and nutrition values. Fix an item's weight and everything recalculates. No photo? Describe the meal in words.",
@@ -1552,7 +1613,7 @@ footer .wrap { padding-block: 28px 36px; }
   function setLang(l) {
     lang = l;
     try { localStorage.setItem("lang", l); } catch (e) {}
-    applyLang(); renderLib(); renderPlan(); calc(); renderWeight(); renderSched(); renderScanUi(); renderScan(); renderCoach();
+    applyLang(); renderLib(); renderPlan(); calc(); renderWeight(); renderSched(); renderScanUi(); renderScan(); renderCoach(); renderGames();
   }
   document.addEventListener("click", function (e) { var b = e.target.closest("[data-lang]"); if (b) setLang(b.getAttribute("data-lang")); });
 
@@ -1874,6 +1935,7 @@ footer .wrap { padding-block: 28px 36px; }
     $("fc-light").className = "fc-light " + st;
     $("fcmodal").classList.toggle("ok", st === "ok");
     $("fcmodal").classList.toggle("bad", st === "bad");
+    $("fcmodal").classList.toggle("wait", st === "wait");
     $("fc-msg").textContent = t(key);
   }
   function loadPose() {
@@ -1946,6 +2008,166 @@ footer .wrap { padding-block: 28px 36px; }
       }, function () { fcSet("bad", "fcNoModel"); });
     }, function () { fcSet("bad", "fcNoCam"); });
   }
+  /* games: camera counts reps; a rep only counts when the form check passes */
+  var GAMES = [
+    { id: "pushup", ranks: [0, 5, 10, 20, 30, 40, 50] },
+    { id: "squat", ranks: [0, 8, 15, 25, 35, 45, 55] },
+    { id: "jacks", ranks: [0, 10, 20, 35, 50, 65, 80] }
+  ];
+  var RANK_C = ["#9ca3af", "#78716c", "#c2773c", "#cbd5e1", "#eab308", "#38bdf8", "#a855f7"];
+  var gStats = {};
+  try { gStats = JSON.parse(localStorage.getItem("games") || "{}") || {}; } catch (e) { gStats = {}; }
+  function gSave() { try { localStorage.setItem("games", JSON.stringify(gStats)); } catch (e) {} }
+  function gStat(id) { return gStats[id] || (gStats[id] = { best: 0, bestFree: 0, total: 0, plays: 0 }); }
+  function rankOf(g, score) { var r = 0; g.ranks.forEach(function (v, i) { if (score >= v) r = i; }); return r; }
+  function rankHtml(r, on) { return '<span class="rank' + (on ? " on" : "") + '" style="--rc:' + RANK_C[r] + '">' + esc(t("rk" + r)) + "</span>"; }
+  function gXp() { return GAMES.reduce(function (s, g) { return s + gStat(g.id).total; }, 0); }
+  function renderGames() {
+    var xp = gXp(), lvl = Math.floor(Math.sqrt(xp / 10)) + 1, lo = 10 * Math.pow(lvl - 1, 2), hi = 10 * Math.pow(lvl, 2);
+    $("g-level").innerHTML = '<div class="g-level-row"><b>' + esc(t("gLvl").replace("{n}", lvl)) + "</b><span>" + esc(t("gXp").replace("{n}", xp).replace("{m}", hi - xp)) + "</span></div>" +
+      '<div class="g-bar"><i style="width:' + Math.round(100 * (xp - lo) / (hi - lo)) + '%"></i></div>';
+    $("g-grid").innerHTML = GAMES.map(function (g) {
+      var s = gStat(g.id), r = rankOf(g, s.best);
+      return '<article class="g-game"><div class="ex-top">' + rankHtml(r, true) + "</div>" +
+        "<h3>" + esc(t("g_" + g.id)) + "</h3><p>" + esc(t("g_" + g.id + "_p")) + "</p>" +
+        '<div class="g-stats"><span>' + esc(t("gBest")) + " <b>" + s.best + "</b></span><span>" + esc(t("gBestFree")) + " <b>" + s.bestFree + "</b></span><span>" + esc(t("gTotal")) + " <b>" + s.total + "</b></span></div>" +
+        '<div class="g-ladder">' + g.ranks.map(function (v, i) { return rankHtml(i, i <= r); }).join("") + "</div>" +
+        '<div class="g-btns"><button type="button" class="btn primary" data-game="' + g.id + '" data-gmode="60">' + esc(t("gPlay60")) + '</button><button type="button" class="btn" data-game="' + g.id + '" data-gmode="free">' + esc(t("gPlayFree")) + "</button></div></article>";
+    }).join("");
+  }
+  $("g-grid").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-game]");
+    if (b) openGame(b.getAttribute("data-game"), b.getAttribute("data-gmode"));
+  });
+
+  var gm = null, gStream = null, gRaf = 0, gState = "";
+  function gSetLight(st) {
+    if (st === gState) return;
+    gState = st;
+    ["ok", "bad", "wait"].forEach(function (k) { $("gmodal").classList.toggle(k, st === k); });
+  }
+  function gMsg(key) { if (gm && gm.msg !== key) { gm.msg = key; $("g-msg").textContent = t(key); } }
+  function gPick(p) {
+    var Ls = [11, 13, 15, 23, 25, 27], Rs = [12, 14, 16, 24, 26, 28];
+    var sum = function (ids) { return ids.reduce(function (s, i) { return s + p[i].v; }, 0); };
+    var sd = sum(Ls) >= sum(Rs) ? Ls : Rs;
+    return { S: p[sd[0]], E: p[sd[1]], W: p[sd[2]], H: p[sd[3]], K: p[sd[4]], A: p[sd[5]] };
+  }
+  // returns { seen, ok, phase: "up" | "down" | "" , why }
+  function gRead(p, id) {
+    var j = gPick(p), vis = function (a) { return a.every(function (q) { return q.v >= 0.5; }); };
+    if (id === "pushup") {
+      if (!vis([j.S, j.E, j.W, j.H, j.A])) return { seen: false };
+      var el = ang(j.S, j.E, j.W), line = ang(j.S, j.H, j.A) >= 150;
+      return { seen: true, ok: line, why: "fcLineBad", phase: el > 150 ? "up" : el < 95 ? "down" : "" };
+    }
+    if (id === "squat") {
+      if (!vis([j.S, j.H, j.K, j.A])) return { seen: false };
+      var kn = ang(j.H, j.K, j.A), chest = fromVert(j.S, j.H) <= 50;
+      return { seen: true, ok: chest, why: "fcSquatBad", phase: kn > 160 ? "up" : kn < 100 ? "down" : "" };
+    }
+    var ls = p[11], rs = p[12], lw = p[15], rw = p[16], la = p[27], ra = p[28];
+    if (!vis([ls, rs, lw, rw, la, ra])) return { seen: false };
+    var sw = Math.abs(ls.x - rs.x) || 1, feet = Math.abs(la.x - ra.x);
+    var open = lw.y < Math.min(ls.y, rs.y) - 0.3 * sw && rw.y < Math.min(ls.y, rs.y) - 0.3 * sw && feet > 1.5 * sw;
+    var closed = lw.y > ls.y && rw.y > rs.y && feet < 1.2 * sw;
+    return { seen: true, ok: true, phase: open ? "down" : closed ? "up" : "" };
+  }
+  function gFinish() {
+    if (!gm || gm.over) return;
+    gm.over = true;
+    var g = GAMES.filter(function (x) { return x.id === gm.id; })[0], s = gStat(gm.id), rec = false;
+    s.total += gm.count; s.plays += 1;
+    if (gm.mode === "60") { if (gm.count > s.best) { s.best = gm.count; rec = gm.count > 0; } }
+    else if (gm.count > s.bestFree) { s.bestFree = gm.count; rec = gm.count > 0; }
+    gSave();
+    var r = rankOf(g, s.best);
+    $("g-card").innerHTML = "<h3>" + esc(t(gm.mode === "60" ? "gEnd60" : "gEndFree")) + '</h3><div class="g-score">' + gm.count + "</div>" +
+      (rec ? '<div class="g-rec">' + esc(t("gNewRec")) + "</div>" : "<div>" + esc(t("gBest")) + " " + (gm.mode === "60" ? s.best : s.bestFree) + "</div>") +
+      rankHtml(r, true) +
+      (r < g.ranks.length - 1 ? "<div>" + esc(t("gNext").replace("{n}", g.ranks[r + 1] - s.best).replace("{r}", t("rk" + (r + 1)))) + "</div>" : "") +
+      '<div class="g-btns"><button type="button" class="btn primary" id="g-again">' + esc(t("gAgain")) + '</button><button type="button" class="btn" id="g-done">' + esc(t("fcClose")) + "</button></div>";
+    $("g-end").hidden = false;
+    $("g-again").addEventListener("click", function () { var id = gm.id, mode = gm.mode; closeGame(); openGame(id, mode); });
+    $("g-done").addEventListener("click", closeGame);
+    renderGames();
+  }
+  function gTick() {
+    if (!gStream || !gm) return;
+    var v = $("g-v"), c = $("g-c"), now = performance.now();
+    if (!gm.over && v.readyState >= 2 && v.videoWidth) {
+      if (c.width !== v.videoWidth) { c.width = v.videoWidth; c.height = v.videoHeight; }
+      var r = null;
+      try { r = fcLm.detectForVideo(v, now); } catch (e) {}
+      var ctx = c.getContext("2d"), lm = r && r.landmarks && r.landmarks[0];
+      ctx.clearRect(0, 0, c.width, c.height);
+      var p = lm ? lm.map(function (q) { return { x: q.x * c.width, y: q.y * c.height, v: q.visibility == null ? 1 : q.visibility }; }) : null;
+      var rd = p ? gRead(p, gm.id) : { seen: false };
+      if (!rd.seen) { gm.seenRun = 0; gSetLight("wait"); gMsg(gm.started ? "fcStep" : "gGetIn_" + gm.id); }
+      else {
+        gm.seenRun++;
+        if (!gm.started) {
+          gSetLight("wait"); gMsg("gGetIn_" + gm.id);
+          if (gm.seenRun > 8 && rd.phase === "up") { gm.started = true; gm.go = now + 3000; }
+        } else if (now < gm.go) {
+          $("g-big").textContent = String(Math.ceil((gm.go - now) / 1000));
+        } else {
+          if (!gm.live) { gm.live = true; gm.end = gm.mode === "60" ? now + 60000 : 0; $("g-big").textContent = ""; gMsg("gGo"); }
+          gSetLight(rd.ok ? "ok" : "bad");
+          if (!rd.ok) gm.cleanRep = false;
+          if (rd.phase === "down" && gm.phase !== "down") { gm.phase = "down"; gm.cleanRep = rd.ok; }
+          else if (rd.phase === "up" && gm.phase === "down") {
+            gm.phase = "up";
+            if (gm.cleanRep) {
+              gm.count++;
+              var ce = $("g-count"); ce.textContent = gm.count; ce.classList.remove("pop"); void ce.offsetWidth; ce.classList.add("pop");
+              var md = $("gmodal"); md.classList.remove("flash"); void md.offsetWidth; md.classList.add("flash");
+              gMsg(gm.count % 10 === 0 ? "gTen" : "gRep");
+            } else gMsg(rd.why || "gNoRep");
+          } else if (!rd.ok) gMsg(rd.why);
+        }
+      }
+      if (p) fcDraw(ctx, p, gState);
+      if (gm.live && gm.end) {
+        var left = Math.max(0, Math.ceil((gm.end - now) / 1000));
+        $("g-time").textContent = left;
+        if (left <= 0) gFinish();
+      }
+    }
+    gRaf = requestAnimationFrame(gTick);
+  }
+  function closeGame() {
+    cancelAnimationFrame(gRaf);
+    if (gStream) gStream.getTracks().forEach(function (tr) { tr.stop(); });
+    gStream = null; gm = null; gState = "";
+    $("g-v").srcObject = null;
+    $("g-end").hidden = true;
+    $("gmodal").hidden = true;
+    renderGames();
+  }
+  function openGame(id, mode) {
+    gm = { id: id, mode: mode, count: 0, started: false, live: false, over: false, phase: "up", cleanRep: true, seenRun: 0, msg: "" };
+    gState = "";
+    $("g-name").textContent = t("g_" + id) + " · " + t(mode === "60" ? "gPlay60" : "gPlayFree");
+    $("g-time").textContent = mode === "60" ? "60" : "";
+    $("g-count").textContent = "0";
+    $("g-big").textContent = "";
+    $("g-end").hidden = true;
+    $("gmodal").hidden = false;
+    gSetLight("wait"); gMsg("fcLoading");
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { gSetLight("bad"); gMsg("fcNoCam"); return; }
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "user", width: { ideal: 1280 } }, audio: false }).then(function (s) {
+      if ($("gmodal").hidden) { s.getTracks().forEach(function (tr) { tr.stop(); }); return; }
+      gStream = s;
+      $("g-v").srcObject = s;
+      $("g-v").play().catch(function () {});
+      return loadPose().then(function () { if (gStream) gTick(); }, function () { gSetLight("bad"); gMsg("fcNoModel"); });
+    }, function () { gSetLight("bad"); gMsg("fcNoCam"); });
+  }
+  // in free play the close button ends the round and shows the score first
+  function gClose() { if (gm && gm.live && !gm.over && gm.mode === "free") gFinish(); else closeGame(); }
+  $("g-x").addEventListener("click", gClose);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !$("gmodal").hidden) gClose(); });
   exgrid.addEventListener("click", function (e) {
     var b = e.target.closest("[data-form]");
     if (b) openForm(Number(b.getAttribute("data-form")));
@@ -3262,7 +3484,7 @@ footer .wrap { padding-block: 28px 36px; }
   }
 
   /* ---------- pages ---------- */
-  var VIEWS = ["home", "food", "weight", "scan", "plan", "sched", "library", "coach", "tips"];
+  var VIEWS = ["home", "food", "weight", "scan", "plan", "sched", "library", "games", "coach", "tips"];
   var curView = "home";
   function go(v, quiet) {
     if (VIEWS.indexOf(v) === -1) v = "home";
@@ -3271,11 +3493,12 @@ footer .wrap { padding-block: 28px 36px; }
     document.querySelectorAll(".nv[data-go], .nv2").forEach(function (b) {
       if (b.getAttribute("data-go") === v) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
     });
-    if (["food", "weight", "sched", "library", "tips"].indexOf(v) !== -1) $("nv-more").setAttribute("aria-current", "page"); else $("nv-more").removeAttribute("aria-current");
+    if (["food", "weight", "sched", "library", "games", "tips"].indexOf(v) !== -1) $("nv-more").setAttribute("aria-current", "page"); else $("nv-more").removeAttribute("aria-current");
     closeMore();
     try { localStorage.setItem("view", v); } catch (e) {}
     try { if (location.hash.slice(1) !== v) history.replaceState(null, "", "#" + v); } catch (e) {}
     if (!quiet) window.scrollTo(0, 0);
+    if (v === "games") renderGames();
     if (v === "coach") {
       renderCoach();
       if (!quiet) setTimeout(function () { var ci = $("coach-in"); if (!ci.disabled) ci.focus(); }, 30);
