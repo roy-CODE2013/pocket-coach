@@ -975,6 +975,40 @@ html.lglass .mtop { background: var(--gl-dark) !important; border-bottom-color: 
 }
 html.lglass :is(.a11y-panel, .msheet-in, .qrmodal-in) { background: var(--gl-bg2); -webkit-backdrop-filter: var(--gl-blur); backdrop-filter: var(--gl-blur); border: 1px solid var(--gl-brd); box-shadow: inset 0 1px 0 var(--gl-hi), 0 24px 60px -20px rgba(0,0,0,.45); }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { html.lglass { --gl-bg: var(--surface); --gl-bg2: var(--surface); } }
+/* ---------- colour: a soft mesh of the plate colours behind the glass, gently drifting ---------- */
+html.lglass body { background: var(--bg); }
+html.lglass body::after { content: ""; position: fixed; inset: -20%; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(38% 34% at 12% 14%, color-mix(in srgb, var(--violet) 55%, transparent), transparent 70%),
+    radial-gradient(36% 32% at 88% 22%, color-mix(in srgb, var(--accent) 50%, transparent), transparent 70%),
+    radial-gradient(34% 30% at 78% 78%, color-mix(in srgb, #ff6fa8 42%, transparent), transparent 70%),
+    radial-gradient(34% 30% at 20% 82%, color-mix(in srgb, var(--green) 40%, transparent), transparent 70%),
+    radial-gradient(28% 26% at 52% 50%, color-mix(in srgb, var(--yellow) 30%, transparent), transparent 70%),
+    linear-gradient(160deg, color-mix(in srgb, var(--violet) 10%, var(--bg)), color-mix(in srgb, var(--accent) 8%, var(--bg)));
+  filter: blur(20px); animation: meshdrift 28s ease-in-out infinite alternate; }
+@keyframes meshdrift { 0% { transform: translate(0, 0) rotate(0deg) scale(1); } 50% { transform: translate(3%, -2%) rotate(4deg) scale(1.05); } 100% { transform: translate(-3%, 2%) rotate(-3deg) scale(1.02); } }
+html.lglass { --gl-bg: rgba(255,255,255,.42); --gl-bg2: rgba(255,255,255,.6); }
+@media (prefers-color-scheme: dark) { html.lglass:not([data-theme="light"]) { --gl-bg: rgba(28,32,44,.42); --gl-bg2: rgba(34,40,54,.6); } }
+html.lglass[data-theme="dark"] { --gl-bg: rgba(28,32,44,.42); --gl-bg2: rgba(34,40,54,.6); }
+html.lglass .app, html.lglass .main { background: transparent; }
+html.lglass .view > .wrap > section, html.lglass section.wrap { position: relative; }
+/* colourful touches */
+html.lglass .sec-head h2 { background: linear-gradient(90deg, var(--ink) 40%, var(--violet)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+html.lglass .sec-head h2::after, html.lglass .hday h2::after { width: 72px; background: linear-gradient(90deg, var(--red), var(--yellow), var(--green), var(--accent), var(--violet)); }
+html.lglass .qt-i { background: linear-gradient(135deg, color-mix(in srgb, var(--c) 30%, transparent), color-mix(in srgb, var(--c) 10%, transparent)); box-shadow: inset 0 1px 0 rgba(255,255,255,.6); }
+html.lglass .ex { background: linear-gradient(180deg, color-mix(in srgb, var(--c) 10%, var(--gl-bg)), var(--gl-bg)); }
+html.lglass .g-game { background: linear-gradient(160deg, rgba(234,179,8,.12), var(--gl-bg) 55%); }
+html.lglass .td-stat { background: linear-gradient(180deg, color-mix(in srgb, var(--c) 14%, var(--gl-bg)), var(--gl-bg)); }
+html.lglass .pg-card:nth-child(1) { background: linear-gradient(160deg, color-mix(in srgb, var(--green) 14%, var(--gl-bg)), var(--gl-bg) 60%); }
+html.lglass .pg-card:nth-child(2) { background: linear-gradient(160deg, color-mix(in srgb, var(--accent) 14%, var(--gl-bg)), var(--gl-bg) 60%); }
+html.lglass .pg-card:nth-child(3) { background: linear-gradient(160deg, color-mix(in srgb, var(--yellow) 16%, var(--gl-bg)), var(--gl-bg) 60%); }
+html.lglass .pg-card:nth-child(4) { background: linear-gradient(160deg, color-mix(in srgb, var(--violet) 14%, var(--gl-bg)), var(--gl-bg) 60%); }
+html.lglass .myeq { background: linear-gradient(160deg, color-mix(in srgb, var(--accent) 12%, var(--gl-bg)), color-mix(in srgb, var(--violet) 10%, var(--gl-bg))); }
+html.lglass .chip[aria-pressed="true"] { background: var(--grad); border-color: transparent; }
+html.lglass .main footer { background: transparent; }
+html.lglass .g-opts { background: var(--gl-bg); -webkit-backdrop-filter: var(--gl-blur); backdrop-filter: var(--gl-blur); border: 1px solid var(--gl-brd); box-shadow: inset 0 1px 0 var(--gl-hi), 0 10px 30px -14px rgba(20,23,29,.35); }
+@media (prefers-reduced-motion: reduce) { html.lglass body::after { animation: none; } }
+html.a-still.lglass body::after { animation: none; }
 </style>
 
 <div id="root" class="app" dir="rtl" lang="he">
@@ -1666,7 +1700,7 @@ html.lglass :is(.a11y-panel, .msheet-in, .qrmodal-in) { background: var(--gl-bg2
       wTeen: "מתחת לגיל 18 מעריכים משקל לפי עקומות גדילה, ולכן התוצאה כאן היא רק הכוונה כללית.",
       wNote: "BMI הוא מדד מהיר לאוכלוסייה, לא אבחנה. אצל מי שמתאמן הרבה הוא עלול להראות עודף משקל בגלל שריר. יחס מותן־גובה מתחת ל־0.5 נחשב תקין.",
       wSync: "העברה למחשבון התזונה", wSynced: "הועבר ✓",
-      brand: "בונים שריר", v_progress: "התקדמות", tdH: "היום שלך", tdStreak: "ימים ברצף", tdWeek: "ימי אימון השבוע", tdPro: "חלבון היום", tdLvl: "רמה במשחקים", gr: "ג׳", qtScan: "סורק אוכל", qtScanS: "צלמו צלחת", qtGames: "משחקי כושר", qtGamesS: "357 משחקים", qtLib: "תרגילים", qtLibS: "3349 תרגילים", qtPlan: "התוכנית שלי", qtPlanS: "תוכנית אישית", qtProg: "התקדמות", qtProgS: "גרפים ושיאים", qtCoach: "מאמן AI", qtCoachS: "שאלו כל דבר", qtWeight: "בדיקת משקל", qtWeightS: "BMI ואחוז שומן", qtFood: "תזונה", qtFoodS: "מחשבון קלוריות", pgH: "ההתקדמות שלי", pgIntro: "כל משחק שמסיימים נרשם כאן אוטומטית. אפשר גם לסמן אימון ולשמור משקל. הנתונים נשמרים במכשיר הזה.", pgActH: "ימי אימון – 4 שבועות אחרונים", pgDone: "סיימתי אימון היום ✓", pgWH: "משקל לאורך זמן", pgWPh: "המשקל היום (ק״ג)", pgWSave: "שמור", pgRecH: "השיאים שלי", pgLogH: "אימונים אחרונים", pgReps: "חזרות השבוע", pgWLast: "משקל אחרון", pgW0: "עוד לא נשמר משקל. כתבו את המשקל של היום ולחצו שמור.", pgW1: "שמרו משקל גם בימים הבאים כדי לראות גרף.", pgRec0: "שחקו משחק כושר כדי לקבוע שיא.", pgLog0: "עוד אין אימונים. שחקו משחק או לחצו \"סיימתי אימון היום\".", pgManual: "אימון", v_home: "בית", v_food: "תזונה", v_scan: "סורק אוכל", v_plan: "התוכנית שלי", v_library: "תרגילים", v_coach: "מאמן AI", v_tips: "טיפים",
+      brand: "בונים שריר", v_progress: "התקדמות", tdH: "היום שלך", tdStreak: "ימים ברצף", tdWeek: "ימי אימון השבוע", tdPro: "חלבון היום", tdLvl: "רמה במשחקים", gr: "ג׳", qtScan: "סורק אוכל", qtScanS: "צלמו צלחת", qtGames: "משחקי כושר", qtGamesS: "357 משחקים", qtLib: "תרגילים", qtLibS: "349 תרגילים", qtPlan: "התוכנית שלי", qtPlanS: "תוכנית אישית", qtProg: "התקדמות", qtProgS: "גרפים ושיאים", qtCoach: "מאמן AI", qtCoachS: "שאלו כל דבר", qtWeight: "בדיקת משקל", qtWeightS: "BMI ואחוז שומן", qtFood: "תזונה", qtFoodS: "מחשבון קלוריות", pgH: "ההתקדמות שלי", pgIntro: "כל משחק שמסיימים נרשם כאן אוטומטית. אפשר גם לסמן אימון ולשמור משקל. הנתונים נשמרים במכשיר הזה.", pgActH: "ימי אימון – 4 שבועות אחרונים", pgDone: "סיימתי אימון היום ✓", pgWH: "משקל לאורך זמן", pgWPh: "המשקל היום (ק״ג)", pgWSave: "שמור", pgRecH: "השיאים שלי", pgLogH: "אימונים אחרונים", pgReps: "חזרות השבוע", pgWLast: "משקל אחרון", pgW0: "עוד לא נשמר משקל. כתבו את המשקל של היום ולחצו שמור.", pgW1: "שמרו משקל גם בימים הבאים כדי לראות גרף.", pgRec0: "שחקו משחק כושר כדי לקבוע שיא.", pgLog0: "עוד אין אימונים. שחקו משחק או לחצו \"סיימתי אימון היום\".", pgManual: "אימון", v_home: "בית", v_food: "תזונה", v_scan: "סורק אוכל", v_plan: "התוכנית שלי", v_library: "תרגילים", v_coach: "מאמן AI", v_tips: "טיפים",
       mBarcode: "ברקוד", bcDrop: "צלמו את הברקוד מקרוב, ישר ובאור טוב", bcPh: "או הקלידו את מספר הברקוד", bcAria: "מספר ברקוד", bcFind: "חיפוש",
       bcReading: "קורא את הברקוד…", bcNoRead: "לא הצלחתי לקרוא את הברקוד. צלמו שוב מקרוב וישר, או הקלידו את המספר.", bcBad: "מספר הברקוד לא תקין.",
       bcUnknown: "מוצר חדש", bcUnknownSub: "הברקוד הזה עוד לא שמור אצלך. צלמו פעם אחת את טבלת הערכים התזונתיים, והאתר יזכור את המוצר בפעם הבאה.",
@@ -1824,7 +1858,7 @@ html.lglass :is(.a11y-panel, .msheet-in, .qrmodal-in) { background: var(--gl-bg2
       wTeen: "Under 18, weight is assessed with growth charts, so this result is only a rough guide.",
       wNote: "BMI is a quick population measure, not a diagnosis. In people who train a lot it can show overweight because of muscle. A waist-to-height ratio under 0.5 is considered healthy.",
       wSync: "Send to nutrition calculator", wSynced: "Sent ✓",
-      brand: "Build Muscle", v_progress: "Progress", tdH: "Your day", tdStreak: "day streak", tdWeek: "training days this week", tdPro: "protein today", tdLvl: "games level", gr: "g", qtScan: "Food scanner", qtScanS: "Snap your plate", qtGames: "Fitness games", qtGamesS: "357 games", qtLib: "Exercises", qtLibS: "3349 exercises", qtPlan: "My plan", qtPlanS: "Personal plan", qtProg: "Progress", qtProgS: "Charts & records", qtCoach: "AI coach", qtCoachS: "Ask anything", qtWeight: "Weight check", qtWeightS: "BMI & body fat", qtFood: "Nutrition", qtFoodS: "Calorie calculator", pgH: "My progress", pgIntro: "Every game you finish is logged here automatically. You can also mark a workout and save your weight. Data stays on this device.", pgActH: "Training days – last 4 weeks", pgDone: "I trained today ✓", pgWH: "Weight over time", pgWPh: "Today's weight (kg)", pgWSave: "Save", pgRecH: "My records", pgLogH: "Recent workouts", pgReps: "reps this week", pgWLast: "latest weight", pgW0: "No weight saved yet. Enter today's weight and tap Save.", pgW1: "Save your weight on other days to see a chart.", pgRec0: "Play a fitness game to set a record.", pgLog0: "No workouts yet. Play a game or tap \"I trained today\".", pgManual: "Workout", v_home: "Home", v_food: "Nutrition", v_scan: "Food scanner", v_plan: "My plan", v_library: "Exercises", v_coach: "AI coach", v_tips: "Tips",
+      brand: "Build Muscle", v_progress: "Progress", tdH: "Your day", tdStreak: "day streak", tdWeek: "training days this week", tdPro: "protein today", tdLvl: "games level", gr: "g", qtScan: "Food scanner", qtScanS: "Snap your plate", qtGames: "Fitness games", qtGamesS: "357 games", qtLib: "Exercises", qtLibS: "349 exercises", qtPlan: "My plan", qtPlanS: "Personal plan", qtProg: "Progress", qtProgS: "Charts & records", qtCoach: "AI coach", qtCoachS: "Ask anything", qtWeight: "Weight check", qtWeightS: "BMI & body fat", qtFood: "Nutrition", qtFoodS: "Calorie calculator", pgH: "My progress", pgIntro: "Every game you finish is logged here automatically. You can also mark a workout and save your weight. Data stays on this device.", pgActH: "Training days – last 4 weeks", pgDone: "I trained today ✓", pgWH: "Weight over time", pgWPh: "Today's weight (kg)", pgWSave: "Save", pgRecH: "My records", pgLogH: "Recent workouts", pgReps: "reps this week", pgWLast: "latest weight", pgW0: "No weight saved yet. Enter today's weight and tap Save.", pgW1: "Save your weight on other days to see a chart.", pgRec0: "Play a fitness game to set a record.", pgLog0: "No workouts yet. Play a game or tap \"I trained today\".", pgManual: "Workout", v_home: "Home", v_food: "Nutrition", v_scan: "Food scanner", v_plan: "My plan", v_library: "Exercises", v_coach: "AI coach", v_tips: "Tips",
       mBarcode: "Barcode", bcDrop: "Take a close, straight photo of the barcode in good light", bcPh: "or type the barcode number", bcAria: "Barcode number", bcFind: "Find",
       bcReading: "Reading the barcode…", bcNoRead: "I couldn't read the barcode. Take a closer, straighter photo, or type the number.", bcBad: "That barcode number isn't valid.",
       bcUnknown: "New product", bcUnknownSub: "This barcode isn't saved yet. Photograph the nutrition facts once and the site will remember the product next time.",
