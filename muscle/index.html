@@ -428,6 +428,8 @@ html.lglass .me-top { background: linear-gradient(135deg, color-mix(in srgb, var
 html.vc-live .vc-glow { opacity: 1; }
 .vc-glow { position: fixed; inset: 0; z-index: 74; pointer-events: none; opacity: 0; transition: opacity .4s; box-shadow: inset 0 0 0 4px rgba(169,139,255,.55), inset 0 0 60px 10px rgba(106,63,200,.45), inset 0 0 120px 30px rgba(47,94,224,.25); animation: vcedge 3s ease-in-out infinite alternate; }
 @keyframes vcedge { 0% { box-shadow: inset 0 0 0 4px rgba(229,72,77,.5), inset 0 0 70px 12px rgba(106,63,200,.45), inset 0 0 130px 30px rgba(47,94,224,.25); } 50% { box-shadow: inset 0 0 0 4px rgba(76,194,126,.5), inset 0 0 80px 14px rgba(47,94,224,.45), inset 0 0 140px 34px rgba(240,194,58,.2); } 100% { box-shadow: inset 0 0 0 4px rgba(169,139,255,.6), inset 0 0 70px 12px rgba(229,72,77,.35), inset 0 0 130px 30px rgba(106,63,200,.3); } }
+.vc-stage .vc-cap, .vc-stage .qrx { display: none !important; }
+.vc-stage { cursor: pointer; }
 .vc-stage { background: none !important; border: 0 !important; box-shadow: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
 .vc-stage .vc-cap b { display: none; }
 .vc-stage .vc-cap p { color: #fff; text-shadow: 0 2px 12px rgba(0,0,0,.85), 0 0 2px rgba(0,0,0,.9); font-weight: 600; }
@@ -4858,15 +4860,25 @@ html.a-still.lglass body::after { animation: none; }
   }
   function vCap(who, text) { $("vc-who").textContent = who; $("vc-text").textContent = vClean(text).slice(0, 400); }
   try { if (window.speechSynthesis) { speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = function () { speechSynthesis.getVoices(); }; } } catch (e) {}
-  var vUtter = null, vSayT = 0;
+  var vUtter = null, vSayT = 0, vSayWords = {}, vBarged = false;
+  function vWords(s) { var o = {}; String(s).toLowerCase().replace(/[^\u0590-\u05ffa-z0-9\s]/g, " ").split(/\s+/).forEach(function (w) { if (w.length > 1) o[w] = 1; }); return o; }
+  // you can cut in while the coach talks: it stops and listens to you
+  function vBargeIn() {
+    if (!vSpeaking) return;
+    vBarged = true; clearTimeout(vSayT); vSpeaking = false; vAsked = false;
+    try { speechSynthesis.cancel(); } catch (e) {}
+    $("vc-stage").classList.remove("talk");
+    vMode = "follow"; vPill("vcListening"); vListen();
+  }
+  function vIsEcho(s) { var ws = Object.keys(vWords(s)); if (!ws.length) return true; var hit = ws.filter(function (w) { return vSayWords[w]; }).length; return hit / ws.length >= 0.5; }
   function vSay(text, then) {
     text = vClean(text).slice(0, 900);
     if (!text || !window.speechSynthesis) { if (then) then(); return; }
     // the microphone stays on; what it hears while the coach talks is ignored (no stop/start races)
     vSpeaking = true;
     vCap(t("vcCoach"), text); vPill("vcTalking");
-    var done = false;
-    function finish() { if (done) return; done = true; clearTimeout(vSayT); vSpeaking = false; $("vc-stage").classList.remove("talk"); setTimeout(function () { if (then) then(); else vListen(); }, 250); }
+    var done = false; vSayWords = vWords(text); vBarged = false;
+    function finish() { if (done) return; done = true; clearTimeout(vSayT); vSpeaking = false; $("vc-stage").classList.remove("talk"); if (vBarged) return; setTimeout(function () { if (then) then(); else vListen(); }, 250); }
     var u = new SpeechSynthesisUtterance(text), L = lang === "he" ? "he" : "en";
     u.lang = lang === "he" ? "he-IL" : "en-US";
     var all = speechSynthesis.getVoices(), vs = all.filter(function (v) { return v.lang && v.lang.toLowerCase().indexOf(L) === 0; });
@@ -4925,7 +4937,8 @@ html.a-still.lglass body::after { animation: none; }
       vRec = new VSR(); vRec.continuous = true; vRec.interimResults = true;
       vRec.onresult = function (ev) {
         for (var i = ev.resultIndex; i < ev.results.length; i++) {
-          var s = ev.results[i][0].transcript.trim(); if (!s || vSpeaking) continue;
+          var s = ev.results[i][0].transcript.trim(); if (!s) continue;
+          if (vSpeaking) { if (s.length >= 3 && !vIsEcho(s)) vBargeIn(); else continue; }
           // show what the microphone hears, so it is clear it is working
           if (!ev.results[i].isFinal) { if (vMode !== "wake" && vMode !== "wait") vCap(t("vcYou"), s); continue; }
           if (vMode === "wake") { if (WAKE_RE.test(s) || WAKE_LOOSE.test(s)) { clearTimeout(vT); vHandle(s); } }
@@ -4972,7 +4985,8 @@ html.a-still.lglass body::after { animation: none; }
     $("vc-wake").addEventListener("change", function (e) { vSave(e.target.checked); if (e.target.checked) { vWant = true; vMode = "wake"; vListen(); } else vStop(); });
     $("vc-stop").addEventListener("click", function () { $("vc-fab").click(); });
     // closing the card ends the conversation but keeps listening for "hey coach"
-    $("vc-stage-x").addEventListener("click", function () { try { speechSynthesis.cancel(); } catch (e) {} vSpeaking = false; vAsked = false; vMode = "wake"; clearTimeout(vT); vPill("vcSayWake"); vListen(); });
+    $("vc-stage").addEventListener("click", function () { $("vc-stage-x").click(); });
+    $("vc-stage-x").addEventListener("click", function (e) { if (e) e.stopPropagation(); vBarged = true; clearTimeout(vSayT); try { speechSynthesis.cancel(); } catch (e) {} vSpeaking = false; vAsked = false; vMode = "wake"; clearTimeout(vT); vPill("vcSayWake"); vListen(); });
     // the character on every page: tap to turn "hey coach" on or off
     $("vc-fab").hidden = false;
     $("vc-fab").addEventListener("click", function () {
