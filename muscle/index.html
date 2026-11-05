@@ -4870,8 +4870,10 @@ html.a-still.lglass body::after { animation: none; }
     var u = new SpeechSynthesisUtterance(text), L = lang === "he" ? "he" : "en";
     u.lang = lang === "he" ? "he-IL" : "en-US";
     var all = speechSynthesis.getVoices(), vs = all.filter(function (v) { return v.lang && v.lang.toLowerCase().indexOf(L) === 0; });
-    if (vs.length) u.voice = vs.filter(function (v) { return /enhanced|premium/i.test(v.name); })[0] || vs[0];
-    u.rate = 1; u.volume = 1;
+    // the most natural voice the device has: premium / enhanced / neural first (on Macs the better copy is listed last)
+    var best = vs.filter(function (v) { return /premium|enhanced|neural|natural|משופר|siri/i.test(v.name + " " + v.voiceURI); });
+    if (vs.length) u.voice = best[0] || vs[vs.length - 1];
+    u.rate = 0.96; u.pitch = 1.05; u.volume = 1;
     u.onboundary = function () { var s = $("vc-stage"); s.classList.remove("beat"); void s.offsetWidth; s.classList.add("beat"); };
     u.onend = u.onerror = finish;
     vUtter = u; // keep a reference so the browser does not drop it mid-sentence
