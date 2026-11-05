@@ -344,6 +344,49 @@ html.a-focus :focus-visible { outline: 4px solid #f5b400 !important; outline-off
 .pg-list li { display: flex; justify-content: space-between; gap: 10px; font-size: .9rem; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
 .pg-list small { color: var(--muted); white-space: nowrap; }
 .pg-empty { color: var(--muted); font-size: .88rem; border: 0 !important; }
+.acct-btn { font: inherit; font-size: .9rem; display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 12px; border-radius: 14px; border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.08); color: var(--iron-ink); cursor: pointer; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); box-shadow: inset 0 1px 0 rgba(255,255,255,.18); order: -1; }
+.acct-btn svg { width: 22px; height: 22px; flex: none; }
+.acct-btn.on { background: var(--grad); border-color: transparent; color: #fff; }
+.acct-btn .acct-l { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.acct-btn.sm { width: auto; padding: 6px 10px; font-size: .8rem; margin-inline-start: auto; margin-inline-end: 8px; border-radius: 999px; }
+.acct-btn.sm svg { width: 18px; height: 18px; }
+.side > .acct-btn { order: 0; }
+@media (max-width: 820px) { .side > .acct-btn { display: none; } }
+.acmodal { position: fixed; inset: 0; z-index: 75; display: grid; place-items: center; padding: 16px; background: rgba(10,12,16,.45); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.acmodal-in { position: relative; width: min(420px, 100%); max-height: 90vh; overflow: auto; background: var(--surface); color: var(--ink); border-radius: 24px; padding: 24px 20px 20px; display: grid; gap: 14px; box-shadow: 0 30px 80px -20px rgba(0,0,0,.5); }
+html.lglass .acmodal-in { background: var(--gl-bg2); -webkit-backdrop-filter: var(--gl-blur); backdrop-filter: var(--gl-blur); border: 1px solid var(--gl-brd); box-shadow: inset 0 1px 0 var(--gl-hi), 0 30px 80px -20px rgba(0,0,0,.5); }
+.acmodal-in .qrx { position: absolute; top: 12px; inset-inline-end: 12px; }
+.acmodal-in h3 { font-size: 1.35rem; padding-inline-end: 36px; }
+.ac-sub { color: var(--muted); font-size: .92rem; }
+.ac-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; border-radius: 14px; background: color-mix(in srgb, var(--ink) 7%, transparent); }
+.ac-tabs button { font: inherit; font-size: .92rem; border: 0; border-radius: 10px; padding: 8px; background: transparent; color: var(--muted); cursor: pointer; }
+.ac-tabs button[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 2px 8px rgba(0,0,0,.12); font-weight: 600; }
+.ac-f, .me-form { display: grid; gap: 12px; }
+.ac-f label, .me-form label { display: grid; gap: 4px; font-size: .88rem; color: var(--muted); }
+.ac-f input, .ac-f textarea, .me-form input, .me-form select { font: inherit; font-size: 1rem; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 11px 12px; width: 100%; }
+html.lglass .ac-f input, html.lglass .ac-f textarea, html.lglass .me-form input, html.lglass .me-form select { background: var(--gl-bg2); border-color: var(--gl-brd); }
+.ac-f textarea { resize: vertical; min-height: 110px; }
+.ac-msg { font-size: .9rem; min-height: 1.2em; }
+.ac-msg.ok { color: var(--green); }
+.ac-msg.bad { color: var(--red); }
+.sug-fab { position: fixed; z-index: 44; inset-inline-start: 18px; bottom: calc(96px + env(safe-area-inset-bottom)); width: 52px; height: 52px; border-radius: 50%; border: 1px solid rgba(255,255,255,.5); color: #fff; background: var(--grad); cursor: pointer; display: grid; place-items: center; box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 12px 28px -10px rgba(106,63,200,.9); transition: transform .15s; }
+.sug-fab:hover { transform: scale(1.07); }
+.sug-fab svg { width: 24px; height: 24px; }
+@media (min-width: 821px) { .sug-fab { bottom: 84px; inset-inline-start: auto; inset-inline-end: 24px; } }
+.me-card { background: var(--surface); border-radius: var(--radius, 18px); padding: 18px; box-shadow: var(--shadow); display: grid; gap: 12px; margin-bottom: 14px; }
+html.lglass .me-card { background: var(--gl-bg); -webkit-backdrop-filter: var(--gl-blur); backdrop-filter: var(--gl-blur); border: 1px solid var(--gl-brd); box-shadow: inset 0 1px 0 var(--gl-hi), 0 10px 30px -14px rgba(20,23,29,.35); }
+.me-top { grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 16px; background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 18%, var(--surface)), color-mix(in srgb, var(--violet) 18%, var(--surface))); }
+html.lglass .me-top { background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 20%, var(--gl-bg)), color-mix(in srgb, var(--violet) 20%, var(--gl-bg))); }
+.me-av { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: var(--grad); color: #fff; font-family: var(--f-display); font-size: 1.5rem; box-shadow: inset 0 1px 0 rgba(255,255,255,.5); }
+.me-av svg { width: 30px; height: 30px; }
+.me-av.big { width: 72px; height: 72px; font-size: 2rem; }
+.me-mail { color: var(--muted); font-size: .9rem; }
+.me-sync { font-size: .85rem; color: var(--green); }
+.me-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 600px) { .me-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.me-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.me-out { justify-items: center; text-align: center; padding-block: 32px; }
+.me-out-btn { color: var(--red); }
 .qrlink a { color: var(--accent, inherit); text-decoration: underline; font-weight: 600; }
 .qrx { position: absolute; top: 10px; inset-inline-end: 10px; width: 38px; height: 38px; border-radius: 50%; border: 0; background: var(--bg); color: var(--ink); font-size: 1.2rem; cursor: pointer; }
 .msheet .qrbox { display: none; }
@@ -1015,6 +1058,7 @@ html.a-still.lglass body::after { animation: none; }
 
 
   <aside class="side">
+    <button type="button" class="acct-btn" data-acct><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span class="acct-l" data-t="acLogin"></span></button>
     <div class="brand"><svg class="logo" viewBox="0 0 32 20" aria-hidden="true"><rect x="1" y="9" width="30" height="2" rx="1" fill="#8a91a0"/><rect x="5" y="2" width="4" height="16" rx="1.5" fill="var(--red)"/><rect x="10" y="4" width="3" height="12" rx="1.5" fill="#2f5ee0"/><rect x="23" y="2" width="4" height="16" rx="1.5" fill="var(--red)"/><rect x="19" y="4" width="3" height="12" rx="1.5" fill="#2f5ee0"/></svg><span data-t="brand"></span></div>
     <nav class="snav" data-ta="tocAria">
         <button type="button" class="nv" data-go="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg><span data-t="v_home"></span></button>
@@ -1022,6 +1066,7 @@ html.a-still.lglass body::after { animation: none; }
         <button type="button" class="nv nv-x" data-go="weight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M7.5 10a4.5 4.5 0 0 1 9 0"/><path d="M12 10l1.6-2.2"/></svg><span data-t="v_weight"></span></button>
         <button type="button" class="nv" data-go="scan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.5"/></svg><span data-t="v_scan"></span><span class="ai-badge sm">AI</span></button>
         <button type="button" class="nv" data-go="plan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3h6v3H9z"/><path d="M9 11h6M9 15h4"/></svg><span data-t="v_plan"></span></button>
+        <button type="button" class="nv nv-x" data-go="me"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span data-t="v_me"></span></button>
         <button type="button" class="nv nv-x" data-go="progress"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19h16"/><path d="M6 15l4-4 3 3 5-6"/><path d="M15 8h3v3"/></svg><span data-t="v_progress"></span></button>
         <button type="button" class="nv nv-x" data-go="sched"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="M12 13v3l2 1"/></svg><span data-t="v_sched"></span></button>
         <button type="button" class="nv nv-x" data-go="library"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7v10M18 7v10M3 9v6M21 9v6M6 12h12"/></svg><span data-t="v_library"></span></button>
@@ -1037,10 +1082,39 @@ html.a-still.lglass body::after { animation: none; }
         </div>
   </aside>
 
+  <div class="acmodal" id="acmodal" hidden>
+    <div class="acmodal-in" role="dialog" aria-modal="true" aria-labelledby="ac-h">
+      <button type="button" class="qrx" id="ac-x" data-ta="fcClose">×</button>
+      <h3 id="ac-h"></h3>
+      <div class="ac-tabs" role="tablist"><button type="button" role="tab" data-actab="in" data-t="acLogin"></button><button type="button" role="tab" data-actab="up" data-t="acSignup"></button></div>
+      <form id="ac-f" class="ac-f" novalidate>
+        <label class="ac-name"><span data-t="acName"></span><input type="text" id="ac-name" autocomplete="name" maxlength="60"></label>
+        <label><span data-t="acEmail"></span><input type="email" id="ac-email" autocomplete="email" required dir="ltr"></label>
+        <label class="ac-pw"><span data-t="acPass"></span><input type="password" id="ac-pass" autocomplete="current-password" minlength="6" dir="ltr"></label>
+        <p class="ac-msg" id="ac-msg" aria-live="polite"></p>
+        <button type="submit" class="btn primary wide" id="ac-go"></button>
+        <button type="button" class="linkbtn" id="ac-forgot" data-t="acForgot"></button>
+      </form>
+    </div>
+  </div>
+  <div class="acmodal" id="sugmodal" hidden>
+    <div class="acmodal-in" role="dialog" aria-modal="true" aria-labelledby="sug-h">
+      <button type="button" class="qrx" id="sug-x" data-ta="fcClose">×</button>
+      <h3 id="sug-h" data-t="sugH"></h3>
+      <p class="ac-sub" data-t="sugP"></p>
+      <form id="sug-f" class="ac-f">
+        <textarea id="sug-in" rows="4" maxlength="1000" data-tp="sugPh" data-ta="sugPh" required></textarea>
+        <p class="ac-msg" id="sug-msg" aria-live="polite"></p>
+        <button type="submit" class="btn primary wide" id="sug-go" data-t="sugSend"></button>
+      </form>
+    </div>
+  </div>
+  <button type="button" class="sug-fab" id="sug-fab" data-ta="sugH" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></button>
   <div class="msheet" id="msheet" hidden>
     <div class="msheet-in" role="dialog" data-ta="v_more">
       <span class="msheet-grab" aria-hidden="true"></span>
       <div class="msheet-grid">
+        <button type="button" class="nv2" data-go="me"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span data-t="v_me"></span></button>
         <button type="button" class="nv2" data-go="progress"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19h16"/><path d="M6 15l4-4 3 3 5-6"/><path d="M15 8h3v3"/></svg><span data-t="v_progress"></span></button>
         <button type="button" class="nv2" data-go="food"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3v8a2 2 0 0 0 2 2v8"/><path d="M5 3v5a2 2 0 0 0 4 0V3"/><path d="M17 3c-2 0-3 2-3 5s1 5 3 5v8"/></svg><span data-t="v_food"></span></button>
         <button type="button" class="nv2" data-go="weight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M7.5 10a4.5 4.5 0 0 1 9 0"/><path d="M12 10l1.6-2.2"/></svg><span data-t="v_weight"></span></button>
@@ -1117,7 +1191,7 @@ html.a-still.lglass body::after { animation: none; }
     </div>
   </div>
 
-  <div class="mtop"><div class="brand"><svg class="logo" viewBox="0 0 32 20" aria-hidden="true"><rect x="1" y="9" width="30" height="2" rx="1" fill="#8a91a0"/><rect x="5" y="2" width="4" height="16" rx="1.5" fill="var(--red)"/><rect x="10" y="4" width="3" height="12" rx="1.5" fill="#2f5ee0"/><rect x="23" y="2" width="4" height="16" rx="1.5" fill="var(--red)"/><rect x="19" y="4" width="3" height="12" rx="1.5" fill="#2f5ee0"/></svg><span data-t="brand"></span></div><div class="langs" role="group" data-ta="langAria">
+  <div class="mtop"><div class="brand"><svg class="logo" viewBox="0 0 32 20" aria-hidden="true"><rect x="1" y="9" width="30" height="2" rx="1" fill="#8a91a0"/><rect x="5" y="2" width="4" height="16" rx="1.5" fill="var(--red)"/><rect x="10" y="4" width="3" height="12" rx="1.5" fill="#2f5ee0"/><rect x="23" y="2" width="4" height="16" rx="1.5" fill="var(--red)"/><rect x="19" y="4" width="3" height="12" rx="1.5" fill="#2f5ee0"/></svg><span data-t="brand"></span></div><button type="button" class="acct-btn sm" data-acct><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span class="acct-l" data-t="acLogin"></span></button><div class="langs" role="group" data-ta="langAria">
           <button type="button" data-lang="he" aria-pressed="true" lang="he">עב</button>
           <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
         </div></div>
@@ -1542,6 +1616,14 @@ html.a-still.lglass body::after { animation: none; }
       </section>
       </div>
     </div>
+    <div class="view" data-view="me" hidden>
+      <div class="wrap">
+      <section id="me">
+        <div class="sec-head"><h2 data-t="meH"></h2><p class="intro" id="me-intro"></p></div>
+        <div id="me-body"></div>
+      </section>
+      </div>
+    </div>
     <div class="view" data-view="progress" hidden>
       <div class="wrap">
       <section id="progress">
@@ -1700,7 +1782,7 @@ html.a-still.lglass body::after { animation: none; }
       wTeen: "מתחת לגיל 18 מעריכים משקל לפי עקומות גדילה, ולכן התוצאה כאן היא רק הכוונה כללית.",
       wNote: "BMI הוא מדד מהיר לאוכלוסייה, לא אבחנה. אצל מי שמתאמן הרבה הוא עלול להראות עודף משקל בגלל שריר. יחס מותן־גובה מתחת ל־0.5 נחשב תקין.",
       wSync: "העברה למחשבון התזונה", wSynced: "הועבר ✓",
-      brand: "בונים שריר", v_progress: "התקדמות", tdH: "היום שלך", tdStreak: "ימים ברצף", tdWeek: "ימי אימון השבוע", tdPro: "חלבון היום", tdLvl: "רמה במשחקים", gr: "ג׳", qtScan: "סורק אוכל", qtScanS: "צלמו צלחת", qtGames: "משחקי כושר", qtGamesS: "357 משחקים", qtLib: "תרגילים", qtLibS: "349 תרגילים", qtPlan: "התוכנית שלי", qtPlanS: "תוכנית אישית", qtProg: "התקדמות", qtProgS: "גרפים ושיאים", qtCoach: "מאמן AI", qtCoachS: "שאלו כל דבר", qtWeight: "בדיקת משקל", qtWeightS: "BMI ואחוז שומן", qtFood: "תזונה", qtFoodS: "מחשבון קלוריות", pgH: "ההתקדמות שלי", pgIntro: "כל משחק שמסיימים נרשם כאן אוטומטית. אפשר גם לסמן אימון ולשמור משקל. הנתונים נשמרים במכשיר הזה.", pgActH: "ימי אימון – 4 שבועות אחרונים", pgDone: "סיימתי אימון היום ✓", pgWH: "משקל לאורך זמן", pgWPh: "המשקל היום (ק״ג)", pgWSave: "שמור", pgRecH: "השיאים שלי", pgLogH: "אימונים אחרונים", pgReps: "חזרות השבוע", pgWLast: "משקל אחרון", pgW0: "עוד לא נשמר משקל. כתבו את המשקל של היום ולחצו שמור.", pgW1: "שמרו משקל גם בימים הבאים כדי לראות גרף.", pgRec0: "שחקו משחק כושר כדי לקבוע שיא.", pgLog0: "עוד אין אימונים. שחקו משחק או לחצו \"סיימתי אימון היום\".", pgManual: "אימון", v_home: "בית", v_food: "תזונה", v_scan: "סורק אוכל", v_plan: "התוכנית שלי", v_library: "תרגילים", v_coach: "מאמן AI", v_tips: "טיפים",
+      brand: "בונים שריר", acLogin: "התחברות", acSignup: "הרשמה", acLoginH: "התחברות לחשבון", acSignupH: "יצירת חשבון חדש", acName: "שם", acEmail: "מייל", acPass: "סיסמה (לפחות 6 תווים)", acForgot: "שכחתי סיסמה", acWait: "רגע…", acCheckMail: "נשלח אליך מייל אישור. פתחו אותו ולחצו על הקישור כדי להשלים את ההרשמה.", acErrLogin: "המייל או הסיסמה לא נכונים.", acErrExists: "המייל הזה כבר רשום. נסו להתחבר.", acErrPass: "הסיסמה צריכה לפחות 6 תווים.", acErrEmail: "כתבו כתובת מייל תקינה.", acErrConfirm: "צריך קודם לאשר את המייל: פתחו את המייל ששלחנו ולחצו על הקישור.", acErrRate: "יותר מדי ניסיונות. נסו שוב בעוד כמה דקות.", acErrNet: "משהו לא עבד. בדקו חיבור לאינטרנט ונסו שוב.", acResetSent: "שלחנו מייל עם קישור לסיסמה חדשה.", v_me: "אזור אישי", meH: "האזור האישי שלי", meOutP: "הירשמו או התחברו כדי לשמור את ההתקדמות, השיאים והמכשירים שלכם בחשבון, ולראות אותם בכל מכשיר.", meOutP2: "עוד אין לך חשבון? ההרשמה לוקחת חצי דקה.", meInP: "הפרטים, המטרות וההתקדמות שלך, שמורים בחשבון ומסונכרנים בין הטלפון למחשב.", meHi: "שלום, {n}!", meSynced: "ההתקדמות, השיאים והמכשירים שלך שמורים בחשבון", meWorkouts: "אימונים בסך הכול", meRecs: "משחקים עם שיא", meProfH: "הפרטים שלי", meGoal: "המטרה שלי", meGoal_muscle: "לבנות שריר", meGoal_fat: "לרדת באחוזי שומן", meGoal_strength: "להתחזק", meGoal_fit: "כושר ובריאות", meHeight: "גובה (ס״מ)", meWeight: "משקל (ק״ג)", meAge: "גיל", meSex: "מין", meSexM: "זכר", meSexF: "נקבה", meSave: "שמור", meSaved: "נשמר ✓", meQuick: "קיצורי דרך", mePassH: "שינוי סיסמה", mePassSave: "עדכן סיסמה", mePassOk: "הסיסמה עודכנה ✓", meLogout: "התנתקות", sugH: "הצעות לאתר", sugP: "יש לך רעיון לשיפור, משהו שחסר או משהו שלא עובד? כתבו כאן, וההצעה תגיע לבעלי האתר.", sugPh: "מה היית רוצה שיהיה באתר?", sugSend: "שליחה", sugThanks: "תודה! ההצעה נשלחה ✓", v_progress: "התקדמות", tdH: "היום שלך", tdStreak: "ימים ברצף", tdWeek: "ימי אימון השבוע", tdPro: "חלבון היום", tdLvl: "רמה במשחקים", gr: "ג׳", qtScan: "סורק אוכל", qtScanS: "צלמו צלחת", qtGames: "משחקי כושר", qtGamesS: "357 משחקים", qtLib: "תרגילים", qtLibS: "349 תרגילים", qtPlan: "התוכנית שלי", qtPlanS: "תוכנית אישית", qtProg: "התקדמות", qtProgS: "גרפים ושיאים", qtCoach: "מאמן AI", qtCoachS: "שאלו כל דבר", qtWeight: "בדיקת משקל", qtWeightS: "BMI ואחוז שומן", qtFood: "תזונה", qtFoodS: "מחשבון קלוריות", pgH: "ההתקדמות שלי", pgIntro: "כל משחק שמסיימים נרשם כאן אוטומטית. אפשר גם לסמן אימון ולשמור משקל. הנתונים נשמרים במכשיר הזה.", pgActH: "ימי אימון – 4 שבועות אחרונים", pgDone: "סיימתי אימון היום ✓", pgWH: "משקל לאורך זמן", pgWPh: "המשקל היום (ק״ג)", pgWSave: "שמור", pgRecH: "השיאים שלי", pgLogH: "אימונים אחרונים", pgReps: "חזרות השבוע", pgWLast: "משקל אחרון", pgW0: "עוד לא נשמר משקל. כתבו את המשקל של היום ולחצו שמור.", pgW1: "שמרו משקל גם בימים הבאים כדי לראות גרף.", pgRec0: "שחקו משחק כושר כדי לקבוע שיא.", pgLog0: "עוד אין אימונים. שחקו משחק או לחצו \"סיימתי אימון היום\".", pgManual: "אימון", v_home: "בית", v_food: "תזונה", v_scan: "סורק אוכל", v_plan: "התוכנית שלי", v_library: "תרגילים", v_coach: "מאמן AI", v_tips: "טיפים",
       mBarcode: "ברקוד", bcDrop: "צלמו את הברקוד מקרוב, ישר ובאור טוב", bcPh: "או הקלידו את מספר הברקוד", bcAria: "מספר ברקוד", bcFind: "חיפוש",
       bcReading: "קורא את הברקוד…", bcNoRead: "לא הצלחתי לקרוא את הברקוד. צלמו שוב מקרוב וישר, או הקלידו את המספר.", bcBad: "מספר הברקוד לא תקין.",
       bcUnknown: "מוצר חדש", bcUnknownSub: "הברקוד הזה עוד לא שמור אצלך. צלמו פעם אחת את טבלת הערכים התזונתיים, והאתר יזכור את המוצר בפעם הבאה.",
@@ -1858,7 +1940,7 @@ html.a-still.lglass body::after { animation: none; }
       wTeen: "Under 18, weight is assessed with growth charts, so this result is only a rough guide.",
       wNote: "BMI is a quick population measure, not a diagnosis. In people who train a lot it can show overweight because of muscle. A waist-to-height ratio under 0.5 is considered healthy.",
       wSync: "Send to nutrition calculator", wSynced: "Sent ✓",
-      brand: "Build Muscle", v_progress: "Progress", tdH: "Your day", tdStreak: "day streak", tdWeek: "training days this week", tdPro: "protein today", tdLvl: "games level", gr: "g", qtScan: "Food scanner", qtScanS: "Snap your plate", qtGames: "Fitness games", qtGamesS: "357 games", qtLib: "Exercises", qtLibS: "349 exercises", qtPlan: "My plan", qtPlanS: "Personal plan", qtProg: "Progress", qtProgS: "Charts & records", qtCoach: "AI coach", qtCoachS: "Ask anything", qtWeight: "Weight check", qtWeightS: "BMI & body fat", qtFood: "Nutrition", qtFoodS: "Calorie calculator", pgH: "My progress", pgIntro: "Every game you finish is logged here automatically. You can also mark a workout and save your weight. Data stays on this device.", pgActH: "Training days – last 4 weeks", pgDone: "I trained today ✓", pgWH: "Weight over time", pgWPh: "Today's weight (kg)", pgWSave: "Save", pgRecH: "My records", pgLogH: "Recent workouts", pgReps: "reps this week", pgWLast: "latest weight", pgW0: "No weight saved yet. Enter today's weight and tap Save.", pgW1: "Save your weight on other days to see a chart.", pgRec0: "Play a fitness game to set a record.", pgLog0: "No workouts yet. Play a game or tap \"I trained today\".", pgManual: "Workout", v_home: "Home", v_food: "Nutrition", v_scan: "Food scanner", v_plan: "My plan", v_library: "Exercises", v_coach: "AI coach", v_tips: "Tips",
+      brand: "Build Muscle", acLogin: "Log in", acSignup: "Sign up", acLoginH: "Log in to your account", acSignupH: "Create a new account", acName: "Name", acEmail: "Email", acPass: "Password (at least 6 characters)", acForgot: "Forgot password", acWait: "One moment…", acCheckMail: "We sent you a confirmation email. Open it and tap the link to finish signing up.", acErrLogin: "Wrong email or password.", acErrExists: "This email is already registered. Try logging in.", acErrPass: "The password needs at least 6 characters.", acErrEmail: "Enter a valid email address.", acErrConfirm: "Confirm your email first: open the email we sent and tap the link.", acErrRate: "Too many attempts. Try again in a few minutes.", acErrNet: "Something went wrong. Check your connection and try again.", acResetSent: "We sent an email with a link to set a new password.", v_me: "My account", meH: "My account", meOutP: "Sign up or log in to keep your progress, records and equipment in your account and see them on every device.", meOutP2: "No account yet? Signing up takes half a minute.", meInP: "Your details, goals and progress, saved in your account and synced between phone and computer.", meHi: "Hi, {n}!", meSynced: "Your progress, records and equipment are saved in your account", meWorkouts: "workouts in total", meRecs: "games with a record", meProfH: "My details", meGoal: "My goal", meGoal_muscle: "Build muscle", meGoal_fat: "Lose body fat", meGoal_strength: "Get stronger", meGoal_fit: "Fitness & health", meHeight: "Height (cm)", meWeight: "Weight (kg)", meAge: "Age", meSex: "Sex", meSexM: "Male", meSexF: "Female", meSave: "Save", meSaved: "Saved ✓", meQuick: "Shortcuts", mePassH: "Change password", mePassSave: "Update password", mePassOk: "Password updated ✓", meLogout: "Log out", sugH: "Suggestions", sugP: "Got an idea, something missing or something broken? Write it here and it goes to the site owners.", sugPh: "What would you like the site to have?", sugSend: "Send", sugThanks: "Thanks! Your suggestion was sent ✓", v_progress: "Progress", tdH: "Your day", tdStreak: "day streak", tdWeek: "training days this week", tdPro: "protein today", tdLvl: "games level", gr: "g", qtScan: "Food scanner", qtScanS: "Snap your plate", qtGames: "Fitness games", qtGamesS: "357 games", qtLib: "Exercises", qtLibS: "349 exercises", qtPlan: "My plan", qtPlanS: "Personal plan", qtProg: "Progress", qtProgS: "Charts & records", qtCoach: "AI coach", qtCoachS: "Ask anything", qtWeight: "Weight check", qtWeightS: "BMI & body fat", qtFood: "Nutrition", qtFoodS: "Calorie calculator", pgH: "My progress", pgIntro: "Every game you finish is logged here automatically. You can also mark a workout and save your weight. Data stays on this device.", pgActH: "Training days – last 4 weeks", pgDone: "I trained today ✓", pgWH: "Weight over time", pgWPh: "Today's weight (kg)", pgWSave: "Save", pgRecH: "My records", pgLogH: "Recent workouts", pgReps: "reps this week", pgWLast: "latest weight", pgW0: "No weight saved yet. Enter today's weight and tap Save.", pgW1: "Save your weight on other days to see a chart.", pgRec0: "Play a fitness game to set a record.", pgLog0: "No workouts yet. Play a game or tap \"I trained today\".", pgManual: "Workout", v_home: "Home", v_food: "Nutrition", v_scan: "Food scanner", v_plan: "My plan", v_library: "Exercises", v_coach: "AI coach", v_tips: "Tips",
       mBarcode: "Barcode", bcDrop: "Take a close, straight photo of the barcode in good light", bcPh: "or type the barcode number", bcAria: "Barcode number", bcFind: "Find",
       bcReading: "Reading the barcode…", bcNoRead: "I couldn't read the barcode. Take a closer, straighter photo, or type the number.", bcBad: "That barcode number isn't valid.",
       bcUnknown: "New product", bcUnknownSub: "This barcode isn't saved yet. Photograph the nutrition facts once and the site will remember the product next time.",
@@ -2541,7 +2623,7 @@ html.a-still.lglass body::after { animation: none; }
   var EQ_ALT = { "db|kb": 1, "db|bb": 1, "cable|band": 1, "band|cable": 1, "none|db": 1, "db|chair": 1 };
   var myEq = [], myEqOn = false;
   try { var mq = JSON.parse(localStorage.getItem("myEq") || "{}"); myEq = (mq.eq || []).filter(function (k) { return EQ[k]; }); myEqOn = !!mq.on; } catch (e) {}
-  function eqSave() { try { localStorage.setItem("myEq", JSON.stringify({ eq: myEq, on: myEqOn })); } catch (e) {} }
+  function eqSave() { try { localStorage.setItem("myEq", JSON.stringify({ eq: myEq, on: myEqOn })); } catch (e) {} cloudDirty(); }
   function eqFits(e) {
     var need = e[3].filter(function (k) { return !EQ_BASIC[k]; });
     if (!need.length) return true;
@@ -3050,7 +3132,7 @@ html.a-still.lglass body::after { animation: none; }
   var RANK_C = ["#9ca3af", "#78716c", "#c2773c", "#cbd5e1", "#eab308", "#38bdf8", "#a855f7"];
   var gStats = {};
   try { gStats = JSON.parse(localStorage.getItem("games") || "{}") || {}; } catch (e) { gStats = {}; }
-  function gSave() { try { localStorage.setItem("games", JSON.stringify(gStats)); } catch (e) {} }
+  function gSave() { try { localStorage.setItem("games", JSON.stringify(gStats)); } catch (e) {} cloudDirty(); }
   function gStat(id) { return gStats[id] || (gStats[id] = { best: 0, bestFree: 0, total: 0, plays: 0 }); }
   function gDef(id) { return GAMES.filter(function (g) { return g.id === id; })[0]; }
   function rankOf(g, score) { var r = 0; g.ranks.forEach(function (v, i) { if (score >= v) r = i; }); return r; }
@@ -5095,7 +5177,7 @@ html.a-still.lglass body::after { animation: none; }
   /* ---------- progress: training days, weight over time, records ---------- */
   var prog = { w: [], s: [] };
   try { var pq = JSON.parse(localStorage.getItem("prog") || "{}"); prog.w = Array.isArray(pq.w) ? pq.w : []; prog.s = Array.isArray(pq.s) ? pq.s : []; } catch (e) {}
-  function progSave() { try { localStorage.setItem("prog", JSON.stringify({ w: prog.w.slice(-400), s: prog.s.slice(-600) })); } catch (e) {} }
+  function progSave() { try { localStorage.setItem("prog", JSON.stringify({ w: prog.w.slice(-400), s: prog.s.slice(-600) })); } catch (e) {} cloudDirty(); }
   function dayKey(d) { d = d || new Date(); return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2); }
   function progLog(kind, name, n) { prog.s.push({ d: dayKey(), at: Date.now(), k: kind, n: String(name).slice(0, 80), c: n || 0 }); progSave(); }
   function progDays() { var o = {}; prog.s.forEach(function (x) { o[x.d] = (o[x.d] || 0) + 1; }); return o; }
@@ -5159,7 +5241,205 @@ html.a-still.lglass body::after { animation: none; }
     progSave(); $("pg-win").value = ""; renderProg();
   });
 
-  var VIEWS = ["home", "food", "weight", "scan", "plan", "progress", "sched", "library", "games", "coach", "tips"];
+  /* ---------- account: sign up / log in (Supabase), personal area, cloud copy of your data, site suggestions ---------- */
+  var SB_URL = "https://nnrgkeesfhfbyjzmcfpk.supabase.co", SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5ucmdrZWVzZmhmYnlqem1jZnBrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc0Nzc5NjIsImV4cCI6MjEwMzA1Mzk2Mn0.pyfZxbACgz_H7M7xzWDRRo7XTzOHlPQTB_fq_OojC-I";
+  var SB_LIB = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js";
+  var sb = null, sbP = null, me = null, meProf = null, acTab = "in", cloudT = 0, cloudBusy = false;
+  function sbLoad() {
+    if (sb) return Promise.resolve(sb);
+    if (sbP) return sbP;
+    sbP = new Promise(function (res, rej) {
+      var s = document.createElement("script"); s.src = SB_LIB; s.async = true;
+      s.onload = function () { try { sb = window.supabase.createClient(SB_URL, SB_KEY, { auth: { persistSession: true, autoRefreshToken: true } }); res(sb); } catch (e) { rej(e); } };
+      s.onerror = function () { sbP = null; rej(new Error("load")); };
+      document.head.appendChild(s);
+    });
+    return sbP;
+  }
+  function acName() { return (meProf && meProf.name) || (me && me.user_metadata && me.user_metadata.name) || (me ? me.email.split("@")[0] : ""); }
+  function renderAcct() {
+    document.querySelectorAll("[data-acct] .acct-l").forEach(function (el) { el.textContent = me ? acName() : t("acLogin"); });
+    document.querySelectorAll("[data-acct]").forEach(function (b) { b.classList.toggle("on", !!me); });
+  }
+  function acOpen(tab) {
+    acTab = tab || "in";
+    $("ac-h").textContent = t(acTab === "up" ? "acSignupH" : "acLoginH");
+    document.querySelectorAll("[data-actab]").forEach(function (b) { b.setAttribute("aria-selected", String(b.getAttribute("data-actab") === acTab)); });
+    $("ac-f").querySelector(".ac-name").hidden = acTab !== "up";
+    $("ac-pass").setAttribute("autocomplete", acTab === "up" ? "new-password" : "current-password");
+    $("ac-go").textContent = t(acTab === "up" ? "acSignup" : "acLogin");
+    $("ac-forgot").hidden = acTab === "up";
+    $("ac-msg").textContent = ""; $("ac-msg").className = "ac-msg";
+    $("acmodal").hidden = false;
+    setTimeout(function () { (acTab === "up" ? $("ac-name") : $("ac-email")).focus(); }, 30);
+    sbLoad().catch(function () {});
+  }
+  function acClose() { $("acmodal").hidden = true; }
+  function acMsg(k, ok, extra) { var m = $("ac-msg"); m.textContent = t(k) + (extra ? " " + extra : ""); m.className = "ac-msg" + (ok ? " ok" : " bad"); }
+  function acErr(e) {
+    var s = String((e && e.message) || "");
+    if (/invalid login/i.test(s)) return "acErrLogin";
+    if (/already registered|already exists/i.test(s)) return "acErrExists";
+    if (/password/i.test(s)) return "acErrPass";
+    if (/email not confirmed/i.test(s)) return "acErrConfirm";
+    if (/rate limit/i.test(s)) return "acErrRate";
+    return "acErrNet";
+  }
+  document.addEventListener("click", function (e) {
+    if (e.target.closest("[data-acct]")) { if (me) go("me"); else acOpen("in"); }
+    var tb = e.target.closest("[data-actab]"); if (tb) acOpen(tb.getAttribute("data-actab"));
+  });
+  $("ac-x").addEventListener("click", acClose);
+  $("acmodal").addEventListener("click", function (e) { if (e.target === $("acmodal")) acClose(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") { if (!$("acmodal").hidden) acClose(); if (!$("sugmodal").hidden) $("sugmodal").hidden = true; } });
+  $("ac-f").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var email = $("ac-email").value.trim(), pass = $("ac-pass").value, name = $("ac-name").value.trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { acMsg("acErrEmail"); return; }
+    if (pass.length < 6) { acMsg("acErrPass"); return; }
+    var b = $("ac-go"); b.disabled = true; acMsg("acWait", true);
+    sbLoad().then(function (c) {
+      if (acTab === "up") return c.auth.signUp({ email: email, password: pass, options: { data: { name: name }, emailRedirectTo: location.origin + location.pathname } }).then(function (r) {
+        if (r.error) throw r.error;
+        if (!r.data.session) { acMsg("acCheckMail", true); return; }
+        acClose();
+      });
+      return c.auth.signInWithPassword({ email: email, password: pass }).then(function (r) { if (r.error) throw r.error; acClose(); go("me"); });
+    }).catch(function (err) { acMsg(acErr(err)); }).then(function () { b.disabled = false; });
+  });
+  $("ac-forgot").addEventListener("click", function () {
+    var email = $("ac-email").value.trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { acMsg("acErrEmail"); return; }
+    sbLoad().then(function (c) { return c.auth.resetPasswordForEmail(email, { redirectTo: location.origin + location.pathname }); })
+      .then(function (r) { if (r && r.error) throw r.error; acMsg("acResetSent", true); }, function (err) { acMsg(acErr(err)); });
+  });
+  // cloud copy: progress, game records and your equipment follow you to every device
+  function cloudData() { return { prog: { w: prog.w.slice(-400), s: prog.s.slice(-600) }, games: gStats, eq: { eq: myEq, on: myEqOn } }; }
+  function cloudDirty() { if (!me) return; clearTimeout(cloudT); cloudT = setTimeout(cloudPush, 2500); }
+  function cloudPush() {
+    if (!me || !sb || cloudBusy) return;
+    cloudBusy = true;
+    var row = { id: me.id, data: cloudData(), updated_at: new Date().toISOString() };
+    if (meProf) ["name", "goal", "height", "weight", "age", "sex"].forEach(function (k) { row[k] = meProf[k]; });
+    sb.from("bs_profiles").upsert(row).then(function () {}, function () {}).then(function () { cloudBusy = false; });
+  }
+  function cloudMerge(d) {
+    if (!d || typeof d !== "object") return;
+    if (d.prog) {
+      var wd = {}; prog.w.concat(d.prog.w || []).forEach(function (p) { if (Array.isArray(p)) wd[p[0]] = p; });
+      prog.w = Object.keys(wd).sort().map(function (k) { return wd[k]; });
+      var sa = {}; prog.s.concat(d.prog.s || []).forEach(function (x) { if (x && x.at) sa[x.at + "|" + x.n] = x; });
+      prog.s = Object.keys(sa).map(function (k) { return sa[k]; }).sort(function (a, b) { return a.at - b.at; });
+      try { localStorage.setItem("prog", JSON.stringify({ w: prog.w.slice(-400), s: prog.s.slice(-600) })); } catch (e) {}
+    }
+    if (d.games && typeof d.games === "object") {
+      Object.keys(d.games).forEach(function (id) {
+        var c = d.games[id] || {}, l = gStat(id);
+        ["best", "bestFree", "total", "plays", "wins"].forEach(function (k) { l[k] = Math.max(l[k] || 0, Number(c[k]) || 0); });
+      });
+      try { localStorage.setItem("games", JSON.stringify(gStats)); } catch (e) {}
+    }
+    if (d.eq && Array.isArray(d.eq.eq)) {
+      d.eq.eq.forEach(function (k) { if (EQ[k] && myEq.indexOf(k) === -1) myEq.push(k); });
+      if (d.eq.on) myEqOn = true;
+      try { localStorage.setItem("myEq", JSON.stringify({ eq: myEq, on: myEqOn })); } catch (e) {}
+      renderEq();
+    }
+  }
+  function onSession(s) {
+    var was = me && me.id;
+    me = s && s.user ? s.user : null;
+    renderAcct();
+    if (!me) { meProf = null; if (curView === "me") renderMe(); return; }
+    if (was === me.id) return;
+    sb.from("bs_profiles").select("*").eq("id", me.id).maybeSingle().then(function (r) {
+      meProf = (r && r.data) || { id: me.id, name: (me.user_metadata && me.user_metadata.name) || "" };
+      cloudMerge(meProf.data);
+      renderAcct(); cloudPush();
+      if (curView === "me") renderMe();
+      if (curView === "home") renderHomeDay();
+    });
+  }
+  function acctBoot() {
+    var hasSess = false;
+    try { for (var i = 0; i < localStorage.length; i++) if (/^sb-.*-auth-token$/.test(localStorage.key(i))) hasSess = true; } catch (e) {}
+    var fromMail = /access_token|type=recovery|code=/.test(location.hash + location.search);
+    if (!hasSess && !fromMail) return;
+    sbLoad().then(function (c) {
+      c.auth.onAuthStateChange(function (ev, s) {
+        onSession(s);
+        if (ev === "PASSWORD_RECOVERY") { go("me"); setTimeout(function () { var np = $("me-newpass"); if (np) np.focus(); }, 300); }
+      });
+      return c.auth.getSession().then(function (r) { onSession(r.data && r.data.session); });
+    }).catch(function () {});
+  }
+  function meStat(v, k, c) { return pStat(v, k, c); }
+  function renderMe() {
+    var body = $("me-body"), i = lang === "he" ? 0 : 1;
+    if (!me) {
+      $("me-intro").textContent = t("meOutP");
+      body.innerHTML = '<div class="me-card me-out"><div class="me-av">' + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>' + '</div><p>' + esc(t("meOutP2")) + '</p><div class="me-btns"><button type="button" class="btn primary" data-actab="up">' + esc(t("acSignup")) + '</button><button type="button" class="btn" data-actab="in">' + esc(t("acLogin")) + "</button></div></div>";
+      body.querySelectorAll("[data-actab]").forEach(function (b) { b.addEventListener("click", function () { acOpen(b.getAttribute("data-actab")); }); });
+      return;
+    }
+    var p = meProf || {}, nm = acName(), wk = progWeek(), recs = GAMES.filter(function (g) { return gStat(g.id).best > 0; }).length;
+    var lastW = prog.w.length ? prog.w[prog.w.length - 1][1] : "";
+    $("me-intro").textContent = t("meInP");
+    var goals = ["muscle", "fat", "strength", "fit"];
+    body.innerHTML =
+      '<div class="me-card me-top"><div class="me-av big">' + esc((nm || "?").charAt(0).toUpperCase()) + '</div><div><h3>' + esc(t("meHi").replace("{n}", nm)) + '</h3><p class="me-mail" dir="ltr">' + esc(me.email) + '</p><p class="me-sync">☁️ ' + esc(t("meSynced")) + "</p></div></div>" +
+      '<div class="td-stats">' + meStat(progStreak(), "tdStreak", "var(--red)") + meStat(wk.days + "/7", "tdWeek", "var(--green)") + meStat(prog.s.length, "meWorkouts", "var(--accent)") + meStat(recs, "meRecs", "var(--yellow)") + "</div>" +
+      '<form class="me-card me-form" id="me-f"><h3>' + esc(t("meProfH")) + "</h3>" +
+      '<label><span>' + esc(t("acName")) + '</span><input type="text" id="me-name" maxlength="60" value="' + esc(nm) + '"></label>' +
+      '<label><span>' + esc(t("meGoal")) + '</span><select id="me-goal">' + goals.map(function (g) { return '<option value="' + g + '"' + (p.goal === g ? " selected" : "") + ">" + esc(t("meGoal_" + g)) + "</option>"; }).join("") + "</select></label>" +
+      '<div class="me-row"><label><span>' + esc(t("meHeight")) + '</span><input type="number" id="me-height" min="100" max="230" value="' + esc(String(p.height || "")) + '"></label>' +
+      '<label><span>' + esc(t("meWeight")) + '</span><input type="number" id="me-weight" min="25" max="300" step="0.1" value="' + esc(String(p.weight || lastW || "")) + '"></label>' +
+      '<label><span>' + esc(t("meAge")) + '</span><input type="number" id="me-age" min="8" max="100" value="' + esc(String(p.age || "")) + '"></label>' +
+      '<label><span>' + esc(t("meSex")) + '</span><select id="me-sex"><option value="m"' + (p.sex === "m" ? " selected" : "") + ">" + esc(t("meSexM")) + '</option><option value="f"' + (p.sex === "f" ? " selected" : "") + ">" + esc(t("meSexF")) + "</option></select></label></div>" +
+      '<p class="ac-msg" id="me-msg" aria-live="polite"></p><button type="submit" class="btn primary">' + esc(t("meSave")) + "</button></form>" +
+      '<div class="me-card me-links"><h3>' + esc(t("meQuick")) + '</h3><div class="me-btns"><button type="button" class="btn" data-go="progress">' + esc(t("v_progress")) + '</button><button type="button" class="btn" data-go="plan">' + esc(t("qtPlan")) + '</button><button type="button" class="btn" data-go="games">' + esc(t("qtGames")) + '</button></div></div>' +
+      '<form class="me-card me-form" id="me-pw"><h3>' + esc(t("mePassH")) + '</h3><label><span>' + esc(t("acPass")) + '</span><input type="password" id="me-newpass" minlength="6" autocomplete="new-password" dir="ltr"></label><p class="ac-msg" id="me-pwmsg" aria-live="polite"></p><button type="submit" class="btn">' + esc(t("mePassSave")) + "</button></form>" +
+      '<button type="button" class="btn me-out-btn" id="me-logout">' + esc(t("meLogout")) + "</button>";
+    $("me-f").addEventListener("submit", function (e) {
+      e.preventDefault();
+      meProf = meProf || { id: me.id };
+      meProf.name = $("me-name").value.trim().slice(0, 60);
+      meProf.goal = $("me-goal").value; meProf.sex = $("me-sex").value;
+      ["height", "weight", "age"].forEach(function (k) { var v = parseFloat($("me-" + k).value); meProf[k] = v > 0 ? v : null; });
+      var m = $("me-msg"); m.textContent = t("acWait"); m.className = "ac-msg ok";
+      var row = { id: me.id, name: meProf.name, goal: meProf.goal, height: meProf.height, weight: meProf.weight, age: meProf.age, sex: meProf.sex, data: cloudData(), updated_at: new Date().toISOString() };
+      sb.from("bs_profiles").upsert(row).then(function (r) {
+        if (r.error) throw r.error;
+        m.textContent = t("meSaved"); renderAcct(); var h3 = body.querySelector(".me-top h3"); if (h3) h3.textContent = t("meHi").replace("{n}", acName());
+      }).catch(function () { m.textContent = t("acErrNet"); m.className = "ac-msg bad"; });
+    });
+    $("me-pw").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var v = $("me-newpass").value, m = $("me-pwmsg");
+      if (v.length < 6) { m.textContent = t("acErrPass"); m.className = "ac-msg bad"; return; }
+      sb.auth.updateUser({ password: v }).then(function (r) { if (r.error) throw r.error; m.textContent = t("mePassOk"); m.className = "ac-msg ok"; $("me-newpass").value = ""; })
+        .catch(function (err) { m.textContent = t(acErr(err)); m.className = "ac-msg bad"; });
+    });
+    $("me-logout").addEventListener("click", function () { sb.auth.signOut().then(function () { me = null; meProf = null; renderAcct(); renderMe(); }); });
+  }
+  // suggestions for the site: saved for the site owner (and Claude) to read
+  $("sug-fab").addEventListener("click", function () { $("sug-msg").textContent = ""; $("sugmodal").hidden = false; setTimeout(function () { $("sug-in").focus(); }, 30); sbLoad().catch(function () {}); });
+  $("sug-x").addEventListener("click", function () { $("sugmodal").hidden = true; });
+  $("sugmodal").addEventListener("click", function (e) { if (e.target === $("sugmodal")) $("sugmodal").hidden = true; });
+  $("sug-f").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var v = $("sug-in").value.trim(), m = $("sug-msg"), b = $("sug-go");
+    if (v.length < 3) return;
+    b.disabled = true; m.textContent = t("acWait"); m.className = "ac-msg ok";
+    sbLoad().then(function (c) { return c.from("bs_suggestions").insert({ text: v.slice(0, 1000), user_id: me ? me.id : null, lang: lang }); })
+      .then(function (r) { if (r && r.error) throw r.error; m.textContent = t("sugThanks"); $("sug-in").value = ""; setTimeout(function () { $("sugmodal").hidden = true; }, 1800); })
+      .catch(function () { m.textContent = t("acErrNet"); m.className = "ac-msg bad"; })
+      .then(function () { b.disabled = false; });
+  });
+  renderAcct();
+  acctBoot();
+
+  var VIEWS = ["home", "food", "weight", "scan", "plan", "me", "progress", "sched", "library", "games", "coach", "tips"];
   var curView = "home";
   function go(v, quiet) {
     if (VIEWS.indexOf(v) === -1) v = "home";
@@ -5168,13 +5448,15 @@ html.a-still.lglass body::after { animation: none; }
     document.querySelectorAll(".nv[data-go], .nv2").forEach(function (b) {
       if (b.getAttribute("data-go") === v) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
     });
-    if (["food", "weight", "progress", "sched", "library", "games", "tips"].indexOf(v) !== -1) $("nv-more").setAttribute("aria-current", "page"); else $("nv-more").removeAttribute("aria-current");
+    if (["food", "weight", "me", "progress", "sched", "library", "games", "tips"].indexOf(v) !== -1) $("nv-more").setAttribute("aria-current", "page"); else $("nv-more").removeAttribute("aria-current");
     closeMore();
     try { localStorage.setItem("view", v); } catch (e) {}
     try { if (location.hash.slice(1) !== v) history.replaceState(null, "", "#" + v); } catch (e) {}
     if (!quiet) window.scrollTo(0, 0);
     if (v === "games") renderGames();
     if (v === "progress") renderProg();
+    if (v === "me") renderMe();
+    $("sug-fab").hidden = v !== "home";
     if (v === "home") renderHomeDay();
     if (v === "coach") {
       renderCoach();
