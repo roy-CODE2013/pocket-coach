@@ -367,8 +367,8 @@ html.lglass .acmodal-in { background: var(--gl-bg2); -webkit-backdrop-filter: va
 html.lglass .ac-f input, html.lglass .ac-f textarea, html.lglass .me-form input, html.lglass .me-form select { background: var(--gl-bg2); border-color: var(--gl-brd); }
 .ac-f textarea { resize: vertical; min-height: 110px; }
 .pw-wrap { position: relative; display: block; }
-.pw-wrap input { padding-inline-end: 48px; }
-.pw-eye { position: absolute; top: 50%; transform: translateY(-50%); inset-inline-end: 6px; width: 38px; height: 38px; border: 0; border-radius: 10px; background: transparent; color: var(--muted); cursor: pointer; display: grid; place-items: center; }
+.pw-wrap input { padding-right: 50px; padding-left: 12px; }
+.pw-eye { position: absolute; top: 50%; transform: translateY(-50%); right: 6px; left: auto; width: 38px; height: 38px; border: 0; border-radius: 10px; background: transparent; color: var(--muted); cursor: pointer; display: grid; place-items: center; }
 .pw-eye svg { width: 22px; height: 22px; }
 .pw-eye.on { color: var(--accent); background: var(--accent-soft); }
 .ac-msg { font-size: .9rem; min-height: 1.2em; }
@@ -5359,9 +5359,9 @@ html.a-still.lglass body::after { animation: none; }
       if (acTab === "up") return c.auth.signUp({ email: email, password: pass, options: { data: { name: name }, emailRedirectTo: location.origin + location.pathname } }).then(function (r) {
         if (r.error) throw r.error;
         if (!r.data.session) { acMsg("acCheckMail", true); return; }
-        acClose();
+        acListen(c); onSession(r.data.session); acClose(); go("me");
       });
-      return c.auth.signInWithPassword({ email: email, password: pass }).then(function (r) { if (r.error) throw r.error; acClose(); go("me"); });
+      return c.auth.signInWithPassword({ email: email, password: pass }).then(function (r) { if (r.error) throw r.error; acListen(c); onSession(r.data.session); acClose(); go("me"); });
     }).catch(function (err) { acMsg(acErr(err)); }).then(function () { b.disabled = false; });
   });
   $("ac-forgot").addEventListener("click", function () {
@@ -5417,16 +5417,21 @@ html.a-still.lglass body::after { animation: none; }
       if (curView === "home") renderHomeDay();
     });
   }
+  var acListening = false;
+  function acListen(c) {
+    if (acListening) return; acListening = true;
+    c.auth.onAuthStateChange(function (ev, s) {
+      onSession(s);
+      if (ev === "PASSWORD_RECOVERY") { go("me"); setTimeout(function () { var np = $("me-newpass"); if (np) np.focus(); }, 300); }
+    });
+  }
   function acctBoot() {
     var hasSess = false;
     try { for (var i = 0; i < localStorage.length; i++) if (/^sb-.*-auth-token$/.test(localStorage.key(i))) hasSess = true; } catch (e) {}
     var fromMail = /access_token|type=recovery|code=/.test(location.hash + location.search);
     if (!hasSess && !fromMail) return;
     sbLoad().then(function (c) {
-      c.auth.onAuthStateChange(function (ev, s) {
-        onSession(s);
-        if (ev === "PASSWORD_RECOVERY") { go("me"); setTimeout(function () { var np = $("me-newpass"); if (np) np.focus(); }, 300); }
-      });
+      acListen(c);
       return c.auth.getSession().then(function (r) { onSession(r.data && r.data.session); });
     }).catch(function () {});
   }
