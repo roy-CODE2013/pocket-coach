@@ -4952,7 +4952,8 @@ html.a-still.lglass body::after { animation: none; }
       vRec.onresult = function (ev) {
         for (var i = ev.resultIndex; i < ev.results.length; i++) {
           var s = ev.results[i][0].transcript.trim(); if (!s) continue;
-          if (vSpeaking) { if (s.length >= 3 && !vIsEcho(s)) vBargeIn(); else continue; }
+          // while it talks the mic also hears the coach itself, so only clear "stop" words (or the wake word) cut it off
+          if (vSpeaking) { if (/(?:^|\s)(?:עצור|תעצור|די|מספיק|שקט|רגע|חכה|stop|wait|enough)(?:\s|$|[,.!])/i.test(s) || WAKE_RE.test(s) || WAKE_LOOSE.test(s)) vBargeIn(); continue; }
           // show what the microphone hears, so it is clear it is working
           if (!ev.results[i].isFinal) { if (vMode !== "wake" && vMode !== "wait") vCap(t("vcYou"), s); continue; }
           if (vMode === "wake") { if (WAKE_RE.test(s) || WAKE_LOOSE.test(s)) { clearTimeout(vT); vHandle(s); } }
