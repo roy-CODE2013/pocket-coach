@@ -1,4 +1,4 @@
-<!doctype html>
+ <!doctype html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="utf-8">
@@ -300,6 +300,14 @@ html.a-focus :focus-visible { outline: 4px solid #f5b400 !important; outline-off
 .qrbig { width: min(320px, 78vw); aspect-ratio: 1; background: #fff; border-radius: 16px; padding: 10px; }
 .qrlink { font-family: var(--f-num); font-size: .82rem; color: var(--muted); word-break: break-all; }
 .cam-native { position: absolute; top: calc(70px + env(safe-area-inset-top)); inset-inline-start: 12px; z-index: 2; font-size: .85rem; }
+.myeq { border: 1px solid var(--line); border-radius: 14px; padding: 14px; margin-bottom: 16px; background: var(--surface); display: grid; gap: 10px; }
+.myeq-h h3 { font-size: 1.05rem; }
+.myeq-h p { color: var(--muted); font-size: .88rem; margin-top: 2px; }
+.myeq-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.myeq-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.myeq-st { font-size: .9rem; }
+.myeq-on { display: flex; gap: 8px; align-items: center; font-size: .9rem; cursor: pointer; }
+.lib-more { grid-column: 1 / -1; display: flex; justify-content: center; padding: 8px; }
 .qrlink a { color: var(--accent, inherit); text-decoration: underline; font-weight: 600; }
 .qrx { position: absolute; top: 10px; inset-inline-end: 10px; width: 38px; height: 38px; border-radius: 50%; border: 0; background: var(--bg); color: var(--ink); font-size: 1.2rem; cursor: pointer; }
 .msheet .qrbox { display: none; }
@@ -496,6 +504,7 @@ input[type="time"] { font: inherit; font-size: 1rem; padding: 8px 10px; border-r
 .tight-areas { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
 .tight-areas button { font: inherit; font-size: .85rem; border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: 6px 11px; border-radius: 999px; cursor: pointer; }
 .tight-areas button:hover { border-color: var(--violet); }
+.tight-more summary { cursor: pointer; font-size: .85rem; margin-top: 8px; color: var(--violet); }
 .tight-doc { font-size: .8rem; color: var(--muted); margin-top: 8px; }
 .gsearch { display: inline-flex; gap: 6px; align-items: center; margin-top: 8px; font-size: .78rem; color: var(--muted); text-decoration: none; }
 .gsearch:hover { color: var(--accent); }
@@ -1320,6 +1329,18 @@ footer .wrap { padding-block: 28px 36px; }
           <h2 data-t="lH"></h2>
           <p class="intro" data-t="lIntro"></p>
         </div>
+        <div class="myeq" id="myeq">
+          <div class="myeq-h"><h3 data-t="eqH"></h3><p data-t="eqP"></p></div>
+          <div class="myeq-btns">
+            <input type="file" id="eq-cam" class="vh" accept="image/*" capture="environment">
+            <label class="btn primary" for="eq-cam" data-t="eqShot"></label>
+            <input type="file" id="eq-gal" class="vh" accept="image/*">
+            <label class="btn" for="eq-gal" data-t="eqGal"></label>
+          </div>
+          <p class="myeq-st" id="eq-st" aria-live="polite" hidden></p>
+          <div class="myeq-chips" id="eq-chips"></div>
+          <label class="myeq-on" id="eq-onl" hidden><input type="checkbox" id="eq-on"> <span data-t="eqOnly"></span></label>
+        </div>
         <div class="lib-controls" id="lib-controls">
           <input type="search" id="lib-q" class="lib-search" data-tp="lSearchPh" data-ta="lSearchAria" autocomplete="off">
           <div class="frow" id="f-level"></div>
@@ -1541,7 +1562,7 @@ footer .wrap { padding-block: 28px 36px; }
       coachHi: "היי! אני המאמן שלך. אפשר לשאול אותי על אימונים, טכניקה, תזונה או התוכנית שבנית. אני רואה את היעדים מהמחשבון ואת מה שאכלת היום.",
       coachPh: "שאלו כל דבר…", coachSend: "שליחה", coachStop: "עצירה", coachClose: "סגירה", coachClear: "שיחה חדשה", coachThinking: "חושב…",
       cqT: "תפוס לי שריר, מה לעשות?", coachLocal: "בלי Claude אני יודע לעזור בעיקר בשריר תפוס. איפה תפוס לך?", cq1: "מה כדאי לאכול אחרי אימון?", cq2: "כמה חלבון נשאר לי היום, ומה לאכול?", cq3: "איך עושים סקוואט נכון? שלח קישור לסרטון", cq4: "תכין לי ארוחת בוקר עם 40 גרם חלבון",
-      n7: "ספריית תרגילים", lH: "ספריית תרגילים",
+      n7: "ספריית תרגילים", lH: "ספריית תרגילים", eqH: "המכשירים שלי", eqP: "צלמו את המכשירים שיש לכם, בבית או בחדר כושר, ותראו רק תרגילים שאפשר לעשות איתם. אפשר גם לבחור ידנית.", eqShot: "צלם מכשירים", eqGal: "תמונה מהגלריה", eqOnly: "הצג רק תרגילים עם המכשירים שלי", eqLook: "מזהה מכשירים בתמונה…", eqFound: "מצאתי: {x}. אפשר לתקן בכפתורים למטה.", eqNone: "לא זיהיתי מכשירים. בחרו אותם ידנית בכפתורים למטה.", eqFail: "הזיהוי לא הצליח. בדקו חיבור לאינטרנט או בחרו ידנית.", lMoreEx: "הצג עוד ({n} נוספים)",
       lIntro: "49 תרגילים לחדר כושר ולבית, לפי רמה, ציוד וקבוצת שריר. לכל תרגיל יש הסבר שלב אחר שלב, הציוד שצריך, וקישור לסרטוני הדגמה ביוטיוב.",
       lSearchPh: "חיפוש תרגיל או ציוד, למשל משקולות", lSearchAria: "חיפוש בספריית התרגילים",
       fLevel: "רמה", fPlace: "מקום", fMuscle: "שריר", all: "הכל",
@@ -1699,7 +1720,7 @@ footer .wrap { padding-block: 28px 36px; }
       coachHi: "Hi! I'm your coach. Ask me about training, technique, nutrition or the plan you built. I can see your calculator targets and what you've eaten today.",
       coachPh: "Ask anything…", coachSend: "Send", coachStop: "Stop", coachClose: "Close", coachClear: "New chat", coachThinking: "Thinking…",
       cqT: "I have a tight muscle, what should I do?", coachLocal: "Without Claude I can mainly help with a tight muscle. Where is it tight?", cq1: "What should I eat after a workout?", cq2: "How much protein do I have left today, and what should I eat?", cq3: "How do I squat properly? Send a video link", cq4: "Make me a breakfast with 40 g of protein",
-      n7: "Exercise library", lH: "Exercise library",
+      n7: "Exercise library", lH: "Exercise library", eqH: "My equipment", eqP: "Take a photo of the equipment you have, at home or at the gym, and see only exercises you can do with it. You can also pick by hand.", eqShot: "Photo of equipment", eqGal: "Photo from gallery", eqOnly: "Only show exercises for my equipment", eqLook: "Finding equipment in the photo…", eqFound: "Found: {x}. Fix it with the buttons below.", eqNone: "No equipment found. Pick it by hand below.", eqFail: "Detection failed. Check your connection or pick by hand.", lMoreEx: "Show more ({n} left)",
       lIntro: "49 exercises for the gym and for home, by level, equipment and muscle group. Each one has step-by-step instructions, the equipment you need, and a link to demo videos on YouTube.",
       lSearchPh: "Search an exercise or equipment, e.g. dumbbells", lSearchAria: "Search the exercise library",
       fLevel: "Level", fPlace: "Where", fMuscle: "Muscle", all: "All",
@@ -1750,7 +1771,7 @@ footer .wrap { padding-block: 28px 36px; }
   function setLang(l) {
     lang = l;
     try { localStorage.setItem("lang", l); } catch (e) {}
-    applyLang(); renderLib(); renderPlan(); calc(); renderWeight(); renderSched(); renderScanUi(); renderScan(); renderCoach(); renderGames(); qcalc();
+    applyLang(); renderEq(); renderLib(); renderPlan(); calc(); renderWeight(); renderSched(); renderScanUi(); renderScan(); renderCoach(); renderGames(); qcalc();
   }
   document.addEventListener("click", function (e) { var b = e.target.closest("[data-lang]"); if (b) setLang(b.getAttribute("data-lang")); });
 
@@ -1759,7 +1780,10 @@ footer .wrap { padding-block: 28px 36px; }
     none: ["משקל גוף", "Bodyweight"], mat: ["מזרן", "Mat"], db: ["משקולות יד", "Dumbbells"], bb: ["מוט ומשקולות", "Barbell"],
     bench: ["ספסל", "Bench"], rack: ["מתקן סקוואט", "Squat rack"], cable: ["מכונת כבלים", "Cable machine"], machine: ["מכונה ייעודית", "Machine"],
     bar: ["מוט מתח", "Pull-up bar"], band: ["גומיית התנגדות", "Resistance band"], kb: ["קטלבל", "Kettlebell"], chair: ["כיסא יציב או ספסל", "Sturdy chair or bench"],
-    dip: ["מתקן מקבילים", "Dip bars"], box: ["מדרגה", "Step"], wall: ["קיר", "Wall"], wheel: ["גלגל בטן", "Ab wheel"], table: ["שולחן יציב או מוט נמוך", "Sturdy table or low bar"]
+    dip: ["מתקן מקבילים", "Dip bars"], box: ["מדרגה", "Step"], wall: ["קיר", "Wall"], wheel: ["גלגל בטן", "Ab wheel"], table: ["שולחן יציב או מוט נמוך", "Sturdy table or low bar"],
+    trx: ["רצועות TRX", "TRX straps"], ball: ["כדור פיזיו", "Stability ball"], mball: ["כדור כוח", "Medicine ball"], rope: ["חבל קפיצה", "Jump rope"],
+    smith: ["מכונת סמית", "Smith machine"], ez: ["מוט EZ", "EZ bar"], plate: ["צלחת משקולת", "Weight plate"], sled: ["מזחלת", "Sled"],
+    rower: ["מכונת חתירה", "Rowing machine"], bike: ["אופני כושר", "Exercise bike"], tread: ["הליכון", "Treadmill"], roller: ["רולר", "Foam roller"]
   };
   var MUS = {
     chest: ["mChest", "var(--red)"], back: ["mBack", "var(--accent)"], legs: ["mLegs", "var(--green)"], glutes: ["mGlutes", "var(--yellow)"],
@@ -1968,9 +1992,311 @@ footer .wrap { padding-block: 28px 36px; }
     ["core", 3, "home", ["wheel"], "3×6–12", "ab wheel rollout", "גלגל בטן", "Ab wheel rollout",
       ["עמדו על הברכיים ואחזו בגלגל מתחת לכתפיים.", "גלגלו קדימה לאט, בטן אסופה והגב לא מתקשת.", "משכו חזרה בעזרת הבטן."],
       ["Kneel and hold the wheel under your shoulders.", "Roll forward slowly, abs tight, back not arching.", "Pull back using your abs."],
-      "התחילו בטווח קצר והאריכו בהדרגה.", "Start with a short range and extend gradually."]
+      "התחילו בטווח קצר והאריכו בהדרגה.", "Start with a short range and extend gradually."],
+    ["chest", 2, "home", ["none"], "3×8–15", "wide push-up", "שכיבות סמיכה רחבות", "Wide push-up", ["ידיים רחב מהכתפיים, גוף ישר, הורידו חזה לרצפה ודחפו."], ["Hands wider than shoulders, body straight, lower your chest and push up."], "", ""],
+    ["chest", 3, "home", ["chair"], "3×6–12", "decline push-up", "שכיבות סמיכה רגליים על כיסא", "Decline push-up", ["רגליים על כיסא, ידיים ברצפה, הורידו חזה ודחפו."], ["Feet on a chair, hands on the floor, lower your chest and push."], "", ""],
+    ["chest", 2, "home", ["none"], "3×6–12", "archer push-up", "שכיבות סמיכה קשת", "Archer push-up", ["ידיים רחבות, רדו לצד יד אחת כשהשנייה ישרה."], ["Wide hands, shift down toward one hand while the other arm stays straight."], "", ""],
+    ["chest", 3, "home", ["none"], "3×3–8", "clap push-up", "שכיבות סמיכה עם מחיאה", "Clap push-up", ["דחפו חזק מהרצפה, מחאו כף ונחתו רך."], ["Push explosively, clap, and land softly."], "", ""],
+    ["chest", 2, "home", ["none"], "3×6–12", "staggered push-up", "שכיבות סמיכה ידיים מדורגות", "Staggered push-up", ["יד אחת קדימה ויד אחת אחורה, בצעו שכיבה והחליפו."], ["One hand forward, one back; do the push-up and switch."], "", ""],
+    ["chest", 2, "home", ["none"], "3×5–10", "spiderman push-up", "שכיבות סמיכה ספיידרמן", "Spiderman push-up", ["בירידה הביאו ברך למרפק, החליפו צד בכל חזרה."], ["As you lower, bring a knee to the elbow; switch sides each rep."], "", ""],
+    ["chest", 3, "home", ["none"], "3×3–6", "pseudo planche push-up", "שכיבות סמיכה פסאודו פלאנש", "Pseudo planche push-up", ["ידיים ליד המותן, גוף נוטה קדימה, הורידו ודחפו."], ["Hands by the hips, lean forward, lower and push."], "", ""],
+    ["chest", 1, "home", ["wall"], "3×10–20", "wall push-up", "שכיבות סמיכה על קיר", "Wall push-up", ["ידיים על הקיר בגובה כתפיים, קרבו חזה לקיר ודחפו."], ["Hands on the wall at shoulder height, bring your chest in and push away."], "", ""],
+    ["chest", 2, "both", ["db", "bench"], "3×10–12", "dumbbell fly", "פרפר במשקולות", "Dumbbell fly", ["שכבו על ספסל, פתחו ידיים בקשת רחבה והחזירו למעלה."], ["Lie on a bench, open your arms in a wide arc and bring them back up."], "", ""],
+    ["chest", 2, "gym", ["db", "bench"], "3×10–12", "incline dumbbell fly", "פרפר בשיפוע", "Incline dumbbell fly", ["ספסל בשיפוע, פתחו ידיים בקשת וסגרו מעל החזה."], ["Incline bench, open the arms in an arc and close above the chest."], "", ""],
+    ["chest", 2, "gym", ["bb", "bench", "rack"], "3×6–10", "incline barbell bench press", "לחיצת חזה בשיפוע במוט", "Incline barbell press", ["ספסל בשיפוע, הורידו מוט לחזה העליון ודחפו."], ["Incline bench, lower the bar to the upper chest and press."], "", ""],
+    ["chest", 2, "gym", ["bb", "bench"], "3×6–10", "decline bench press", "לחיצת חזה בשיפוע שלילי", "Decline bench press", ["ספסל בשיפוע שלילי, הורידו מוט לחזה התחתון ודחפו."], ["Decline bench, lower the bar to the lower chest and press."], "", ""],
+    ["chest", 1, "gym", ["machine"], "3×10–12", "chest press machine", "מכונת לחיצת חזה", "Chest press machine", ["כוונו ידיות לגובה החזה, דחפו קדימה וחזרו לאט."], ["Set handles at chest height, press forward and return slowly."], "", ""],
+    ["chest", 1, "gym", ["machine"], "3×12–15", "pec deck machine", "מכונת פרפר", "Pec deck", ["זרועות על הכריות, סגרו לפנים החזה ופתחו לאט."], ["Arms on the pads, bring them together in front of you and open slowly."], "", ""],
+    ["chest", 2, "gym", ["cable"], "3×12–15", "low to high cable fly", "פרפר בכבל מלמטה למעלה", "Low-to-high cable fly", ["כבלים נמוכים, הרימו ידיים בקשת עד גובה הכתפיים."], ["Low pulleys, sweep your arms up to shoulder height."], "", ""],
+    ["chest", 2, "gym", ["cable"], "3×12–15", "high to low cable fly", "פרפר בכבל מלמעלה למטה", "High-to-low cable fly", ["כבלים גבוהים, משכו ידיים למטה ופנימה לפני המותן."], ["High pulleys, pull your arms down and in toward the hips."], "", ""],
+    ["chest", 1, "both", ["db", "bench"], "3×10–12", "dumbbell pullover", "פולאובר במשקולת", "Dumbbell pullover", ["שכבו על ספסל, משקולת מעל החזה, הורידו מאחורי הראש והחזירו."], ["Lie on a bench, lower a dumbbell behind your head and bring it back over the chest."], "", ""],
+    ["chest", 2, "both", ["db", "bench"], "3×8–12", "close grip dumbbell press", "לחיצת חזה צמודה במשקולות", "Squeeze press", ["לחצו את המשקולות זו לזו ודחפו למעלה מהחזה."], ["Press the dumbbells together and push them up from the chest."], "", ""],
+    ["chest", 1, "home", ["band"], "3×12–15", "resistance band chest press", "לחיצת חזה בגומייה", "Band chest press", ["גומייה מאחורי הגב, דחפו ידיים קדימה וחזרו לאט."], ["Band behind your back, push your hands forward and return slowly."], "", ""],
+    ["chest", 1, "home", ["band"], "3×12–15", "resistance band chest fly", "פרפר בגומייה", "Band chest fly", ["גומייה מעוגנת מאחור, סגרו ידיים בקשת לפנים."], ["Band anchored behind, bring your arms together in an arc."], "", ""],
+    ["chest", 1, "home", ["mat", "db"], "3×10–12", "dumbbell floor press", "לחיצת חזה מהרצפה", "Floor press", ["שכבו על הרצפה, הורידו משקולות עד שהמרפק נוגע ודחפו."], ["Lie on the floor, lower until the elbows touch and press."], "", ""],
+    ["chest", 2, "gym", ["smith", "bench"], "3×8–10", "smith machine bench press", "לחיצת חזה בסמית", "Smith machine bench press", ["ספסל מתחת למוט, הורידו לחזה ודחפו."], ["Bench under the bar, lower to the chest and press."], "", ""],
+    ["chest", 2, "home", ["mball"], "3×8–10", "medicine ball push-up", "שכיבות סמיכה על כדור כוח", "Medicine ball push-up", ["יד אחת על הכדור, בצעו שכיבה והעבירו את הכדור."], ["One hand on the ball, do a push-up, roll it to the other hand."], "", ""],
+    ["chest", 1, "home", ["ball"], "3×10–15", "stability ball push-up", "שכיבות סמיכה רגליים על כדור", "Stability ball push-up", ["רגליים על כדור פיזיו, גוף ישר, בצעו שכיבה."], ["Feet on a stability ball, body straight, do a push-up."], "", ""],
+    ["chest", 2, "both", ["trx"], "3×10–12", "trx chest press", "לחיצת חזה ברצועות TRX", "TRX chest press", ["פנים מהעוגן, נטו קדימה ודחפו חזרה."], ["Face away from the anchor, lean forward and push back."], "", ""],
+    ["chest", 1, "gym", ["plate"], "3×12–15", "plate squeeze press", "לחיצת צלחת", "Plate squeeze press", ["לחצו צלחת בין הידיים מול החזה ודחפו קדימה."], ["Squeeze a plate between your palms and push it forward."], "", ""],
+    ["chest", 3, "gym", ["dip"], "3×5–8", "weighted dips", "מקבילים עם משקל", "Weighted dips", ["הוסיפו משקל בחגורה, רדו עם נטייה קדימה ודחפו."], ["Add weight with a belt, lean forward, lower and push."], "", ""],
+    ["chest", 2, "home", ["none"], "3×8–12", "hindu push-up", "שכיבות סמיכה הודיות", "Hindu push-up", ["מתנוחת כלב מטה, צללו קדימה וחזרו לאחור."], ["From downward dog, dive forward and push back."], "", ""],
+    ["chest", 1, "home", ["none"], "3×8–12", "negative push-up", "שכיבות סמיכה שליליות", "Negative push-up", ["רדו לאט במשך 3–5 שניות, עלו על הברכיים."], ["Lower slowly for 3–5 seconds, come up on your knees."], "", ""],
+    ["chest", 2, "gym", ["cable"], "3×10–12", "single arm cable press", "לחיצה בכבל ביד אחת", "Single-arm cable press", ["גב לכבל, דחפו ביד אחת קדימה, גוף יציב."], ["Back to the cable, press forward with one arm, torso stable."], "", ""],
+    ["chest", 2, "gym", ["machine"], "3×10–12", "incline chest press machine", "מכונת לחיצה בשיפוע", "Incline chest press machine", ["שבו ודחפו את הידיות למעלה וקדימה."], ["Sit and press the handles up and forward."], "", ""],
+    ["chest", 2, "home", ["none"], "3×10–20", "push-up hold plank to push-up", "שכיבות סמיכה עם החזקה", "Pause push-up", ["עצרו 2 שניות למטה ואז דחפו."], ["Pause 2 seconds at the bottom, then push."], "", ""],
+    ["chest", 1, "home", ["kb"], "3×10–12", "kettlebell floor press", "לחיצה מהרצפה בקטלבל", "Kettlebell floor press", ["שכבו, קטלבל בכל יד, דחפו למעלה."], ["Lie down, a kettlebell in each hand, press up."], "", ""],
+    ["back", 1, "both", ["db", "bench"], "3×10–12", "chest supported dumbbell row", "חתירה בשכיבה על ספסל משופע", "Chest-supported row", ["שכבו בבטן על ספסל משופע ומשכו משקולות למותן."], ["Lie chest-down on an incline bench and row to the hips."], "", ""],
+    ["back", 2, "gym", ["bb"], "3×6–10", "pendlay row", "חתירת פנדליי", "Pendlay row", ["גב מקביל לרצפה, משכו מוט מהרצפה לבטן."], ["Back parallel to the floor, row the bar from the floor to your belly."], "", ""],
+    ["back", 2, "gym", ["bb"], "3×8–10", "t bar row", "חתירת T", "T-bar row", ["רגליים משני צדי המוט, משכו לחזה."], ["Straddle the bar, row it to your chest."], "", ""],
+    ["back", 1, "gym", ["cable"], "3×10–12", "straight arm pulldown", "פולי ידיים ישרות", "Straight-arm pulldown", ["ידיים ישרות, משכו את המוט לירכיים."], ["Arms straight, pull the bar down to your thighs."], "", ""],
+    ["back", 1, "gym", ["cable"], "3×10–12", "close grip lat pulldown", "פולי עליון צמוד", "Close-grip pulldown", ["אחיזה צרה, משכו לחזה העליון."], ["Narrow grip, pull to the upper chest."], "", ""],
+    ["back", 1, "gym", ["machine"], "3×10–12", "machine row", "מכונת חתירה", "Machine row", ["חזה על הכרית, משכו ידיות לאחור."], ["Chest on the pad, pull the handles back."], "", ""],
+    ["back", 2, "gym", ["machine"], "3×6–10", "assisted pull-up machine", "מכונת מתח מסייעת", "Assisted pull-up", ["ברכיים על המשטח, משכו סנטר מעל הידיות."], ["Knees on the pad, pull your chin above the handles."], "", ""],
+    ["back", 1, "home", ["band"], "3×10–15", "band lat pulldown", "פולי בגומייה", "Band pulldown", ["גומייה מעוגנת למעלה, משכו מרפקים למטה."], ["Band anchored high, pull your elbows down."], "", ""],
+    ["back", 1, "home", ["band"], "3×15–20", "band pull apart", "פתיחת גומייה", "Band pull-apart", ["ידיים ישרות מול החזה, פתחו את הגומייה לצדדים."], ["Arms straight in front, pull the band apart."], "", ""],
+    ["back", 2, "both", ["trx"], "3×10–12", "trx row", "חתירה ב־TRX", "TRX row", ["נטו לאחור, משכו חזה לידיות."], ["Lean back and pull your chest to the handles."], "", ""],
+    ["back", 3, "both", ["bar"], "3×5–8", "wide grip pull-up", "מתח רחב", "Wide-grip pull-up", ["אחיזה רחבה, משכו חזה למוט."], ["Wide grip, pull your chest to the bar."], "", ""],
+    ["back", 2, "both", ["bar"], "3×3–6", "negative pull-up", "מתח שלילי", "Negative pull-up", ["קפצו למעלה ורדו לאט במשך 5 שניות."], ["Jump to the top and lower slowly for 5 seconds."], "", ""],
+    ["back", 1, "both", ["bar"], "3×20–40″", "dead hang", "תלייה חופשית", "Dead hang", ["תלו על המוט עם ידיים ישרות."], ["Hang from the bar with straight arms."], "", ""],
+    ["back", 1, "both", ["bar"], "3×8–12", "scapular pull-up", "מתח שכמות", "Scapular pull-up", ["בתלייה, משכו שכמות למטה בלי לכופף מרפקים."], ["While hanging, pull your shoulder blades down without bending elbows."], "", ""],
+    ["back", 3, "both", ["bar"], "3×3–6", "commando pull-up", "מתח קומנדו", "Commando pull-up", ["ידיים זו מאחורי זו, משכו ראש לצד המוט."], ["Hands one behind the other, pull your head beside the bar."], "", ""],
+    ["back", 1, "home", ["mat"], "3×10–15", "superman exercise", "סופרמן", "Superman", ["שכבו על הבטן, הרימו ידיים ורגליים יחד."], ["Lie face down, lift arms and legs together."], "", ""],
+    ["back", 1, "home", ["mat"], "3×10–12", "prone y raise", "הרמות Y בשכיבה", "Prone Y raise", ["על הבטן, הרימו ידיים בצורת Y."], ["Face down, lift your arms in a Y shape."], "", ""],
+    ["back", 1, "home", ["mat"], "3×10", "reverse snow angel", "מלאך שלג הפוך", "Reverse snow angel", ["על הבטן, העבירו ידיים מהמותן מעל הראש."], ["Face down, sweep your arms from hips to overhead."], "", ""],
+    ["back", 2, "gym", ["bb"], "3×6–8", "rack pull", "דדליפט חלקי", "Rack pull", ["מוט מגובה הברך, הרימו לעמידה."], ["Bar at knee height, lift to standing."], "", ""],
+    ["back", 2, "both", ["kb"], "3×10–12", "kettlebell row", "חתירה בקטלבל", "Kettlebell row", ["נטו קדימה, משכו קטלבל למותן."], ["Hinge forward and row the kettlebell to the hip."], "", ""],
+    ["back", 2, "both", ["db"], "3×10–12", "renegade row", "חתירת רנגייד", "Renegade row", ["בפלאנק על משקולות, משכו יד אחת בכל פעם."], ["In a plank on dumbbells, row one arm at a time."], "", ""],
+    ["back", 2, "gym", ["db", "bench"], "3×8–10", "seal row", "חתירת כלב ים", "Seal row", ["שכבו על ספסל גבוה ומשכו משקולות."], ["Lie on a high bench and row the dumbbells."], "", ""],
+    ["back", 1, "gym", ["cable"], "3×10–12", "single arm cable row", "חתירה בכבל ביד אחת", "Single-arm cable row", ["משכו ידית ביד אחת עם סיבוב קל."], ["Row one handle with a slight twist."], "", ""],
+    ["back", 2, "gym", ["cable"], "3×10–12", "kneeling single arm lat pulldown", "פולי ביד אחת בכריעה", "Single-arm pulldown", ["כרעו, משכו ידית למטה ליד הצלע."], ["Kneel and pull one handle down to your ribs."], "", ""],
+    ["back", 1, "home", ["table"], "3×8–12", "towel row", "חתירה עם מגבת", "Towel row", ["מגבת סביב עמוד או ידית דלת, נטו ומשכו."], ["Towel around a post or door handle, lean back and pull."], "", ""],
+    ["back", 2, "gym", ["bb"], "3×8", "good morning exercise", "גוד מורנינג", "Good morning", ["מוט על הגב, כופפו מהמותן עם גב ישר."], ["Bar on your back, hinge at the hips with a flat back."], "", ""],
+    ["back", 1, "gym", ["machine"], "3×12–15", "back extension", "פשיטת גב בכיסא רומי", "Back extension", ["ירכיים על הכרית, רדו ועלו עד קו ישר."], ["Hips on the pad, lower and rise to a straight line."], "", ""],
+    ["back", 2, "both", ["kb"], "3×8", "kettlebell high pull", "משיכה גבוהה בקטלבל", "Kettlebell high pull", ["דחפו מהמותן ומשכו את הקטלבל לחזה."], ["Drive with the hips and pull the kettlebell to the chest."], "", ""],
+    ["back", 1, "home", ["ball"], "3×12", "stability ball reverse hyperextension", "פשיטת גב על כדור", "Ball back extension", ["בטן על הכדור, הרימו חזה וחזרו."], ["Belly on the ball, lift your chest and lower."], "", ""],
+    ["back", 2, "gym", ["bb"], "3×5", "snatch grip deadlift", "דדליפט אחיזה רחבה", "Snatch-grip deadlift", ["אחיזה רחבה מאוד, הרימו כמו דדליפט."], ["Very wide grip, lift like a deadlift."], "", ""],
+    ["back", 2, "both", ["db"], "3×10", "dumbbell shrug", "הרמת כתפיים במשקולות", "Dumbbell shrug", ["הרימו כתפיים לאוזניים ושחררו."], ["Lift your shoulders toward your ears and lower."], "", ""],
+    ["back", 2, "gym", ["bb"], "3×10", "barbell shrug", "הרמת כתפיים במוט", "Barbell shrug", ["מוט בידיים, הרימו כתפיים למעלה."], ["Hold a bar and shrug up."], "", ""],
+    ["back", 1, "gym", ["rower"], "10–20′", "rowing machine technique", "מכונת חתירה", "Rowing machine", ["דחפו ברגליים, נטו מעט ומשכו לבטן."], ["Push with your legs, lean slightly, pull to your belly."], "", ""],
+    ["back", 3, "both", ["bar"], "3×3–5", "muscle up", "מאסל אפ", "Muscle-up", ["משכו חזק מעל המוט ודחפו למעלה."], ["Pull explosively over the bar and press up."], "", ""],
+    ["back", 2, "gym", ["cable"], "3×12", "cable pullover", "פולאובר בכבל", "Cable pullover", ["ידיים כמעט ישרות, משכו חבל לירכיים."], ["Arms nearly straight, pull the rope to your thighs."], "", ""],
+    ["back", 2, "both", ["bar"], "3×5–8", "l sit pull-up", "מתח ברגליים ישרות", "L-sit pull-up", ["רגליים ישרות קדימה, משכו למעלה."], ["Legs straight out in front, pull up."], "", ""],
+    ["legs", 2, "home", ["none"], "3×10–15", "jump squat", "סקוואט קפיצה", "Jump squat", ["רדו לסקוואט וקפצו למעלה, נחתו רך."], ["Squat down and jump, land softly."], "", ""],
+    ["legs", 1, "both", ["none", "db"], "3×12–15", "sumo squat", "סקוואט סומו", "Sumo squat", ["רגליים רחבות, אצבעות החוצה, רדו ועלו."], ["Wide stance, toes out, squat down and up."], "", ""],
+    ["legs", 3, "home", ["none"], "3×3–8", "pistol squat", "סקוואט רגל אחת", "Pistol squat", ["עמדו על רגל אחת ורדו עם השנייה קדימה."], ["Stand on one leg and squat with the other straight out."], "", ""],
+    ["legs", 2, "home", ["chair"], "3×8–10", "box pistol squat", "סקוואט רגל אחת לכיסא", "Single-leg box squat", ["רגל אחת, רדו לשבת על כיסא וקומו."], ["On one leg, sit to a chair and stand."], "", ""],
+    ["legs", 1, "home", ["wall"], "3×30–60″", "wall sit", "ישיבה על קיר", "Wall sit", ["גב על הקיר, ברכיים ב־90 מעלות."], ["Back on the wall, knees at 90 degrees."], "", ""],
+    ["legs", 1, "both", ["none", "db"], "3×10", "walking lunge", "לאנג׳ בהליכה", "Walking lunge", ["צעד גדול ורדו, המשיכו קדימה."], ["Take a big step and lower, keep walking."], "", ""],
+    ["legs", 1, "both", ["none", "db"], "3×10", "forward lunge", "לאנג׳ קדימה", "Forward lunge", ["צעד קדימה, ברך אחורית כמעט לרצפה, חזרו."], ["Step forward, back knee near the floor, return."], "", ""],
+    ["legs", 2, "home", ["none"], "3×10", "jumping lunge", "לאנג׳ קפיצה", "Jumping lunge", ["מלאנג׳ קפצו והחליפו רגליים באוויר."], ["From a lunge, jump and switch legs in the air."], "", ""],
+    ["legs", 1, "both", ["none", "db"], "3×10", "lateral lunge", "לאנג׳ צידי", "Lateral lunge", ["צעד לצד, שבו על הרגל הזו, השנייה ישרה."], ["Step to the side, sit into that leg, other leg straight."], "", ""],
+    ["legs", 1, "both", ["none"], "3×10", "curtsy lunge", "לאנג׳ קידה", "Curtsy lunge", ["רגל אחת אחורה ובאלכסון, רדו."], ["Step one leg back and across, lower."], "", ""],
+    ["legs", 1, "both", ["box", "db"], "3×10", "step up", "עלייה למדרגה", "Step-up", ["עלו על מדרגה ברגל אחת, ירדו לאט."], ["Step up with one leg, step down slowly."], "", ""],
+    ["legs", 2, "gym", ["bb", "rack"], "3×5–8", "front squat", "סקוואט קדמי", "Front squat", ["מוט על הכתפיים מלפנים, רדו עם גב זקוף."], ["Bar on the front of your shoulders, squat with an upright torso."], "", ""],
+    ["legs", 2, "gym", ["machine"], "3×8–10", "hack squat", "האק סקוואט", "Hack squat", ["גב על הכרית, רדו עמוק ודחפו."], ["Back on the pad, squat deep and push."], "", ""],
+    ["legs", 2, "gym", ["smith"], "3×8–10", "smith machine squat", "סקוואט בסמית", "Smith machine squat", ["רגליים מעט קדימה, רדו ודחפו."], ["Feet a bit forward, squat and push."], "", ""],
+    ["legs", 2, "gym", ["bb", "rack"], "3×8", "barbell lunge", "לאנג׳ במוט", "Barbell lunge", ["מוט על הגב, צעד לאחור ורדו."], ["Bar on your back, step back and lower."], "", ""],
+    ["legs", 2, "both", ["db"], "3×8", "single leg romanian deadlift", "דדליפט רומני רגל אחת", "Single-leg RDL", ["על רגל אחת, כופפו מהמותן והרגל השנייה אחורה."], ["On one leg, hinge with the other leg going back."], "", ""],
+    ["legs", 1, "gym", ["machine"], "3×12", "seated calf raise", "הרמות עקבים בישיבה", "Seated calf raise", ["ברכיים מתחת לכרית, הרימו עקבים."], ["Knees under the pad, raise your heels."], "", ""],
+    ["legs", 1, "home", ["box"], "3×12", "single leg calf raise", "הרמות עקבים ברגל אחת", "Single-leg calf raise", ["על רגל אחת על מדרגה, עלו וירדו לאט."], ["On one leg on a step, rise and lower slowly."], "", ""],
+    ["legs", 2, "home", ["ball"], "3×10–12", "stability ball hamstring curl", "כפיפת ברכיים על כדור", "Ball hamstring curl", ["עקבים על הכדור, הרימו אגן וגלגלו פנימה."], ["Heels on the ball, lift hips and roll it in."], "", ""],
+    ["legs", 3, "home", ["mat"], "3×3–6", "nordic hamstring curl", "נורדיק", "Nordic curl", ["ברכיים על מזרן, עקבים מקובעים, רדו לאט קדימה."], ["Knees on a mat, heels anchored, lower forward slowly."], "", ""],
+    ["legs", 1, "home", ["none"], "3×20", "squat pulse", "פולסים בסקוואט", "Squat pulse", ["הישארו למטה ועלו רק מעט שוב ושוב."], ["Stay low and pulse up a little, again and again."], "", ""],
+    ["legs", 2, "both", ["kb"], "3×8", "kettlebell front squat", "סקוואט קדמי בקטלבל", "Kettlebell front squat", ["קטלבלים על החזה, רדו לסקוואט."], ["Kettlebells at the chest, squat down."], "", ""],
+    ["legs", 2, "home", ["box"], "3×8", "box jump", "קפיצה לקופסה", "Box jump", ["קפצו על מדרגה יציבה, ירדו בהליכה."], ["Jump onto a sturdy box, step down."], "", ""],
+    ["legs", 2, "both", ["db"], "3×10", "dumbbell step up", "עלייה למדרגה עם משקולות", "Weighted step-up", ["משקולת בכל יד, עלו על מדרגה."], ["A dumbbell in each hand, step up."], "", ""],
+    ["legs", 1, "home", ["band"], "3×15", "banded squat", "סקוואט עם גומייה", "Banded squat", ["גומייה מעל הברכיים, דחפו ברכיים החוצה."], ["Band above knees, push knees out as you squat."], "", ""],
+    ["legs", 1, "gym", ["machine"], "3×12", "hip adduction machine", "מכונת מקרבים", "Hip adduction machine", ["סגרו רגליים נגד הכריות."], ["Squeeze your legs together against the pads."], "", ""],
+    ["legs", 2, "gym", ["bb"], "3×5", "zercher squat", "סקוואט זרכר", "Zercher squat", ["מוט בכפות המרפקים, רדו לסקוואט."], ["Bar in the crook of your elbows, squat."], "", ""],
+    ["legs", 2, "home", ["none"], "3×10", "skater jump", "קפיצות מחליק", "Skater jump", ["קפצו מצד לצד ונחתו על רגל אחת."], ["Leap side to side and land on one leg."], "", ""],
+    ["legs", 1, "home", ["none"], "3×10", "cossack squat", "סקוואט קוזאקי", "Cossack squat", ["רגליים רחבות, שבו לצד אחד והשנייה ישרה."], ["Wide stance, sit to one side, other leg straight."], "", ""],
+    ["legs", 2, "gym", ["sled"], "3×20 m", "sled push", "דחיפת מזחלת", "Sled push", ["ידיים על המזחלת, דחפו בצעדים חזקים."], ["Hands on the sled, drive with strong steps."], "", ""],
+    ["legs", 1, "gym", ["bike"], "10–20′", "stationary bike", "אופני כושר", "Stationary bike", ["כוונו מושב לגובה המותן ודוושו."], ["Set the seat at hip height and pedal."], "", ""],
+    ["legs", 1, "home", ["rope"], "3×60″", "jump rope basics", "קפיצה בחבל", "Jump rope", ["קפיצות קטנות על כריות כף הרגל."], ["Small hops on the balls of your feet."], "", ""],
+    ["legs", 2, "home", ["none"], "3×15", "tuck jump", "קפיצת ברכיים לחזה", "Tuck jump", ["קפצו והביאו ברכיים לחזה."], ["Jump and bring your knees to your chest."], "", ""],
+    ["legs", 1, "home", ["wall"], "3×10", "wall sit march", "ישיבה על קיר עם הרמת רגל", "Wall sit march", ["בישיבה על קיר, הרימו רגל אחת בכל פעם."], ["In a wall sit, lift one foot at a time."], "", ""],
+    ["legs", 2, "both", ["db"], "3×8", "dumbbell sumo deadlift", "דדליפט סומו במשקולת", "Dumbbell sumo deadlift", ["רגליים רחבות, משקולת בין הרגליים, עמדו."], ["Wide stance, dumbbell between your feet, stand up."], "", ""],
+    ["legs", 2, "gym", ["bb"], "3×5", "sumo deadlift", "דדליפט סומו", "Sumo deadlift", ["רגליים רחבות, אחיזה צרה, דחפו את הרצפה."], ["Wide stance, narrow grip, push the floor away."], "", ""],
+    ["legs", 1, "home", ["chair"], "3×10", "sit to stand", "קימה מכיסא", "Sit to stand", ["שבו וקומו מכיסא בלי ידיים."], ["Sit and stand from a chair without using your hands."], "", ""],
+    ["glutes", 1, "home", ["mat"], "3×12", "single leg glute bridge", "גשר ישבן רגל אחת", "Single-leg glute bridge", ["רגל אחת באוויר, הרימו אגן."], ["One leg in the air, lift your hips."], "", ""],
+    ["glutes", 1, "home", ["mat"], "3×15", "donkey kick", "בעיטת חמור", "Donkey kick", ["על ארבע, בעטו רגל כפופה למעלה."], ["On all fours, kick one bent leg up."], "", ""],
+    ["glutes", 1, "home", ["mat"], "3×15", "fire hydrant exercise", "הרמת רגל לצד על ארבע", "Fire hydrant", ["על ארבע, הרימו ברך לצד."], ["On all fours, lift one knee out to the side."], "", ""],
+    ["glutes", 1, "home", ["mat"], "3×15", "clamshell exercise", "צדפה", "Clamshell", ["על הצד, ברכיים כפופות, פתחו ברך עליונה."], ["On your side, knees bent, open the top knee."], "", ""],
+    ["glutes", 2, "gym", ["cable"], "3×12", "cable kickback", "בעיטה לאחור בכבל", "Cable kickback", ["רצועה בקרסול, בעטו רגל ישרה לאחור."], ["Ankle strap, kick a straight leg back."], "", ""],
+    ["glutes", 1, "gym", ["machine"], "3×12", "hip abduction machine", "מכונת מרחיקים", "Hip abduction machine", ["פתחו רגליים נגד הכריות."], ["Push your legs apart against the pads."], "", ""],
+    ["glutes", 2, "both", ["db", "bench"], "3×10", "dumbbell hip thrust", "היפ ת׳ראסט במשקולת", "Dumbbell hip thrust", ["גב על ספסל, משקולת על האגן, דחפו למעלה."], ["Back on a bench, dumbbell on hips, drive up."], "", ""],
+    ["glutes", 2, "both", ["bench"], "3×12", "single leg hip thrust", "היפ ת׳ראסט רגל אחת", "Single-leg hip thrust", ["גב על ספסל, רגל אחת באוויר, דחפו."], ["Back on a bench, one leg up, drive the hips."], "", ""],
+    ["glutes", 1, "home", ["band", "mat"], "3×15", "banded glute bridge", "גשר עם גומייה", "Banded glute bridge", ["גומייה מעל הברכיים, הרימו אגן ודחפו החוצה."], ["Band above knees, bridge up and push out."], "", ""],
+    ["glutes", 1, "home", ["mat"], "3×15", "frog pump", "משאבת צפרדע", "Frog pump", ["כפות רגליים צמודות, ברכיים פתוחות, הרימו אגן."], ["Soles together, knees out, lift the hips."], "", ""],
+    ["glutes", 2, "gym", ["cable"], "3×12", "cable pull through", "משיכה בין הרגליים בכבל", "Cable pull-through", ["גב לכבל, כופפו מהמותן ודחפו קדימה."], ["Back to the cable, hinge and drive forward."], "", ""],
+    ["glutes", 1, "home", ["band"], "3×15", "banded side step", "צעדים לצד עם גומייה", "Banded side step", ["גומייה בקרסוליים, צעדו לצד בחצי סקוואט."], ["Band at the ankles, step sideways in a half squat."], "", ""],
+    ["glutes", 1, "home", ["mat"], "3×12", "side lying leg raise", "הרמת רגל על הצד", "Side-lying leg raise", ["על הצד, הרימו רגל ישרה למעלה."], ["On your side, lift your straight leg up."], "", ""],
+    ["glutes", 2, "both", ["kb"], "3×10", "kettlebell deadlift", "דדליפט בקטלבל", "Kettlebell deadlift", ["קטלבל בין הרגליים, כופפו ועמדו."], ["Kettlebell between your feet, hinge and stand."], "", ""],
+    ["glutes", 2, "home", ["box"], "3×10", "reverse lunge from step", "לאנג׳ לאחור ממדרגה", "Deficit reverse lunge", ["עמדו על מדרגה וצעדו לאחור למטה."], ["Stand on a step and lunge back down."], "", ""],
+    ["glutes", 1, "home", ["mat"], "3×12", "glute bridge march", "גשר עם הליכה", "Glute bridge march", ["בגשר, הרימו רגל אחת בכל פעם."], ["In a bridge, lift one foot at a time."], "", ""],
+    ["glutes", 2, "gym", ["machine"], "3×12", "glute kickback machine", "מכונת בעיטה לאחור", "Glute kickback machine", ["דחפו את הכרית לאחור ברגל אחת."], ["Push the pad back with one leg."], "", ""],
+    ["glutes", 2, "home", ["ball"], "3×12", "stability ball hip thrust", "גשר על כדור", "Ball bridge", ["גב על כדור, הרימו אגן."], ["Upper back on a ball, lift your hips."], "", ""],
+    ["glutes", 1, "home", ["mat"], "3×12", "reverse hyperextension on floor", "הרמת רגליים בשכיבה על הבטן", "Floor reverse hyper", ["על הבטן, הרימו שתי רגליים ישרות."], ["Face down, lift both straight legs."], "", ""],
+    ["glutes", 2, "gym", ["bb"], "3×8", "barbell glute bridge", "גשר במוט", "Barbell glute bridge", ["על הרצפה, מוט על האגן, הרימו."], ["On the floor, bar on your hips, lift."], "", ""],
+    ["glutes", 2, "both", ["db"], "3×10", "b stance romanian deadlift", "דדליפט רומני בעמידת B", "B-stance RDL", ["רגל אחת מעט אחורה, כופפו מהמותן."], ["One foot slightly back, hinge from the hips."], "", ""],
+    ["glutes", 1, "home", ["band"], "3×20", "banded monster walk", "הליכת מפלצת", "Monster walk", ["גומייה בברכיים, צעדו באלכסון קדימה."], ["Band at the knees, step diagonally forward."], "", ""],
+    ["glutes", 2, "home", ["none"], "3×10", "curtsy squat", "סקוואט קידה", "Curtsy squat", ["הצליבו רגל אחורה ורדו נמוך."], ["Cross one leg behind and squat low."], "", ""],
+    ["glutes", 2, "home", ["mat"], "3×12", "kneeling hip thrust", "היפ ת׳ראסט בכריעה", "Kneeling hip thrust", ["על הברכיים, שבו על עקבים ודחפו אגן קדימה."], ["Kneel, sit back to heels and drive hips forward."], "", ""],
+    ["glutes", 1, "home", ["mat"], "3×15", "bird dog exercise", "ציפור־כלב", "Bird dog", ["על ארבע, יד ורגל נגדית ישרות."], ["On all fours, extend the opposite arm and leg."], "", ""],
+    ["shoulders", 1, "both", ["db"], "3×12", "dumbbell front raise", "הרמה קדמית", "Front raise", ["הרימו משקולות ישר קדימה עד גובה הכתפיים."], ["Lift dumbbells straight forward to shoulder height."], "", ""],
+    ["shoulders", 2, "both", ["db"], "3×8–10", "arnold press", "לחיצת ארנולד", "Arnold press", ["התחילו בכפות כלפיכם, סובבו ודחפו למעלה."], ["Start palms facing you, rotate and press up."], "", ""],
+    ["shoulders", 1, "both", ["db", "bench"], "3×12", "reverse dumbbell fly", "פרפר הפוך", "Reverse fly", ["נטו קדימה, פתחו ידיים לצדדים."], ["Lean forward, open your arms to the sides."], "", ""],
+    ["shoulders", 2, "both", ["db"], "3×10", "seated dumbbell shoulder press", "לחיצת כתפיים בישיבה", "Seated shoulder press", ["שבו זקוף ודחפו משקולות למעלה."], ["Sit tall and press dumbbells overhead."], "", ""],
+    ["shoulders", 1, "gym", ["machine"], "3×10", "shoulder press machine", "מכונת לחיצת כתפיים", "Shoulder press machine", ["דחפו ידיות למעלה וחזרו לאט."], ["Press the handles up and lower slowly."], "", ""],
+    ["shoulders", 1, "gym", ["machine"], "3×12", "reverse pec deck", "מכונת פרפר הפוך", "Reverse pec deck", ["פנים לכרית, פתחו ידיים לאחור."], ["Face the pad, open your arms back."], "", ""],
+    ["shoulders", 2, "gym", ["cable"], "3×12", "cable lateral raise", "הרחקה צידית בכבל", "Cable lateral raise", ["כבל נמוך, הרימו יד לצד."], ["Low cable, raise your arm out to the side."], "", ""],
+    ["shoulders", 2, "gym", ["bb"], "3×10", "upright row", "חתירה אנכית", "Upright row", ["משכו מוט לגובה החזה, מרפקים גבוה."], ["Pull the bar to chest height, elbows high."], "", ""],
+    ["shoulders", 2, "gym", ["bb", "rack"], "3×5", "push press", "פוש פרס", "Push press", ["כופפו ברכיים מעט ודחפו את המוט למעלה."], ["Dip your knees slightly and drive the bar overhead."], "", ""],
+    ["shoulders", 2, "gym", ["bb"], "3×8", "landmine press", "לחיצת לנדמיין", "Landmine press", ["קצה המוט ביד, דחפו קדימה ולמעלה."], ["End of the bar in hand, press up and forward."], "", ""],
+    ["shoulders", 1, "home", ["band"], "3×15", "band shoulder press", "לחיצת כתפיים בגומייה", "Band shoulder press", ["עמדו על הגומייה ודחפו למעלה."], ["Stand on the band and press up."], "", ""],
+    ["shoulders", 1, "home", ["band"], "3×15", "band lateral raise", "הרחקה צידית בגומייה", "Band lateral raise", ["עמדו על הגומייה והרימו לצדדים."], ["Stand on the band and raise to the sides."], "", ""],
+    ["shoulders", 1, "home", ["band"], "3×15", "band external rotation", "סיבוב חיצוני בגומייה", "Band external rotation", ["מרפק צמוד לגוף, סובבו אמה החוצה."], ["Elbow at your side, rotate the forearm out."], "", ""],
+    ["shoulders", 1, "both", ["db", "mat"], "3×12", "side lying external rotation", "סיבוב חיצוני בשכיבה על הצד", "Side-lying external rotation", ["על הצד, מרפק על המותן, הרימו משקולת."], ["On your side, elbow on hip, lift the dumbbell."], "", ""],
+    ["shoulders", 2, "home", ["none"], "3×10", "pike push-up elevated", "פייק עם רגליים על כיסא", "Elevated pike push-up", ["רגליים על כיסא, אגן גבוה, הורידו ראש."], ["Feet on a chair, hips high, lower your head."], "", ""],
+    ["shoulders", 2, "home", ["wall"], "3×20–40″", "wall handstand hold", "עמידת ידיים על קיר", "Wall handstand hold", ["עלו לעמידת ידיים עם רגליים על הקיר."], ["Kick up to a handstand against the wall."], "", ""],
+    ["shoulders", 1, "home", ["none"], "3×30″", "arm circles", "סיבובי ידיים", "Arm circles", ["ידיים לצדדים, סיבובים קטנים וגדלים."], ["Arms out, small circles getting bigger."], "", ""],
+    ["shoulders", 1, "both", ["plate"], "3×12", "plate front raise", "הרמה קדמית בצלחת", "Plate front raise", ["אחזו צלחת והרימו עד גובה העיניים."], ["Hold a plate and raise it to eye level."], "", ""],
+    ["shoulders", 2, "both", ["kb"], "3×8", "kettlebell overhead press", "לחיצה מעל הראש בקטלבל", "Kettlebell press", ["קטלבל על הכתף, דחפו למעלה."], ["Kettlebell at the shoulder, press up."], "", ""],
+    ["shoulders", 2, "both", ["kb"], "3×20 m", "kettlebell overhead carry", "הליכה עם קטלבל מעל הראש", "Overhead carry", ["יד ישרה מעל הראש, הלכו לאט."], ["Arm locked overhead, walk slowly."], "", ""],
+    ["shoulders", 1, "home", ["mat"], "3×10", "prone t raise", "הרמות T בשכיבה", "Prone T raise", ["על הבטן, הרימו ידיים לצדדים."], ["Face down, lift your arms out to a T."], "", ""],
+    ["shoulders", 2, "both", ["db"], "3×8", "z press", "לחיצת Z", "Z press", ["שבו על הרצפה, רגליים ישרות, דחפו למעלה."], ["Sit on the floor, legs straight, press overhead."], "", ""],
+    ["shoulders", 1, "both", ["db"], "3×10", "cuban press", "לחיצה קובנית", "Cuban press", ["משכו למעלה, סובבו החוצה ודחפו."], ["Pull up, rotate out, then press."], "", ""],
+    ["shoulders", 2, "gym", ["cable"], "3×12", "cable rear delt fly", "פרפר הפוך בכבל", "Cable rear delt fly", ["הצליבו כבלים ומשכו לאחור."], ["Cross the cables and pull them back."], "", ""],
+    ["shoulders", 2, "home", ["none"], "3×8", "dive bomber push-up", "שכיבות סמיכה מפציץ", "Dive bomber push-up", ["מכלב מטה, צללו קדימה ולמעלה."], ["From downward dog, swoop forward and up."], "", ""],
+    ["shoulders", 2, "both", ["db"], "3×10", "lateral raise partials", "הרחקות חלקיות", "Partial lateral raise", ["הרימו רק עד חצי הדרך בקצב מהיר."], ["Raise only halfway, quick reps."], "", ""],
+    ["shoulders", 1, "home", ["mat"], "3×30″", "plank shoulder tap", "פלאנק עם נגיעה בכתף", "Plank shoulder tap", ["בפלאנק גבוה, געו ביד בכתף הנגדית."], ["In a high plank, tap the opposite shoulder."], "", ""],
+    ["shoulders", 2, "gym", ["smith"], "3×8", "smith machine shoulder press", "לחיצת כתפיים בסמית", "Smith shoulder press", ["שבו מתחת למוט ודחפו למעלה."], ["Sit under the bar and press up."], "", ""],
+    ["shoulders", 1, "both", ["trx"], "3×12", "trx y raise", "הרמת Y ב־TRX", "TRX Y raise", ["נטו לאחור ופתחו ידיים ל־Y."], ["Lean back and open your arms into a Y."], "", ""],
+    ["shoulders", 3, "home", ["wall"], "3×3–5", "freestanding handstand practice", "עמידת ידיים חופשית", "Handstand practice", ["תרגלו עלייה לעמידה ליד קיר."], ["Practice kicking up near a wall."], "", ""],
+    ["arms", 1, "both", ["db"], "3×10", "concentration curl", "כפיפה מרוכזת", "Concentration curl", ["מרפק על הירך, כופפו לאט."], ["Elbow on your thigh, curl slowly."], "", ""],
+    ["arms", 1, "gym", ["bb"], "3×10", "barbell curl", "כפיפת מרפקים במוט", "Barbell curl", ["מרפקים צמודים, הרימו מוט לחזה."], ["Elbows tucked, curl the bar to your chest."], "", ""],
+    ["arms", 1, "gym", ["ez"], "3×10", "ez bar curl", "כפיפה במוט EZ", "EZ-bar curl", ["אחזו במוט המעוקל וכופפו."], ["Hold the curved bar and curl."], "", ""],
+    ["arms", 2, "gym", ["ez", "bench"], "3×10", "preacher curl", "כפיפת מרפקים על כרית", "Preacher curl", ["זרועות על הכרית, כופפו ופשטו לאט."], ["Arms on the pad, curl and lower slowly."], "", ""],
+    ["arms", 1, "gym", ["cable"], "3×12", "cable curl", "כפיפה בכבל", "Cable curl", ["כבל נמוך, כופפו מרפקים."], ["Low cable, curl up."], "", ""],
+    ["arms", 2, "both", ["db", "bench"], "3×10", "incline dumbbell curl", "כפיפה בשיפוע", "Incline curl", ["שבו בשיפוע, ידיים תלויות, כופפו."], ["Sit inclined, arms hanging, curl."], "", ""],
+    ["arms", 1, "home", ["band"], "3×15", "band biceps curl", "כפיפה בגומייה", "Band curl", ["עמדו על הגומייה וכופפו מרפקים."], ["Stand on the band and curl."], "", ""],
+    ["arms", 2, "both", ["db"], "3×10", "zottman curl", "כפיפת זוטמן", "Zottman curl", ["כופפו בכפות למעלה, הורידו בכפות למטה."], ["Curl palms up, lower palms down."], "", ""],
+    ["arms", 1, "gym", ["bb"], "3×12", "reverse barbell curl", "כפיפה הפוכה", "Reverse curl", ["אחיזה עליונה, כופפו מרפקים."], ["Overhand grip, curl up."], "", ""],
+    ["arms", 2, "gym", ["cable"], "3×12", "cable hammer curl rope", "כפיפת פטיש בחבל", "Rope hammer curl", ["חבל בכבל נמוך, כופפו באחיזה ניטרלית."], ["Rope on a low cable, curl with a neutral grip."], "", ""],
+    ["arms", 1, "both", ["db"], "3×10", "overhead dumbbell triceps extension", "פשיטת מרפקים מעל הראש", "Overhead triceps extension", ["משקולת מאחורי הראש, פשטו למעלה."], ["Dumbbell behind your head, extend up."], "", ""],
+    ["arms", 1, "both", ["db", "bench"], "3×12", "dumbbell kickback", "קיקבק במשקולת", "Triceps kickback", ["נטו קדימה, פשטו אמה לאחור."], ["Lean forward, extend your forearm back."], "", ""],
+    ["arms", 2, "gym", ["bb", "bench"], "3×8", "close grip bench press", "לחיצת חזה צרה", "Close-grip bench press", ["אחיזה ברוחב הכתפיים, מרפקים צמודים."], ["Shoulder-width grip, elbows tucked."], "", ""],
+    ["arms", 1, "gym", ["cable"], "3×12", "rope triceps pushdown", "פשיטה בחבל", "Rope pushdown", ["פשטו מרפקים ופתחו את החבל למטה."], ["Extend your elbows and spread the rope at the bottom."], "", ""],
+    ["arms", 2, "gym", ["cable"], "3×12", "overhead cable triceps extension", "פשיטה בכבל מעל הראש", "Overhead cable extension", ["גב לכבל, פשטו ידיים קדימה ולמעלה."], ["Back to the cable, extend your arms up and forward."], "", ""],
+    ["arms", 1, "home", ["band"], "3×15", "band triceps pushdown", "פשיטה בגומייה", "Band pushdown", ["גומייה מעוגנת למעלה, פשטו מרפקים."], ["Band anchored high, extend your elbows."], "", ""],
+    ["arms", 2, "gym", ["dip"], "3×8", "triceps dips", "מקבילים לתלת ראשי", "Triceps dips", ["גוף זקוף, רדו ודחפו."], ["Torso upright, lower and push."], "", ""],
+    ["arms", 2, "home", ["mat"], "3×10", "tate press", "לחיצת טייט", "Tate press", ["על הגב, הורידו משקולות לחזה עם מרפקים החוצה."], ["On your back, lower dumbbells to your chest, elbows out."], "", ""],
+    ["arms", 1, "gym", ["machine"], "3×12", "triceps machine", "מכונת תלת ראשי", "Triceps machine", ["דחפו ידיות למטה במכונה."], ["Push the handles down on the machine."], "", ""],
+    ["arms", 1, "gym", ["machine"], "3×12", "biceps curl machine", "מכונת דו ראשי", "Biceps curl machine", ["זרועות על הכרית, כופפו."], ["Arms on the pad, curl."], "", ""],
+    ["arms", 1, "both", ["db"], "3×15", "wrist curl", "כפיפת שורש כף יד", "Wrist curl", ["אמה על הירך, הרימו משקולת בשורש כף היד."], ["Forearm on thigh, curl the weight with your wrist."], "", ""],
+    ["arms", 1, "both", ["db"], "3×15", "reverse wrist curl", "פשיטת שורש כף יד", "Reverse wrist curl", ["כף יד למטה, הרימו שורש כף היד."], ["Palm down, lift with your wrist."], "", ""],
+    ["arms", 1, "both", ["db"], "3×30 m", "farmer carry", "הליכת חקלאי", "Farmer carry", ["משקולות כבדות בידיים, הלכו זקוף."], ["Heavy weights in hand, walk tall."], "", ""],
+    ["arms", 2, "both", ["bar"], "3×5", "close grip chin-up", "מתח צמוד", "Close-grip chin-up", ["ידיים צמודות באחיזה הפוכה, משכו."], ["Hands close, underhand, pull up."], "", ""],
+    ["arms", 2, "both", ["trx"], "3×10", "trx biceps curl", "כפיפה ב־TRX", "TRX curl", ["נטו לאחור, כופפו מרפקים ומשכו."], ["Lean back, curl yourself in."], "", ""],
+    ["arms", 2, "both", ["trx"], "3×10", "trx triceps extension", "פשיטה ב־TRX", "TRX triceps extension", ["נטו קדימה, פשטו מרפקים."], ["Lean forward and extend your elbows."], "", ""],
+    ["arms", 1, "home", ["chair"], "3×10", "chair dips bent knees", "מקבילים על כיסא ברכיים כפופות", "Bent-knee chair dip", ["ברכיים כפופות, רדו ודחפו."], ["Knees bent, lower and push."], "", ""],
+    ["arms", 2, "both", ["kb"], "3×10", "kettlebell curl", "כפיפה בקטלבל", "Kettlebell curl", ["אחזו בידית וכופפו."], ["Hold the handle and curl."], "", ""],
+    ["arms", 2, "gym", ["plate"], "3×30″", "plate pinch", "צביטת צלחות", "Plate pinch", ["החזיקו שתי צלחות בצביטה."], ["Pinch two plates together and hold."], "", ""],
+    ["arms", 2, "both", ["db"], "3×8", "cross body hammer curl", "כפיפת פטיש לרוחב", "Cross-body hammer curl", ["כופפו משקולת לכיוון הכתף הנגדית."], ["Curl the dumbbell toward the opposite shoulder."], "", ""],
+    ["core", 1, "home", ["mat"], "3×15", "crunch", "כפיפות בטן", "Crunch", ["על הגב, הרימו כתפיים מהרצפה."], ["On your back, lift your shoulders off the floor."], "", ""],
+    ["core", 1, "home", ["mat"], "3×15", "bicycle crunch", "אופניים", "Bicycle crunch", ["מרפק לברך נגדית, החליפו צד."], ["Elbow to opposite knee, alternate."], "", ""],
+    ["core", 1, "home", ["mat"], "3×12", "reverse crunch", "כפיפת בטן הפוכה", "Reverse crunch", ["הרימו אגן וברכיים לחזה."], ["Lift your hips and bring knees to chest."], "", ""],
+    ["core", 2, "home", ["mat"], "3×20", "russian twist", "סיבוב רוסי", "Russian twist", ["נטו לאחור, סובבו פלג גוף מצד לצד."], ["Lean back and rotate side to side."], "", ""],
+    ["core", 1, "home", ["mat"], "3×12", "leg raise", "הרמת רגליים", "Lying leg raise", ["על הגב, הרימו רגליים ישרות."], ["On your back, lift straight legs."], "", ""],
+    ["core", 1, "home", ["mat"], "3×30″", "flutter kicks", "בעיטות מספריים", "Flutter kicks", ["רגליים מעט מורמות, בעטו למעלה ולמטה."], ["Legs slightly up, kick up and down."], "", ""],
+    ["core", 2, "home", ["mat"], "3×20–30″", "hollow body hold", "החזקת גוף חלול", "Hollow hold", ["גב תחתון לרצפה, ידיים ורגליים מורמות."], ["Low back on the floor, arms and legs up."], "", ""],
+    ["core", 2, "home", ["mat"], "3×10", "v up", "כפיפת V", "V-up", ["הרימו ידיים ורגליים יחד לצורת V."], ["Lift arms and legs together into a V."], "", ""],
+    ["core", 1, "home", ["mat"], "3×30″", "mountain climbers", "מטפסי הרים", "Mountain climber", ["בפלאנק, הביאו ברכיים לחזה במהירות."], ["In a plank, drive your knees to your chest quickly."], "", ""],
+    ["core", 2, "home", ["mat"], "3×10", "plank up down", "פלאנק למעלה ולמטה", "Plank up-down", ["ממרפקים לידיים וחזרה."], ["From elbows to hands and back."], "", ""],
+    ["core", 1, "home", ["mat"], "3×20", "heel touch", "נגיעות עקב", "Heel touch", ["על הגב, ברכיים כפופות, געו בעקבים לסירוגין."], ["On your back, knees bent, tap your heels side to side."], "", ""],
+    ["core", 2, "home", ["mat"], "3×10", "toe touch crunch", "נגיעה באצבעות הרגליים", "Toe touch crunch", ["רגליים למעלה, הושיטו ידיים לאצבעות."], ["Legs up, reach your hands to your toes."], "", ""],
+    ["core", 2, "both", ["bar"], "3×8", "hanging leg raise", "הרמת רגליים בתלייה", "Hanging leg raise", ["בתלייה, הרימו רגליים ישרות."], ["Hanging, lift straight legs."], "", ""],
+    ["core", 3, "both", ["bar"], "3×5", "toes to bar", "רגליים למוט", "Toes to bar", ["בתלייה, הביאו אצבעות רגליים למוט."], ["Hanging, bring your toes to the bar."], "", ""],
+    ["core", 2, "gym", ["cable"], "3×12", "cable crunch", "כפיפת בטן בכבל", "Cable crunch", ["בכריעה, משכו חבל וכופפו בטן."], ["Kneel, pull the rope and crunch."], "", ""],
+    ["core", 2, "gym", ["cable"], "3×12", "cable woodchopper", "חוטב עצים בכבל", "Cable woodchop", ["משכו באלכסון מלמעלה למטה."], ["Pull diagonally from high to low."], "", ""],
+    ["core", 1, "home", ["ball"], "3×12", "stability ball crunch", "כפיפת בטן על כדור", "Ball crunch", ["גב על הכדור, כופפו בטן."], ["Back on the ball, crunch."], "", ""],
+    ["core", 2, "home", ["ball"], "3×10", "stability ball pike", "פייק על כדור", "Ball pike", ["רגליים על הכדור, הרימו אגן למעלה."], ["Feet on the ball, pike your hips up."], "", ""],
+    ["core", 2, "home", ["ball"], "3×10", "stability ball rollout", "גלגול על כדור", "Ball rollout", ["ידיים על הכדור, גלגלו קדימה וחזרו."], ["Forearms on the ball, roll out and back."], "", ""],
+    ["core", 2, "home", ["mball"], "3×10", "medicine ball slam", "הטחת כדור כוח", "Medicine ball slam", ["הרימו כדור מעל הראש והטיחו לרצפה."], ["Lift the ball overhead and slam it down."], "", ""],
+    ["core", 2, "home", ["mball"], "3×10", "medicine ball russian twist", "סיבוב רוסי עם כדור", "Med ball Russian twist", ["החזיקו כדור וסובבו מצד לצד."], ["Hold a ball and rotate side to side."], "", ""],
+    ["core", 1, "home", ["mat"], "3×30″", "bear crawl hold", "החזקת דוב", "Bear plank", ["על ארבע, ברכיים מעט מורמות מהרצפה."], ["On all fours, knees hovering just off the floor."], "", ""],
+    ["core", 2, "home", ["mat"], "3×20 m", "bear crawl", "הליכת דוב", "Bear crawl", ["זחלו על ידיים ורגליים, ברכיים נמוכות."], ["Crawl on hands and feet, knees low."], "", ""],
+    ["core", 2, "home", ["mat"], "3×10", "side plank hip dip", "פלאנק צידי עם הורדת אגן", "Side plank hip dip", ["בפלאנק צידי, הורידו והרימו אגן."], ["In a side plank, dip and lift your hips."], "", ""],
+    ["core", 2, "home", ["mat"], "3×30″", "plank jacks", "פלאנק ג׳קס", "Plank jacks", ["בפלאנק, קפצו רגליים לצדדים וחזרה."], ["In a plank, jump your feet out and in."], "", ""],
+    ["core", 1, "home", ["mat"], "3×10", "windshield wipers floor", "מגבים על הרצפה", "Floor windshield wiper", ["על הגב, הורידו רגליים מצד לצד."], ["On your back, lower your legs side to side."], "", ""],
+    ["core", 3, "both", ["bar"], "3×5", "hanging windshield wiper", "מגבים בתלייה", "Hanging windshield wiper", ["בתלייה, סובבו רגליים מצד לצד."], ["Hanging, swing your legs side to side."], "", ""],
+    ["core", 2, "home", ["mat"], "3×20″", "l sit", "ישיבת L", "L-sit", ["ידיים ברצפה, הרימו גוף ורגליים ישרות."], ["Hands on the floor, lift your body with legs straight."], "", ""],
+    ["core", 1, "home", ["mat"], "3×10", "dragon flag negative", "דרגון פלאג שלילי", "Dragon flag negative", ["אחזו בספסל, הורידו גוף ישר לאט."], ["Hold a bench, lower your straight body slowly."], "", ""],
+    ["core", 2, "both", ["kb"], "3×5", "turkish get up", "קימה טורקית", "Turkish get-up", ["קטלבל למעלה, קומו מהרצפה לעמידה."], ["Kettlebell overhead, rise from floor to standing."], "", ""],
+    ["core", 1, "both", ["db"], "3×30 m", "suitcase carry", "הליכת מזוודה", "Suitcase carry", ["משקולת ביד אחת, הלכו זקוף."], ["Weight in one hand, walk upright."], "", ""],
+    ["core", 2, "home", ["mat"], "3×10", "sit up", "כפיפות בטן מלאות", "Sit-up", ["עלו עד ישיבה מלאה וחזרו לאט."], ["Come all the way up and lower slowly."], "", ""],
+    ["core", 1, "home", ["mat"], "3×30″", "plank with leg lift", "פלאנק עם הרמת רגל", "Plank leg lift", ["בפלאנק, הרימו רגל אחת בכל פעם."], ["In a plank, lift one leg at a time."], "", ""],
+    ["core", 2, "home", ["mat"], "3×10", "stir the pot plank", "ערבוב סיר על כדור", "Stir the pot", ["מרפקים על כדור, עשו עיגולים קטנים."], ["Elbows on a ball, make small circles."], "", ""],
+    ["core", 1, "home", ["mat"], "3×10", "oblique crunch", "כפיפה אלכסונית", "Oblique crunch", ["על הצד, הרימו כתף לכיוון המותן."], ["On your side, lift your shoulder toward the hip."], "", ""],
+    ["core", 2, "gym", ["machine"], "3×12", "captain's chair knee raise", "הרמת ברכיים בכיסא קפטן", "Captain's chair raise", ["גב לכרית, הרימו ברכיים לחזה."], ["Back on the pad, lift knees to chest."], "", ""],
+    ["core", 1, "home", ["mat"], "3×12", "dead bug with band", "דד באג עם גומייה", "Banded dead bug", ["גומייה בידיים, פשטו רגל ויד נגדית."], ["Band in hands, extend opposite arm and leg."], "", ""],
+    ["core", 2, "both", ["db"], "3×10", "weighted crunch", "כפיפת בטן עם משקל", "Weighted crunch", ["משקולת על החזה, הרימו כתפיים."], ["Dumbbell on chest, lift your shoulders."], "", ""],
+    ["core", 2, "home", ["mat"], "3×10", "jackknife sit up", "כפיפת אולר", "Jackknife", ["ידיים ורגליים נפגשות באמצע."], ["Arms and legs meet in the middle."], "", ""],
+    ["core", 1, "home", ["mat"], "3×20″", "boat pose", "תנוחת סירה", "Boat hold", ["שבו על הישבן, רגליים וגב מורמים."], ["Balance on your seat with legs and torso up."], "", ""],
+    ["core", 2, "gym", ["wheel"], "3×8", "kneeling ab wheel", "גלגל בטן בכריעה", "Kneeling ab wheel", ["על הברכיים, גלגלו קדימה וחזרה."], ["On your knees, roll out and back."], "", ""],
+    ["core", 1, "home", ["mat"], "3×10", "pelvic tilt", "הטיית אגן", "Pelvic tilt", ["על הגב, לחצו גב תחתון לרצפה."], ["On your back, press your low back into the floor."], "", ""],
+    ["core", 2, "home", ["mat"], "3×30″", "side plank reach through", "פלאנק צידי עם השחלה", "Side plank reach-through", ["בפלאנק צידי, השחילו יד מתחת לגוף."], ["In a side plank, thread your arm under your body."], "", ""],
+    ["core", 1, "gym", ["rower"], "3×500 m", "rowing intervals", "אינטרוולים בחתירה", "Rowing intervals", ["חתרו חזק דקה ונוחו דקה."], ["Row hard for a minute, rest a minute."], "", ""],
+    ["core", 2, "home", ["rope"], "3×60″", "double unders", "קפיצה כפולה בחבל", "Double-unders", ["החבל עובר פעמיים בכל קפיצה."], ["The rope passes twice per jump."], "", ""],
+    ["core", 1, "home", ["none"], "3×30″", "jumping jacks", "קפיצות פיסוק", "Jumping jacks", ["קפצו ופתחו ידיים ורגליים."], ["Jump, opening arms and legs."], "", ""],
+    ["core", 2, "home", ["none"], "3×10", "burpee", "ברפי", "Burpee", ["רדו לשכיבה, קפצו חזרה וזנקו למעלה."], ["Drop to a push-up, jump back in and leap up."], "", ""],
+    ["core", 1, "home", ["none"], "3×30″", "high knees", "ריצת ברכיים גבוהות", "High knees", ["רוצו במקום עם ברכיים גבוהות."], ["Run in place, knees high."], "", ""],
+    ["core", 1, "home", ["none"], "3×30″", "butt kicks", "בעיטות לישבן", "Butt kicks", ["רוצו במקום ועקבים לישבן."], ["Run in place, heels to your seat."], "", ""],
+    ["core", 2, "home", ["none"], "3×10", "squat thrust", "סקוואט תראסט", "Squat thrust", ["ידיים לרצפה, רגליים אחורה וחזרה."], ["Hands down, kick feet back and in."], "", ""],
+    ["core", 1, "gym", ["tread"], "10–20′", "incline treadmill walk", "הליכה בשיפוע על מסילה", "Incline treadmill walk", ["שיפוע 8–12%, הליכה מהירה בלי להחזיק."], ["8–12% incline, brisk walk without holding on."], "", ""],
+    ["chest", 2, "home", ["none"], "3×8", "t push-up", "שכיבות סמיכה T", "T push-up", ["בכל עלייה סובבו גוף ויד אחת לתקרה."], ["At the top, rotate and reach one arm to the ceiling."], "", ""],
+    ["chest", 2, "home", ["none"], "3×8", "shoulder tap push-up", "שכיבות סמיכה עם נגיעה בכתף", "Push-up shoulder tap", ["אחרי כל שכיבה געו בכתף הנגדית."], ["After each rep, tap the opposite shoulder."], "", ""],
+    ["chest", 1, "home", ["none"], "3×10", "incline push-up on table", "שכיבות סמיכה על שולחן", "Table push-up", ["ידיים על שולחן יציב, בצעו שכיבה."], ["Hands on a sturdy table, do a push-up."], "", ""],
+    ["chest", 3, "home", ["none"], "3×3–5", "one arm push-up progression", "שכיבות סמיכה ביד אחת", "One-arm push-up", ["רגליים רחבות, יד אחת מאחורי הגב, רדו לאט."], ["Wide feet, one hand behind your back, lower slowly."], "", ""],
+    ["chest", 2, "gym", ["cable"], "3×12", "crossover cable fly", "קרוס אובר", "Cable crossover", ["כבלים גבוהים, הצליבו ידיים לפני הגוף."], ["High cables, cross your hands in front."], "", ""],
+    ["chest", 2, "both", ["kb"], "3×10", "kettlebell squeeze press", "לחיצת קטלבל צמודה", "Kettlebell squeeze press", ["לחצו קטלבל בין הידיים ודחפו מהחזה."], ["Squeeze a kettlebell between your palms and press."], "", ""],
+    ["back", 1, "home", ["chair"], "3×10", "chair row under table", "חתירה מתחת לשולחן", "Under-table row", ["שכבו מתחת לשולחן יציב ומשכו חזה לקצה."], ["Lie under a sturdy table and pull your chest to the edge."], "", ""],
+    ["back", 2, "both", ["bar"], "3×5", "archer pull-up", "מתח קשת", "Archer pull-up", ["משכו לצד יד אחת, השנייה ישרה."], ["Pull toward one hand, the other arm straight."], "", ""],
+    ["back", 1, "gym", ["cable"], "3×12", "face pull rope", "פייס פול בחבל", "Rope face pull", ["משכו חבל לפנים, מרפקים גבוה."], ["Pull the rope to your face, elbows high."], "", ""],
+    ["back", 2, "both", ["kb"], "3×10", "kettlebell gorilla row", "חתירת גורילה", "Gorilla row", ["שני קטלבלים, משכו לסירוגין."], ["Two kettlebells, row alternately."], "", ""],
+    ["back", 1, "both", ["db"], "3×12", "dumbbell bent over row", "חתירה בכפיפה במשקולות", "Bent-over dumbbell row", ["נטו קדימה, משכו שתי משקולות לבטן."], ["Hinge forward, row both dumbbells to your belly."], "", ""],
+    ["back", 2, "gym", ["machine"], "3×10", "hammer strength row", "חתירה במכונת המר", "Plate-loaded row", ["חזה על הכרית, משכו ידיות."], ["Chest on the pad, pull the handles."], "", ""],
+    ["legs", 1, "home", ["none"], "3×15", "reverse lunge knee drive", "לאנג׳ אחורי עם ברך למעלה", "Reverse lunge knee drive", ["מהלאנג׳ הרימו ברך לחזה."], ["From the lunge, drive your knee up."], "", ""],
+    ["legs", 2, "home", ["none"], "3×10", "squat to calf raise", "סקוואט עם עלייה על בהונות", "Squat to calf raise", ["קומו מהסקוואט ועלו על הבהונות."], ["Stand from the squat onto your toes."], "", ""],
+    ["legs", 1, "home", ["none"], "3×12", "split squat", "סקוואט מפוצל", "Split squat", ["רגל קדימה ורגל אחורה, רדו ישר למטה."], ["One foot forward, one back, lower straight down."], "", ""],
+    ["legs", 2, "both", ["kb"], "3×10", "kettlebell goblet reverse lunge", "לאנג׳ לאחור עם קטלבל", "Goblet reverse lunge", ["קטלבל בחזה, צעד לאחור."], ["Kettlebell at chest, step back."], "", ""],
+    ["legs", 2, "gym", ["bb"], "3×6", "barbell box squat", "סקוואט לקופסה במוט", "Box squat", ["שבו על קופסה וקומו בכוח."], ["Sit back to a box and drive up."], "", ""],
+    ["legs", 1, "gym", ["machine"], "3×12", "lying leg curl", "כפיפת ברכיים בשכיבה", "Lying leg curl", ["על הבטן, כופפו ברכיים נגד הכרית."], ["Face down, curl the pad up."], "", ""],
+    ["legs", 2, "home", ["band"], "3×12", "band hamstring curl", "כפיפת ברכיים בגומייה", "Band leg curl", ["על הבטן, גומייה בקרסול, כופפו."], ["Face down, band on ankle, curl."], "", ""],
+    ["legs", 1, "home", ["none"], "3×20", "calf raise both legs floor", "הרמות עקבים על הרצפה", "Floor calf raise", ["עלו על הבהונות וירדו לאט."], ["Rise onto your toes and lower slowly."], "", ""],
+    ["legs", 2, "home", ["box"], "3×10", "lateral step up", "עלייה צידית למדרגה", "Lateral step-up", ["עמדו לצד מדרגה ועלו בצד."], ["Stand beside a step and step up sideways."], "", ""],
+    ["legs", 2, "home", ["none"], "3×8", "shrimp squat", "סקוואט שרימפס", "Shrimp squat", ["רגל אחורית אחוזה, רדו ברגל אחת."], ["Hold your back foot and squat on one leg."], "", ""],
+    ["glutes", 1, "home", ["mat"], "3×12", "glute bridge hold", "החזקת גשר", "Glute bridge hold", ["הרימו אגן והחזיקו 20 שניות."], ["Lift your hips and hold 20 seconds."], "", ""],
+    ["glutes", 2, "home", ["band"], "3×12", "banded kickback", "בעיטה לאחור עם גומייה", "Banded kickback", ["על ארבע, גומייה ברגל, בעטו לאחור."], ["On all fours, band on foot, kick back."], "", ""],
+    ["glutes", 2, "gym", ["machine"], "3×10", "hip thrust machine", "מכונת היפ ת׳ראסט", "Hip thrust machine", ["גב על הכרית, דחפו אגן למעלה."], ["Back on the pad, drive the hips up."], "", ""],
+    ["glutes", 1, "home", ["mat"], "3×12", "standing hip abduction", "הרחקת רגל בעמידה", "Standing hip abduction", ["עמדו והרימו רגל ישרה לצד."], ["Stand and lift a straight leg to the side."], "", ""],
+    ["glutes", 2, "both", ["kb"], "3×10", "single leg kettlebell deadlift", "דדליפט רגל אחת בקטלבל", "Single-leg KB deadlift", ["קטלבל ביד, כופפו על רגל אחת."], ["Kettlebell in hand, hinge on one leg."], "", ""],
+    ["glutes", 2, "home", ["chair"], "3×10", "elevated glute bridge", "גשר רגליים על כיסא", "Feet-elevated bridge", ["עקבים על כיסא, הרימו אגן."], ["Heels on a chair, lift your hips."], "", ""],
+    ["shoulders", 1, "home", ["none"], "3×10", "wall slide", "החלקה על קיר", "Wall slide", ["גב ואמות על הקיר, החליקו ידיים למעלה."], ["Back and forearms on the wall, slide your arms up."], "", ""],
+    ["shoulders", 2, "both", ["db"], "3×10", "dumbbell y raise incline", "הרמת Y בשיפוע", "Incline Y raise", ["חזה על ספסל משופע, הרימו ידיים ל־Y."], ["Chest on an incline bench, raise your arms in a Y."], "", ""],
+    ["shoulders", 2, "gym", ["cable"], "3×12", "cable front raise", "הרמה קדמית בכבל", "Cable front raise", ["גב לכבל, הרימו יד ישרה קדימה."], ["Back to the cable, raise a straight arm forward."], "", ""],
+    ["shoulders", 1, "both", ["plate"], "3×10", "plate halo", "הילה עם צלחת", "Plate halo", ["סובבו צלחת סביב הראש."], ["Circle a plate around your head."], "", ""],
+    ["shoulders", 1, "both", ["kb"], "3×10", "kettlebell halo", "הילה עם קטלבל", "Kettlebell halo", ["סובבו קטלבל סביב הראש לשני הכיוונים."], ["Circle a kettlebell around your head both ways."], "", ""],
+    ["shoulders", 2, "home", ["none"], "3×8", "pike walkout", "הליכת ידיים לפייק", "Inchworm", ["כופפו לרצפה והלכו בידיים קדימה וחזרה."], ["Fold to the floor, walk your hands out and back."], "", ""],
+    ["arms", 1, "home", ["none"], "3×10", "close grip push-up", "שכיבות סמיכה בידיים צמודות", "Close-grip push-up", ["ידיים מתחת לכתפיים, מרפקים צמודים לגוף."], ["Hands under shoulders, elbows close to the body."], "", ""],
+    ["arms", 2, "gym", ["ez", "bench"], "3×10", "ez bar skull crusher", "פשיטה בשכיבה במוט EZ", "EZ skull crusher", ["הורידו מוט למצח ופשטו."], ["Lower the bar to your forehead and extend."], "", ""],
+    ["arms", 1, "gym", ["cable"], "3×12", "single arm cable pushdown", "פשיטה בכבל ביד אחת", "Single-arm pushdown", ["ידית אחת, פשטו מרפק למטה."], ["One handle, extend your elbow down."], "", ""],
+    ["arms", 2, "both", ["db", "bench"], "3×12", "spider curl", "כפיפת עכביש", "Spider curl", ["חזה על ספסל משופע, ידיים תלויות, כופפו."], ["Chest on an incline bench, arms hanging, curl."], "", ""],
+    ["arms", 2, "both", ["db"], "3×10", "21s biceps curl", "כפיפות 21", "21s curl", ["7 חצי תחתון, 7 חצי עליון, 7 מלאות."], ["7 bottom halves, 7 top halves, 7 full reps."], "", ""],
+    ["arms", 1, "both", ["band"], "3×15", "band hammer curl", "כפיפת פטיש בגומייה", "Band hammer curl", ["כופפו באחיזה ניטרלית."], ["Curl with a neutral grip."], "", ""],
+    ["arms", 2, "home", ["none"], "3×8", "bodyweight triceps extension", "פשיטת מרפקים במשקל גוף", "Bodyweight triceps extension", ["ידיים על שולחן, רדו במרפקים ופשטו."], ["Hands on a table, bend at the elbows and extend."], "", ""],
+    ["arms", 1, "both", ["db"], "3×20″", "dumbbell hold", "החזקת משקולות", "Dumbbell grip hold", ["החזיקו משקולות כבדות בידיים ישרות."], ["Hold heavy dumbbells with straight arms."], "", ""],
+    ["core", 1, "home", ["mat"], "3×30″", "forearm plank", "פלאנק על המרפקים", "Forearm plank", ["מרפקים מתחת לכתפיים, גוף ישר."], ["Elbows under shoulders, body straight."], "", ""],
+    ["core", 2, "home", ["mat"], "3×30″", "high plank", "פלאנק על הידיים", "High plank", ["ידיים ישרות, גוף ישר מהראש לעקבים."], ["Arms straight, body in one line."], "", ""],
+    ["core", 2, "home", ["mat"], "3×10", "plank to downward dog", "פלאנק לכלב מטה", "Plank to downward dog", ["דחפו אגן למעלה וחזרו לפלאנק."], ["Push your hips up and back to plank."], "", ""],
+    ["core", 2, "home", ["ball"], "3×30″", "stability ball plank", "פלאנק על כדור", "Ball plank", ["מרפקים על כדור, גוף ישר."], ["Elbows on a ball, body straight."], "", ""],
+    ["core", 1, "home", ["mat"], "3×10", "seated knee tuck", "קיפול ברכיים בישיבה", "Seated knee tuck", ["שבו, נטו לאחור, משכו ברכיים לחזה."], ["Sit, lean back, pull your knees in."], "", ""],
+    ["core", 2, "home", ["mat"], "3×10", "star plank", "פלאנק כוכב", "Star side plank", ["בפלאנק צידי, הרימו רגל ויד עליונות."], ["In a side plank, lift the top arm and leg."], "", ""],
+    ["core", 2, "both", ["mball"], "3×10", "medicine ball wall throw", "זריקת כדור לקיר", "Med ball wall throw", ["סובבו וזרקו כדור לקיר מהצד."], ["Rotate and throw the ball sideways at a wall."], "", ""],
+    ["core", 3, "home", ["mat"], "3×5", "dragon flag", "דרגון פלאג", "Dragon flag", ["אחזו מאחורי הראש, הרימו והורידו גוף ישר."], ["Hold behind your head, lift and lower a straight body."], "", ""],
+    ["core", 1, "home", ["none"], "3×30″", "standing oblique crunch", "כפיפה אלכסונית בעמידה", "Standing oblique crunch", ["הרימו ברך לצד ומרפק אליה."], ["Lift a knee to the side and bring your elbow to it."], "", ""],
+    ["core", 2, "home", ["none"], "3×10", "plank jack burpee", "ברפי עם קפיצת פלאנק", "Burpee with plank jack", ["ברפי עם פתיחת רגליים בפלאנק."], ["A burpee with a plank jack at the bottom."], "", ""],
+    ["core", 1, "home", ["rope"], "3×60″", "jump rope alternate feet", "קפיצה בחבל רגל־רגל", "Alternate-foot jump rope", ["קפצו בחבל כמו ריצה קלה."], ["Skip rope like a light jog."], "", ""],
+    ["core", 2, "gym", ["bike"], "8×20″", "bike sprint intervals", "ספרינטים באופניים", "Bike sprints", ["20 שניות מהר, 40 שניות לאט."], ["20 seconds fast, 40 seconds easy."], "", ""],
+    ["core", 2, "home", ["none"], "3×10", "star jump", "קפיצת כוכב", "Star jump", ["קפצו ופתחו ידיים ורגליים לכוכב."], ["Jump and spread arms and legs into a star."], "", ""],
+    ["core", 1, "home", ["none"], "3×10", "squat jack", "סקוואט ג׳ק", "Squat jack", ["קפצו לסקוואט רחב וחזרה."], ["Jump out into a wide squat and back in."], "", ""],
+    ["core", 2, "gym", ["sled"], "3×20 m", "sled pull", "משיכת מזחלת", "Sled pull", ["משכו מזחלת אליכם ביד אחרי יד."], ["Pull the sled toward you hand over hand."], "", ""],
+    ["core", 2, "both", ["kb"], "3×20", "kettlebell swing one arm", "סווינג ביד אחת", "One-arm kettlebell swing", ["דחפו מהמותן ונדנדו ביד אחת."], ["Drive with the hips and swing with one arm."], "", ""]
   ];
   // one demo video per exercise, same order as EX
+  var EX_BASE = 49;
+  function exUrl(n) { var e = EX[n]; return VIDS[n] ? "https://www.youtube.com/watch?v=" + VIDS[n] : "https://www.youtube.com/results?search_query=" + encodeURIComponent("how to " + e[5] + " proper form"); }
   var VIDS = [
     "y8I66lWtNB8", "fa9hNURBT-c", "i9sTjhN4Z3M", "Y_7aHqXeCfQ", "rT7DgCr-3pg", "hChjZQhX1Ls", "50BDseX8lTY", "yN6Q1UI_xkE",
     "LSkyinhmA8k", "8iMJWCAIV78", "CAwf7n6Luuc", "EU7bOadUsNI", "sHeLHRd_nCs", "ML1L5ytxLMY", "rmdn5X_KLkY", "liebDvbcdow", "p2OPUi4xGrM",
@@ -1980,7 +2306,7 @@ footer .wrap { padding-block: 28px 36px; }
     "ykJmrZ5v0Oo", "FNvndC4Ov04", "ChbWX35gD44", "AWz_7B1cch0", "_4EGPVJuqfA", "ShR_FM3-wm4",
     "mwlp75MS6Rg", "bxn9FBrt4-A", "44ND4bOB-T0", "MRcpnl4G3YA", "Te5VAYXy0wQ", "NbudTqiwguk"
   ];
-  var lib = { lv: "all", place: "all", m: "all", q: "" };
+  var lib = { lv: "all", place: "all", m: "all", q: "" }, libShow = 40, libKey = "";
   var exgrid = $("exgrid");
   function lvMeter(n) {
     var s = '<span class="lvl" aria-hidden="true">';
@@ -2009,11 +2335,16 @@ footer .wrap { padding-block: 28px 36px; }
       }
       return true;
     });
-    $("lib-count").textContent = t("lCount").replace("{n}", list.length);
+    if (myEqOn && myEq.length) list = list.filter(eqFits);
+    var key = [lib.lv, lib.place, lib.m, lib.q, myEqOn, myEq.join()].join("|");
+    if (key !== libKey) { libKey = key; libShow = 40; }
+    var total = list.length;
+    list = list.slice(0, libShow);
+    $("lib-count").textContent = t("lCount").replace("{n}", total);
     $("lib-reset").hidden = lib.lv === "all" && lib.place === "all" && lib.m === "all" && !lib.q;
     if (!list.length) { exgrid.innerHTML = '<div class="lib-empty">' + esc(t("lNone")) + "</div>"; return; }
     exgrid.innerHTML = list.map(function (e) {
-      var url = "https://www.youtube.com/watch?v=" + VIDS[EX.indexOf(e)];
+      var url = exUrl(EX.indexOf(e));
       var more = "https://www.youtube.com/results?search_query=" + encodeURIComponent((i === 0 ? e[6] + " " : "") + "how to " + e[5] + " proper form");
       return '<article class="ex" style="--c:' + MUS[e[0]][1] + '">' +
         '<div class="ex-top"><span class="mtag">' + esc(t(MUS[e[0]][0])) + '</span><span class="lvlwrap">' + lvMeter(e[1]) + esc(t("lv" + e[1])) + "</span></div>" +
@@ -2021,17 +2352,119 @@ footer .wrap { padding-block: 28px 36px; }
         '<ul class="badges"><li class="badge place">' + esc(t(e[2])) + '</li><li class="badge rx" dir="ltr">' + esc(e[4]) + "</li></ul>" +
         '<ul class="badges"><li class="eqlabel">' + esc(t("lEquip")) + "</li>" + e[3].map(function (k) { return '<li class="badge">' + esc(EQ[k][i]) + "</li>"; }).join("") + "</ul>" +
         "<details><summary>" + esc(t("lHow")) + "</summary><ol>" + e[8 + i].map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") + "</ol>" +
-        '<p class="tip"><b>' + esc(t("lTip")) + "</b> " + esc(e[10 + i]) + "</p></details>" +
+        (e[10 + i] ? '<p class="tip"><b>' + esc(t("lTip")) + "</b> " + esc(e[10 + i]) + "</p>" : "") + "</details>" +
         '<div class="vrow"><a class="video" href="' + url + '" target="_blank" rel="noopener noreferrer"><svg width="20" height="14" viewBox="0 0 20 14" aria-hidden="true"><rect width="20" height="14" rx="4" fill="var(--red)"/><path d="M8 4v6l5-3z" fill="#fff"/></svg>' + esc(t("lVideo")) + "</a>" +
         '<a class="more" href="' + more + '" target="_blank" rel="noopener noreferrer">' + esc(t("lMore")) + "</a>" +
         '<button type="button" class="linkbtn copylink" data-url="' + url + '">' + esc(t("lCopyLink")) + "</button>" +
         '<button type="button" class="linkbtn fcopen" data-form="' + EX.indexOf(e) + '"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="4.5" r="2"/><path d="M12 7v7m0 0-3 7m3-7 3 7M6 10l6-2 6 2"/></svg>' + esc(t("fcBtn")) + "</button></div>" +
         "</article>";
-    }).join("");
+    }).join("") + (total > list.length ? '<div class="lib-more"><button type="button" class="btn" id="lib-more">' + esc(t("lMoreEx").replace("{n}", total - list.length)) + "</button></div>" : "");
   }
+  /* my equipment: photo -> which equipment is there -> exercises you can do with it */
+  var EQ_BASIC = { none: 1, mat: 1, wall: 1, chair: 1, box: 1, table: 1 };
+  var EQ_ALT = { "db|kb": 1, "db|bb": 1, "cable|band": 1, "band|cable": 1, "none|db": 1, "db|chair": 1 };
+  var myEq = [], myEqOn = false;
+  try { var mq = JSON.parse(localStorage.getItem("myEq") || "{}"); myEq = (mq.eq || []).filter(function (k) { return EQ[k]; }); myEqOn = !!mq.on; } catch (e) {}
+  function eqSave() { try { localStorage.setItem("myEq", JSON.stringify({ eq: myEq, on: myEqOn })); } catch (e) {} }
+  function eqFits(e) {
+    var need = e[3].filter(function (k) { return !EQ_BASIC[k]; });
+    if (!need.length) return true;
+    if (need.every(function (k) { return myEq.indexOf(k) !== -1; })) return true;
+    return EQ_ALT[e[3].join("|")] && need.some(function (k) { return myEq.indexOf(k) !== -1; });
+  }
+  function renderEq() {
+    var i = lang === "he" ? 0 : 1;
+    $("eq-chips").innerHTML = Object.keys(EQ).filter(function (k) { return !EQ_BASIC[k]; }).map(function (k) {
+      return '<button type="button" class="chip" data-eq="' + k + '" aria-pressed="' + (myEq.indexOf(k) !== -1) + '">' + esc(EQ[k][i]) + "</button>";
+    }).join("");
+    $("eq-onl").hidden = !myEq.length;
+    $("eq-on").checked = myEqOn;
+  }
+  $("eq-chips").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-eq]"); if (!b) return;
+    var k = b.getAttribute("data-eq"), ix = myEq.indexOf(k);
+    if (ix === -1) myEq.push(k); else myEq.splice(ix, 1);
+    if (myEq.length && ix === -1) myEqOn = true;
+    eqSave(); renderEq(); renderLib(); if (typeof renderPlan === "function") renderPlan();
+  });
+  $("eq-on").addEventListener("change", function (e) { myEqOn = e.target.checked; eqSave(); renderLib(); if (typeof renderPlan === "function") renderPlan(); });
+  var EQ_EMB = {"ids":["db","bb","bench","rack","cable","machine","bar","band","kb","dip","mat","wheel","trx","ball","mball","rope","smith","ez","plate","sled","rower","bike","tread","box","roller","chair","x_room","x_person","x_food","x_furn","x_lines","x_gym"],"d":512,"sc":[0.0054257,0.0053086,0.0051288,0.0055725,0.0052709,0.0052784,0.004185,0.0047312,0.005176,0.0056705,0.0049172,0.0055019,0.0048769,0.0048794,0.005271,0.0047948,0.0055834,0.0052272,0.0052225,0.0048275,0.0051523,0.0057689,0.0056302,0.005306,0.0048583,0.0057635,0.0061134,0.0066257,0.006678,0.005168,0.0054467,0.0055122],"b64":"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"}, eqVec = null, eqBusy = false;
+  function eqVecs() {
+    if (eqVec) return eqVec;
+    var raw = atob(EQ_EMB.b64), d = EQ_EMB.d;
+    eqVec = EQ_EMB.ids.map(function (id, i) {
+      var v = new Float32Array(d), s = EQ_EMB.sc[i];
+      for (var j = 0; j < d; j++) { var b = raw.charCodeAt(i * d + j); v[j] = (b > 127 ? b - 256 : b) * s; }
+      return v;
+    });
+    return eqVec;
+  }
+  function eqProbs(img) {
+    return lfM.proc(img).then(function (inp) { return lfM.vis(inp); }).then(function (out) {
+      var v = out.image_embeds.data, s = 0, i, E = eqVecs();
+      for (i = 0; i < v.length; i++) s += v[i] * v[i];
+      s = Math.sqrt(s) || 1;
+      var lg = E.map(function (e) { var d = 0; for (var j = 0; j < e.length; j++) d += e[j] * v[j]; return 100 * d / s; });
+      var mx = Math.max.apply(null, lg), ex = lg.map(function (l) { return Math.exp(l - mx); }), z = ex.reduce(function (a, b) { return a + b; }, 0);
+      return ex.map(function (x) { return x / z; });
+    });
+  }
+  function eqStatus(txt) { var s = $("eq-st"); s.hidden = !txt; s.textContent = txt || ""; }
+  function eqFound(keys) {
+    keys = keys.filter(function (k, i) { return EQ[k] && !EQ_BASIC[k] && keys.indexOf(k) === i; });
+    if (!keys.length) { eqStatus(t("eqNone")); return; }
+    keys.forEach(function (k) { if (myEq.indexOf(k) === -1) myEq.push(k); });
+    myEqOn = true; eqSave(); renderEq(); renderLib(); if (typeof renderPlan === "function") renderPlan();
+    var i = lang === "he" ? 0 : 1;
+    eqStatus(t("eqFound").replace("{x}", keys.map(function (k) { return EQ[k][i]; }).join(", ")));
+  }
+  function eqDetect(f) {
+    if (!f || eqBusy) return;
+    eqBusy = true; eqStatus(t("eqLook"));
+    var job;
+    if (aiState === "on" && canImages) {
+      job = sampleFn.json("The attached photo shows a home or gym training space. List which of these equipment types are clearly visible, by key: " +
+        Object.keys(EQ).filter(function (k) { return !EQ_BASIC[k]; }).map(function (k) { return k + " = " + EQ[k][1]; }).join("; ") +
+        '. Reply with only JSON like {"eq":["db","bench"]}. Use an empty list if none are visible.', { images: [f] }).then(function (r) { return (r && Array.isArray(r.eq) ? r.eq : []).map(String); });
+    } else {
+      job = lfLoad().then(function () { return lfM.lib.RawImage.fromBlob(f); }).then(function (im) {
+        var W = im.width, H = im.height, cw = Math.round(W * 0.55), ch = Math.round(H * 0.55);
+        var boxes = [null, [0, 0, cw - 1, ch - 1], [W - cw, 0, W - 1, ch - 1], [0, H - ch, cw - 1, H - 1], [W - cw, H - ch, W - 1, H - 1], [Math.round((W - cw) / 2), Math.round((H - ch) / 2), Math.round((W + cw) / 2) - 1, Math.round((H + ch) / 2) - 1]], per = [];
+        return boxes.reduce(function (pr, b, k) {
+          return pr.then(function () {
+            eqStatus(t("eqLook") + " " + (k + 1) + "/" + boxes.length);
+            return (b ? im.crop(b) : Promise.resolve(im)).then(eqProbs).then(function (x) { per.push(x); });
+          });
+        }, Promise.resolve()).then(function () {
+          var ids = EQ_EMB.ids, out = [], best = -1, bestS = 0;
+          ids.forEach(function (id, i) {
+            if (/^x_/.test(id)) return;
+            var s = per[0][i];
+            for (var k = 1; k < per.length; k++) if (per[k][i] >= 0.55) s = Math.max(s, per[k][i] * 0.9);
+            if (s >= (id === "bar" ? 0.6 : 0.4)) out.push([id, s]);
+            if (per[0][i] > bestS) { bestS = per[0][i]; best = i; }
+          });
+          if (best >= 0 && bestS >= 0.2 && !out.some(function (o) { return o[0] === ids[best]; })) out.push([ids[best], bestS]);
+          return out.sort(function (a, b) { return b[1] - a[1]; }).slice(0, 5).map(function (o) { return o[0]; });
+        });
+      });
+    }
+    job.then(eqFound, function () { eqStatus(t("eqFail")); }).then(function () { eqBusy = false; });
+  }
+  $("eq-cam").addEventListener("change", function (e) { eqDetect(e.target.files[0]); e.target.value = ""; });
+  $("eq-gal").addEventListener("change", function (e) { eqDetect(e.target.files[0]); e.target.value = ""; });
+  renderEq();
+  exgrid.addEventListener("click", function (e) { if (e.target.closest("#lib-more")) { libShow += 40; renderLib(); } });
   /* form check: MediaPipe pose landmarks, judged per movement pattern */
   var FC_PAT = { 0: "line", 1: "knee", 2: "line", 41: "line", 43: "line", 45: "line", 17: "squat", 18: "squat", 19: "squat", 21: "squat", 22: "squat",
     9: "hinge", 13: "hinge", 16: "hinge", 23: "hinge", 29: "hinge", 31: "press", 32: "press", 37: "curl", 38: "curl", 39: "curl", 33: "raise", 27: "bridge", 28: "bridge" };
+  EX.forEach(function (e, n) {
+    if (n < EX_BASE || FC_PAT[n]) return;
+    var s = e[7].toLowerCase();
+    var pat = /push-up|plank/.test(s) && !/pike|dive|walkout/.test(s) ? "line" : /squat|lunge|step-up|sit to stand/.test(s) ? "squat" : /curl(?!.*(leg|hamstring|wrist))/.test(s) ? "curl" :
+      /shoulder press|overhead press|arnold|push press|z press|kettlebell press|band shoulder/.test(s) ? "press" : /lateral raise|front raise/.test(s) ? "raise" : /bridge|hip thrust|frog pump/.test(s) ? "bridge" : /deadlift|rdl|good morning|swing/.test(s) ? "hinge" : "";
+    if (pat) FC_PAT[n] = pat;
+  });
   var BONES = [[11, 12], [11, 13], [13, 15], [12, 14], [14, 16], [11, 23], [12, 24], [23, 24], [23, 25], [25, 27], [24, 26], [26, 28], [27, 31], [28, 32]];
   var POSE = "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14";
   var POSE_MODEL = "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_full/float16/1/pose_landmarker_full.task";
@@ -2373,6 +2806,57 @@ footer .wrap { padding-block: 28px 36px; }
     { id: "plank", hold: true, ranks: [0, 15, 30, 60, 90, 120, 180], bot: 45 },
     { id: "wallsit", hold: true, ranks: [0, 15, 30, 45, 60, 90, 120], bot: 40 }
   ];
+  // variations: same movement check as a base game, own name, records and ranks
+  [["w_pushup", "pushup", 1.0, "שכיבות סמיכה רחבות", "Wide push-ups", "ידיים רחב מהכתפיים.", "Hands wider than your shoulders."],
+    ["diamond", "pushup", 0.7, "שכיבות סמיכה יהלום", "Diamond push-ups", "ידיים צמודות מתחת לחזה.", "Hands together under your chest."],
+    ["stag_pushup", "pushup", 0.9, "שכיבות סמיכה מדורגות", "Staggered push-ups", "יד אחת מעט קדימה, החליפו בכל סיבוב.", "One hand a bit forward; switch each round."],
+    ["decl_pushup", "pushup", 0.7, "שכיבות סמיכה רגליים על כיסא", "Decline push-ups", "רגליים על כיסא יציב.", "Feet on a sturdy chair."],
+    ["slow_pushup", "pushup", 0.5, "שכיבות סמיכה איטיות", "Slow push-ups", "3 שניות למטה, 1 למעלה.", "3 seconds down, 1 up."],
+    ["pause_pushup", "pushup", 0.6, "שכיבות סמיכה עם עצירה", "Pause push-ups", "עצרו שנייה למטה בכל חזרה.", "Pause a second at the bottom of each rep."],
+    ["sumo", "squat", 1.0, "סקוואט סומו", "Sumo squats", "רגליים רחבות, אצבעות החוצה.", "Wide stance, toes out."],
+    ["goblet", "squat", 0.9, "סקוואט גביע", "Goblet squats", "החזיקו משקולת או בקבוק מול החזה.", "Hold a weight or bottle at your chest."],
+    ["jumpsq", "squat", 0.7, "סקוואט קפיצה", "Jump squats", "קפצו בכל עלייה ונחתו רך.", "Jump at the top and land softly."],
+    ["slow_squat", "squat", 0.5, "סקוואט איטי", "Slow squats", "3 שניות למטה, 1 למעלה.", "3 seconds down, 1 up."],
+    ["prisoner", "squat", 1.0, "סקוואט אסיר", "Prisoner squats", "ידיים מאחורי הראש, חזה פתוח.", "Hands behind your head, chest open."],
+    ["sq_calf", "squat", 0.8, "סקוואט עם עלייה על בהונות", "Squat to calf raise", "בכל עלייה עלו על הבהונות.", "Rise onto your toes at the top."],
+    ["rev_lunge", "lunge", 1.0, "לאנג׳ לאחור", "Reverse lunges", "צעד לאחור, ברך כמעט לרצפה.", "Step back, knee near the floor."],
+    ["split_sq", "lunge", 1.0, "סקוואט מפוצל", "Split squats", "רגליים במקום, רדו ישר למטה.", "Feet stay put, lower straight down."],
+    ["jump_lunge", "lunge", 0.7, "לאנג׳ קפיצה", "Jumping lunges", "החליפו רגליים באוויר.", "Switch legs in the air."],
+    ["curtsy", "lunge", 0.9, "לאנג׳ קידה", "Curtsy lunges", "רגל אחורה ובאלכסון.", "Step back and across."],
+    ["star", "jacks", 0.8, "קפיצות כוכב", "Star jumps", "פתחו ידיים ורגליים לכוכב גדול.", "Spread arms and legs into a big star."],
+    ["cross_jacks", "jacks", 1.0, "קפיצות מספריים", "Cross jacks", "הצליבו ידיים ורגליים בכל סגירה.", "Cross arms and legs as you close."],
+    ["low_jacks", "jacks", 1.1, "קפיצות פיסוק בלי קפיצה", "Step jacks", "צעד לצד במקום קפיצה, ידיים למעלה.", "Step out instead of jumping, arms up."],
+    ["sprint", "highknees", 1.2, "ספרינט במקום", "Sprint in place", "רוצו הכי מהר שאפשר עם ברכיים גבוהות.", "Run as fast as you can, knees high."],
+    ["march", "highknees", 0.7, "צעידה עם ברכיים גבוהות", "High-knee march", "צעדו והרימו ברכיים לגובה המותן.", "March and lift knees to hip height."],
+    ["knee_drive", "highknees", 0.8, "הנעת ברך", "Knee drives", "ידיים למעלה, משכו למטה עם כל ברך.", "Arms up, pull them down with each knee."],
+    ["elbow_knee", "situp", 0.8, "כפיפות בטן מרפק לברך", "Elbow-to-knee sit-ups", "בכל עלייה מרפק לברך נגדית.", "Elbow to opposite knee at the top."],
+    ["slow_situp", "situp", 0.6, "כפיפות בטן איטיות", "Slow sit-ups", "רדו לאט ב־3 שניות.", "Lower slowly over 3 seconds."],
+    ["w_situp", "situp", 0.7, "כפיפות בטן עם משקל", "Weighted sit-ups", "החזיקו משקולת או בקבוק על החזה.", "Hold a weight or bottle on your chest."],
+    ["sl_bridge", "bridge", 0.7, "גשר רגל אחת", "Single-leg bridges", "רגל אחת באוויר, החליפו בחצי.", "One leg up; switch halfway."],
+    ["frog", "bridge", 1.1, "משאבת צפרדע", "Frog pumps", "כפות רגליים צמודות, ברכיים פתוחות.", "Soles together, knees open."],
+    ["hold_bridge", "bridge", 0.6, "גשר עם עצירה", "Pause bridges", "עצרו שנייה למעלה ולחצו ישבן.", "Pause a second at the top and squeeze."],
+    ["arnold", "press", 0.8, "לחיצת ארנולד", "Arnold press", "סובבו כפות תוך כדי דחיפה למעלה.", "Rotate your palms as you press up."],
+    ["bottle_press", "press", 1.0, "לחיצת כתפיים עם בקבוקים", "Bottle press", "בקבוקי מים במקום משקולות.", "Water bottles instead of dumbbells."],
+    ["band_press", "press", 1.0, "לחיצת כתפיים בגומייה", "Band press", "עמדו על הגומייה ודחפו למעלה.", "Stand on the band and press up."],
+    ["hammer", "curl", 1.0, "כפיפת פטיש", "Hammer curls", "כפות פונות זו לזו.", "Palms face each other."],
+    ["bottle_curl", "curl", 1.1, "כפיפה עם בקבוקים", "Bottle curls", "בקבוקי מים במקום משקולות.", "Water bottles instead of dumbbells."],
+    ["slow_curl", "curl", 0.6, "כפיפה איטית", "Slow curls", "3 שניות בירידה.", "3 seconds on the way down."],
+    ["band_curl", "curl", 1.0, "כפיפה בגומייה", "Band curls", "עמדו על הגומייה וכופפו.", "Stand on the band and curl."],
+    ["bottle_lat", "lateral", 1.0, "הרחקה עם בקבוקים", "Bottle lateral raises", "בקבוקי מים, הרימו לצדדים.", "Water bottles, raise to the sides."],
+    ["band_lat", "lateral", 0.9, "הרחקה בגומייה", "Band lateral raises", "עמדו על הגומייה והרימו לצדדים.", "Stand on the band and raise out."],
+    ["cross_climb", "climbers", 0.8, "מטפסים לרוחב", "Cross-body climbers", "ברך למרפק הנגדי.", "Knee to the opposite elbow."],
+    ["slow_climb", "climbers", 0.6, "מטפסים איטיים", "Slow climbers", "ברך לחזה והחזקה של שנייה.", "Knee to chest, hold a second."],
+    ["f_plank", "plank", 1.0, "פלאנק על המרפקים", "Forearm plank", "מרפקים מתחת לכתפיים.", "Elbows under your shoulders."],
+    ["h_plank", "plank", 0.9, "פלאנק על הידיים", "High plank", "ידיים ישרות, גוף ישר.", "Arms straight, body straight."],
+    ["lift_plank", "plank", 0.7, "פלאנק עם הרמת רגל", "Leg-lift plank", "הרימו רגל אחת לסירוגין.", "Lift one leg at a time."],
+    ["w_wallsit", "wallsit", 0.8, "ישיבה על קיר עם משקל", "Weighted wall sit", "החזיקו משקולת על הירכיים.", "Hold a weight on your thighs."],
+    ["arms_wallsit", "wallsit", 0.8, "ישיבה על קיר ידיים למעלה", "Wall sit, arms up", "ידיים ישרות מעל הראש.", "Arms straight overhead."]].forEach(function (v) {
+    var b = GAMES.filter(function (g) { return g.id === v[1]; })[0];
+    GAMES.push({ id: v[0], r: v[1], hold: b.hold, ranks: b.ranks.map(function (x) { return Math.round(x * v[2]); }), bot: Math.max(5, Math.round(b.bot * v[2])), he: v[3], en: v[4], hp: v[5], ep: v[6] });
+  });
+  function gName(g) { return g.r ? g[lang === "he" ? "he" : "en"] : t("g_" + g.id); }
+  function gDesc(g) { return g.r ? t("g_" + g.r + "_p") + " " + g[lang === "he" ? "hp" : "ep"] : t("g_" + g.id + "_p"); }
+  function gRead(g) { return g.r || g.id; }
   var BOT_X = [0, 0.5, 0.8, 1.1, 1.4];
   var RANK_C = ["#9ca3af", "#78716c", "#c2773c", "#cbd5e1", "#eab308", "#38bdf8", "#a855f7"];
   var gStats = {};
@@ -2402,7 +2886,7 @@ footer .wrap { padding-block: 28px 36px; }
       var btns = g.hold ? '<button type="button" class="btn primary" data-game="' + g.id + '" data-gmode="hold">' + esc(t("gHoldBtn")) + "</button>"
         : '<button type="button" class="btn primary" data-game="' + g.id + '" data-gmode="60">' + esc(t("gPlay60")) + '</button><button type="button" class="btn" data-game="' + g.id + '" data-gmode="free">' + esc(t("gPlayFree")) + "</button>";
       return '<article class="g-game"><div class="ex-top">' + rankHtml(r, true) + "</div>" +
-        "<h3>" + esc(t("g_" + g.id)) + "</h3><p>" + esc(t("g_" + g.id + "_p")) + "</p>" +
+        "<h3>" + esc(gName(g)) + "</h3><p>" + esc(gDesc(g)) + "</p>" +
         '<div class="g-stats">' + stats + "<span>" + esc(t("gTotal")) + " <b>" + s.total + "</b></span></div>" +
         '<div class="g-ladder">' + g.ranks.map(function (v, i) { return rankHtml(i, i <= r); }).join("") + "</div>" +
         '<div class="g-btns">' + btns + "</div></article>";
@@ -2473,12 +2957,12 @@ footer .wrap { padding-block: 28px 36px; }
       var ctx = c.getContext("2d"), lm = r && r.landmarks && r.landmarks[0];
       ctx.clearRect(0, 0, c.width, c.height);
       var p = lm ? (gm.prev = smooth(gm.prev, pts(lm, c.width, c.height))) : (gm.prev = null);
-      var g = gDef(gm.id), rd = p ? GREAD[gm.id](p) : { seen: false };
-      if (!rd.seen) { gm.seenRun = 0; gSetLight("wait"); gMsg(gm.started ? "fcStep" : "gGetIn_" + gm.id); if (gm.live && g.hold) { gm.bad += dt; if (gm.count && gm.bad > 3000) gFinish(); } }
+      var g = gDef(gm.id), rd = p ? GREAD[gRead(g)](p) : { seen: false };
+      if (!rd.seen) { gm.seenRun = 0; gSetLight("wait"); gMsg(gm.started ? "fcStep" : "gGetIn_" + gRead(g)); if (gm.live && g.hold) { gm.bad += dt; if (gm.count && gm.bad > 3000) gFinish(); } }
       else {
         gm.seenRun++;
         if (!gm.started) {
-          gSetLight("wait"); gMsg("gGetIn_" + gm.id);
+          gSetLight("wait"); gMsg("gGetIn_" + gRead(g));
           if (gm.seenRun > 8 && (g.hold ? rd.ok : rd.phase === "up")) { gm.started = true; gm.go = now + 3000; }
         } else if (now < gm.go) {
           $("g-big").textContent = String(Math.ceil((gm.go - now) / 1000));
@@ -2530,7 +3014,7 @@ footer .wrap { padding-block: 28px 36px; }
     $("g-bot").textContent = bot ? t("gBotShort") + " 0" : "";
     gm = { bot: bot, id: id, mode: mode, count: 0, started: false, live: false, over: false, st: { phase: "up", mid: 0, tot: 0, bad: 0 }, seenRun: 0, msg: "", msgUntil: 0, held: 0, bad: 0, prev: null, last: 0 };
     gState = "";
-    $("g-name").textContent = t("g_" + id) + " · " + t(g.hold ? "gHoldBtn" : mode === "60" ? "gPlay60" : "gPlayFree");
+    $("g-name").textContent = gName(g) + " · " + t(g.hold ? "gHoldBtn" : mode === "60" ? "gPlay60" : "gPlayFree");
     $("g-time").textContent = mode === "60" ? "60" : "";
     $("g-count").textContent = "0";
     $("g-big").textContent = "";
@@ -2605,8 +3089,9 @@ footer .wrap { padding-block: 28px 36px; }
   } catch (e) {}
   function bVal(n) { var el = bForm.querySelector('input[name="b-' + n + '"]:checked'); return el ? el.value : null; }
   function pool(m, level, place) {
-    return EX.filter(function (e) { return e[0] === m && e[1] <= level && (place === "gym" || e[2] !== "gym"); })
-      .sort(function (a, b) { return b[1] - a[1]; });
+    var all = EX.filter(function (e) { return e[0] === m && e[1] <= level && (place === "gym" || e[2] !== "gym"); });
+    if (myEqOn && myEq.length) { var mine = all.filter(eqFits); if (mine.length) all = mine; }
+    return all.sort(function (a, b) { return b[1] - a[1] || (EX.indexOf(a) >= EX_BASE) - (EX.indexOf(b) >= EX_BASE); });
   }
   function renderPlan() {
     var level = +bVal("level"), place = bVal("place"), days = +bVal("days"), time = +bVal("time");
@@ -2633,7 +3118,7 @@ footer .wrap { padding-block: 28px 36px; }
         vol[m] += parseInt(e[4], 10) || 0;
         var name = e[6 + i];
         return '<li class="pl"><span class="dot" style="background:' + MUS[m][1] + '"></span><span class="pn">' + esc(name) + '</span><span class="sets">' + esc(e[4]) + "</span>" +
-          '<a class="pv" href="https://www.youtube.com/watch?v=' + VIDS[EX.indexOf(e)] + '" target="_blank" rel="noopener noreferrer" title="' + esc(t("lVideo")) + '" aria-label="' + esc(t("lVideo") + ": " + name) + '">' + PLAY + "</a>" +
+          '<a class="pv" href="' + exUrl(EX.indexOf(e)) + '" target="_blank" rel="noopener noreferrer" title="' + esc(t("lVideo")) + '" aria-label="' + esc(t("lVideo") + ": " + name) + '">' + PLAY + "</a>" +
           '<button type="button" class="swap" data-slot="' + key + '" title="' + esc(t("bSwap")) + '" aria-label="' + esc(t("bSwap") + ": " + name) + '">↻</button></li>';
       }).join("");
       return '<div class="day"><header><h3>' + esc(t(DAYKEY[type])) + "</h3><small>" + esc(t("day") + " " + (d + 1)) + "</small></header><ul>" + items + "</ul></div>";
@@ -2814,7 +3299,7 @@ footer .wrap { padding-block: 28px 36px; }
         var e = EX[+n];
         if (!e) return "";
         var nm = e[lang === "he" ? 6 : 7];
-        return ' <span class="exl"><a class="exlink" href="https://www.youtube.com/watch?v=' + VIDS[+n] + '" target="_blank" rel="noopener noreferrer">' + PLAY + esc(nm) + '</a><button type="button" class="exlib" data-exq="' + esc(nm) + '">' + esc(t("exLib")) + "</button></span>";
+        return ' <span class="exl"><a class="exlink" href="' + exUrl(+n) + '" target="_blank" rel="noopener noreferrer">' + PLAY + esc(nm) + '</a><button type="button" class="exlib" data-exq="' + esc(nm) + '">' + esc(t("exLib")) + "</button></span>";
       });
     }
     var out = [], list = null;
@@ -3881,18 +4366,20 @@ footer .wrap { padding-block: 28px 36px; }
 
   /* coach: tight or sore muscle — built-in stretches with video links, works without the AI */
   var TIGHT = [
-    { k: "neck", he: "צוואר", en: "Neck", w: ["צוואר", "עורף", "neck", "رقبة", "шея", "шеи"], s: [["סנטר פנימה (Chin tuck)", "Chin tuck", "chin tuck exercise neck"], ["מתיחת טרפז עליון", "Upper trap stretch", "upper trapezius stretch"], ["מתיחת מרים השכמה", "Levator scapulae stretch", "levator scapulae stretch"]] },
-    { k: "upper", he: "גב עליון ושכמות", en: "Upper back", w: ["גב עליון", "שכמה", "שכמות", "טרפז", "בין השכמות", "upper back", "trap", "shoulder blade"], s: [["השחלת המחט (Thread the needle)", "Thread the needle", "thread the needle stretch"], ["חתול־פרה", "Cat-cow", "cat cow stretch"], ["פתיחת חזה בעמידה בפתח דלת", "Doorway stretch", "doorway pec stretch"]] },
-    { k: "lower", he: "גב תחתון", en: "Lower back", w: ["גב תחתון", "מותן", "lower back", "low back", "lumbar", "גב", "back", "ظهر", "спина", "спине", "поясница"], s: [["ברך לחזה בשכיבה", "Knee to chest", "knee to chest stretch lower back"], ["תנוחת הילד", "Child's pose", "child's pose stretch"], ["הטיית אגן בשכיבה", "Pelvic tilt", "pelvic tilt exercise"]] },
-    { k: "shoulder", he: "כתף", en: "Shoulder", w: ["כתף", "כתפיים", "shoulder", "كتف", "плечо", "плече"], s: [["מתיחת כתף לרוחב הגוף", "Cross-body shoulder stretch", "cross body shoulder stretch"], ["מטוטלת", "Pendulum", "shoulder pendulum exercise"], ["מתיחת שינה (Sleeper)", "Sleeper stretch", "sleeper stretch shoulder"]] },
-    { k: "chest", he: "חזה", en: "Chest", w: ["חזה", "chest", "pec", "صدر", "грудь"], s: [["מתיחת חזה בפתח דלת", "Doorway chest stretch", "doorway chest stretch"], ["פתיחת חזה על רולר", "Foam roller chest opener", "foam roller chest opener"]] },
-    { k: "ham", he: "ירך אחורית", en: "Hamstring", w: ["ירך אחורית", "אחורי הירך", "המסטרינג", "hamstring", "back of thigh"], s: [["מתיחת ירך אחורית בעמידה", "Standing hamstring stretch", "standing hamstring stretch"], ["מתיחה בשכיבה עם רצועה", "Lying hamstring stretch", "lying hamstring stretch strap"]] },
-    { k: "quad", he: "ירך קדמית", en: "Quad", w: ["ירך קדמית", "קדמת הירך", "ארבע ראשי", "quad", "front of thigh"], s: [["מתיחת ירך קדמית בעמידה", "Standing quad stretch", "standing quad stretch"], ["מתיחת ספה (Couch stretch)", "Couch stretch", "couch stretch"]] },
-    { k: "calf", he: "שוק (תאומים)", en: "Calf", w: ["שוק", "תאומים", "סובך", "calf", "calves", "икра", "икры"], s: [["מתיחת שוק מול קיר", "Wall calf stretch", "wall calf stretch"], ["מתיחה על מדרגה", "Step calf stretch", "calf stretch on step"], ["גלגול שוק על רולר", "Calf foam roll", "foam roll calves"]] },
-    { k: "glute", he: "ישבן ואגן", en: "Glutes & hip", w: ["ישבן", "עכוז", "אגן", "ירך", "glute", "butt", "hip", "piriformis"], s: [["מתיחת ארבע (Figure 4)", "Figure-4 stretch", "figure 4 stretch"], ["תנוחת יונה", "Pigeon pose", "pigeon pose stretch"], ["מתיחת כופף ירך בלאנג׳", "Hip flexor stretch", "kneeling hip flexor stretch"]] },
-    { k: "groin", he: "מפשעה", en: "Groin", w: ["מפשעה", "מקרבים", "groin", "adductor"], s: [["מתיחת פרפר", "Butterfly stretch", "butterfly stretch groin"], ["מתיחת צפרדע", "Frog stretch", "frog stretch"]] },
-    { k: "arm", he: "אמה ושורש כף היד", en: "Forearm & wrist", w: ["אמה", "שורש כף", "פרק כף", "זרוע", "יד", "forearm", "wrist", "arm"], s: [["מתיחת כופפי שורש כף היד", "Wrist flexor stretch", "wrist flexor stretch"], ["מתיחת פושטי שורש כף היד", "Wrist extensor stretch", "wrist extensor stretch"]] },
-    { k: "foot", he: "כף רגל ועקב", en: "Foot & heel", w: ["כף רגל", "כף הרגל", "עקב", "foot", "heel", "plantar"], s: [["גלגול כדור מתחת לכף הרגל", "Foot ball roll", "plantar fascia ball roll"], ["מתיחת אצבעות הרגל", "Toe stretch", "plantar fascia stretch"]] }
+    { k: "neck", he: "צוואר", en: "Neck", w: ["צוואר", "עורף", "neck", "رقبة", "шея", "шеи"], s: [["סנטר פנימה (Chin tuck)", "Chin tuck", "chin tuck exercise neck"], ["מתיחת טרפז עליון", "Upper trap stretch", "upper trapezius stretch"], ["מתיחת מרים השכמה", "Levator scapulae stretch", "levator scapulae stretch"], ["הטיית ראש לצד", "Side neck tilt", "neck side bend stretch"], ["סיבוב ראש איטי", "Slow neck rotation", "neck rotation stretch"], ["הבטה לבית השחי", "Armpit look stretch", "levator scapulae armpit stretch"], ["סנטר לחזה", "Chin to chest", "chin to chest neck stretch"], ["הבטה לתקרה", "Look up stretch", "neck extension stretch"], ["מתיחת סקלנים", "Scalene stretch", "scalene stretch"], ["מתיחת צוואר עם מגבת", "Towel neck stretch", "towel neck stretch"], ["סנטר פנימה בשכיבה", "Lying chin tuck", "supine chin tuck"], ["הרמת כתפיים ושחרור", "Shoulder shrug release", "shoulder shrug release neck tension"], ["גלגול כתפיים לאחור", "Shoulder rolls", "shoulder rolls neck tension"], ["שחרור עורף עם כדור טניס", "Tennis ball neck release", "tennis ball suboccipital release"], ["עיסוי עצמי לטרפז", "Trap self massage", "upper trap self massage"], ["מתיחת צוואר בישיבה עם אחיזה בכיסא", "Seated anchored neck stretch", "seated upper trap stretch hold chair"], ["נשימה סרעפתית להרפיה", "Belly breathing to relax", "diaphragmatic breathing neck tension"], ["מתיחת צוואר אחורית עם ידיים על הראש", "Hands-on-head neck flexion", "assisted neck flexion stretch"]] },
+    { k: "upper", he: "גב עליון ושכמות", en: "Upper back", w: ["גב עליון", "שכמה", "שכמות", "טרפז", "בין השכמות", "upper back", "trap", "shoulder blade"], s: [["השחלת המחט (Thread the needle)", "Thread the needle", "thread the needle stretch"], ["חתול־פרה", "Cat-cow", "cat cow stretch"], ["פתיחת חזה בעמידה בפתח דלת", "Doorway stretch", "doorway pec stretch"], ["מתיחת רומבואידים", "Rhomboid stretch", "rhomboid stretch"], ["חיבוק עצמי", "Self hug stretch", "self hug upper back stretch"], ["פתיחת חזה על רולר", "Foam roller thoracic extension", "foam roller thoracic extension"], ["גלגול גב עליון על רולר", "Upper back foam roll", "upper back foam rolling"], ["סיבוב חזה בשכיבה על הצד (פתיחת ספר)", "Open book stretch", "open book thoracic rotation"], ["סיבוב חזה על ארבע", "Quadruped thoracic rotation", "quadruped thoracic rotation"], ["כדור טניס בין השכמות", "Tennis ball between shoulder blades", "tennis ball upper back release"], ["מתיחת לאטים בכריעה", "Kneeling lat stretch", "kneeling lat stretch bench"], ["מתיחת לאט בעמידה", "Standing lat stretch", "standing lat stretch"], ["תלייה רפויה", "Passive hang", "passive hang decompression"], ["מתיחת גב עליון בישיבה", "Seated upper back stretch", "seated upper back stretch"], ["מלאך על הקיר", "Wall angel", "wall angel exercise"], ["מתיחת חזה עם ידיים מאחורי הגב", "Hands behind back chest opener", "clasped hands chest opener"], ["גשר כתפיים על כיסא", "Chair thoracic extension", "chair thoracic extension stretch"]] },
+    { k: "lower", he: "גב תחתון", en: "Lower back", w: ["גב תחתון", "מותן", "lower back", "low back", "lumbar", "גב", "back", "ظهر", "спина", "спине", "поясница"], s: [["ברך לחזה בשכיבה", "Knee to chest", "knee to chest stretch lower back"], ["תנוחת הילד", "Child's pose", "child's pose stretch"], ["הטיית אגן בשכיבה", "Pelvic tilt", "pelvic tilt exercise"], ["חתול־פרה", "Cat-cow", "cat cow stretch"], ["סיבוב גב בשכיבה", "Supine spinal twist", "supine spinal twist"], ["שתי ברכיים לחזה", "Double knee to chest", "double knee to chest stretch"], ["תנוחת קוברה", "Cobra stretch", "cobra stretch lower back"], ["תנוחת ספינקס", "Sphinx pose", "sphinx pose"], ["מתיחת פיריפורמיס בשכיבה", "Lying piriformis stretch", "piriformis stretch lying"], ["סיבוב גב בישיבה", "Seated spinal twist", "seated spinal twist"], ["מתיחת קוואדרטוס למבורום", "Quadratus lumborum stretch", "quadratus lumborum stretch"], ["תנוחת הילד עם הטיה לצד", "Side child's pose", "child's pose side stretch"], ["גלגול אגן בשכיבה", "Pelvic rocking", "pelvic rocking lower back"], ["מקנזי שכיבה על הבטן", "Prone press up", "mckenzie prone press up"], ["הליכה קלה", "Easy walk", "walking for lower back pain"], ["ציפור־כלב איטי", "Slow bird dog", "bird dog lower back"], ["גלגול גב על כדור פיזיו", "Ball back stretch", "stability ball back stretch"], ["מתיחת כופף ירך בכריעה", "Kneeling hip flexor stretch", "kneeling hip flexor stretch"], ["שכיבה עם רגליים על כיסא", "90-90 rest position", "90 90 lower back rest position"], ["גשר ישבן עדין", "Gentle glute bridge", "glute bridge for lower back pain"]] },
+    { k: "shoulder", he: "כתף", en: "Shoulder", w: ["כתף", "כתפיים", "shoulder", "كتف", "плечо", "плече"], s: [["מתיחת כתף לרוחב הגוף", "Cross-body shoulder stretch", "cross body shoulder stretch"], ["מטוטלת", "Pendulum", "shoulder pendulum exercise"], ["מתיחת שינה (Sleeper)", "Sleeper stretch", "sleeper stretch shoulder"], ["מתיחת יד מאחורי הגב עם מגבת", "Towel shoulder stretch", "towel shoulder internal rotation stretch"], ["מתיחת תלת ראשי מעל הראש", "Overhead triceps stretch", "overhead triceps stretch"], ["מתיחת כתף קדמית בפתח דלת", "Doorway front shoulder stretch", "doorway anterior shoulder stretch"], ["הליכת אצבעות על הקיר", "Wall finger walk", "wall walk shoulder exercise"], ["סיבוב חיצוני עם מקל", "Stick external rotation", "dowel external rotation stretch"], ["הרמת מקל מעל הראש", "Stick overhead raise", "dowel shoulder flexion stretch"], ["מתיחת כתף אחורית", "Posterior capsule stretch", "posterior capsule stretch shoulder"], ["מתיחת חזה ויד בקיר", "Wall pec and arm stretch", "wall pec stretch"], ["שחרור כתף עם כדור טניס", "Tennis ball shoulder release", "tennis ball shoulder release"], ["סיבובי כתף עם גומייה", "Band shoulder dislocates", "band shoulder dislocates"], ["מתיחת כתף בכלב מטה", "Puppy pose", "puppy pose stretch"], ["מתיחת שרוול מסובב בשכיבה", "Lying rotator cuff stretch", "rotator cuff stretch"], ["חיבוק עצמי לכתף אחורית", "Shoulder self hug", "self hug stretch shoulder"], ["הטיית יד מעל הראש לצד", "Overhead side reach", "overhead side stretch"]] },
+    { k: "chest", he: "חזה", en: "Chest", w: ["חזה", "chest", "pec", "صدر", "грудь"], s: [["מתיחת חזה בפתח דלת", "Doorway chest stretch", "doorway chest stretch"], ["פתיחת חזה על רולר", "Foam roller chest opener", "foam roller chest opener"], ["מתיחת חזה בפינת קיר", "Corner chest stretch", "corner pec stretch"], ["מתיחת חזה ביד אחת על קיר", "Single arm wall chest stretch", "single arm wall chest stretch"], ["פרפר בשכיבה על רולר", "Foam roller snow angel", "foam roller snow angel"], ["פתיחת חזה בשכיבה על הגב", "Supine chest opener", "supine chest opener stretch"], ["מתיחת חזה בכריעה על ספסל", "Kneeling bench chest stretch", "kneeling chest stretch bench"], ["שחרור חזה עם כדור", "Ball pec release", "lacrosse ball pec release"], ["ידיים משולבות מאחור והרמה", "Clasped hands raise", "clasped hands behind back stretch"], ["מתיחת חזה בתנוחת קוברה", "Cobra chest opener", "cobra pose chest"], ["פתיחת ידיים לצדדים בשכיבה על כדור", "Ball chest opener", "stability ball chest stretch"], ["מתיחת חזה עם מגבת מעל הראש", "Towel overhead chest opener", "towel chest opener"], ["מתיחת חזה בישיבה עם ידיים מאחור", "Seated chest stretch", "seated chest stretch"], ["גשר עליון על הקיר", "Wall chest opener", "wall chest opener"], ["מתיחת חזה דינמית - חיבוק ופתיחה", "Dynamic hug and open", "dynamic chest stretch arm swings"], ["מתיחת פקטורליס מינור", "Pec minor stretch", "pec minor stretch"]] },
+    { k: "ham", he: "ירך אחורית", en: "Hamstring", w: ["ירך אחורית", "אחורי הירך", "המסטרינג", "hamstring", "back of thigh"], s: [["מתיחת ירך אחורית בעמידה", "Standing hamstring stretch", "standing hamstring stretch"], ["מתיחה בשכיבה עם רצועה", "Lying hamstring stretch", "lying hamstring stretch strap"], ["נגיעה באצבעות בישיבה", "Seated toe reach", "seated hamstring stretch"], ["מתיחת ירך אחורית ברגל על כיסא", "Elevated hamstring stretch", "elevated hamstring stretch chair"], ["מתיחת ירך אחורית בפיסוק", "Wide leg forward fold", "wide leg forward fold"], ["כלב מטה עם הליכה", "Downward dog pedal", "downward dog pedaling"], ["מתיחה בפתח דלת עם רגל על הקיר", "Doorway hamstring stretch", "doorway hamstring stretch"], ["גלגול ירך אחורית על רולר", "Hamstring foam roll", "foam roll hamstrings"], ["חוט דנטלי לעצב", "Hamstring nerve floss", "sciatic nerve floss"], ["נדנוד רגל קדימה ואחורה", "Leg swings", "leg swings front to back"], ["מתיחת ירך אחורית בעמידה ברגליים צולבות", "Crossed leg forward fold", "crossed leg hamstring stretch"], ["מתיחת חצי מפוצל", "Half split", "half split stretch"], ["הליכת ענק עם נגיעה", "Inchworm walkout", "inchworm stretch"], ["מתיחת ירך אחורית רגל אחת בישיבה", "Single leg seated stretch", "single leg seated hamstring stretch"], ["מתיחת ירך אחורית עם גומייה", "Band hamstring stretch", "band hamstring stretch"], ["כפיפה קדימה בעמידה", "Standing forward fold", "standing forward fold"]] },
+    { k: "quad", he: "ירך קדמית", en: "Quad", w: ["ירך קדמית", "קדמת הירך", "ארבע ראשי", "quad", "front of thigh"], s: [["מתיחת ירך קדמית בעמידה", "Standing quad stretch", "standing quad stretch"], ["מתיחת ספה (Couch stretch)", "Couch stretch", "couch stretch"], ["מתיחת ירך קדמית בשכיבה על הצד", "Side-lying quad stretch", "side lying quad stretch"], ["מתיחת ירך קדמית בשכיבה על הבטן", "Prone quad stretch", "prone quad stretch"], ["מתיחת ירך קדמית בכריעה", "Kneeling quad stretch", "kneeling quad stretch"], ["גלגול ירך קדמית על רולר", "Quad foam roll", "foam roll quads"], ["תנוחת גיבור", "Hero pose", "hero pose"], ["לאנג׳ נמוך", "Low lunge", "low lunge stretch"], ["מתיחת ירך קדמית עם גומייה", "Band quad stretch", "band quad stretch"], ["גלגול ירך חיצונית על רולר", "IT band foam roll", "foam roll it band"], ["מתיחת רצועה איליוטיביאלית בעמידה", "Standing IT band stretch", "standing it band stretch"], ["מתיחת ירך קדמית בעמידה עם כיסא", "Chair-assisted quad stretch", "chair quad stretch"], ["לאנג׳ עם סיבוב", "Lunge with twist", "lunge with rotation stretch"], ["מתיחת לטאה", "Lizard pose", "lizard pose"], ["נדנוד רגל לצדדים", "Side leg swings", "side to side leg swings"], ["מתיחת ירך קדמית בשכיבה על הגב בקצה מיטה", "Thomas stretch", "thomas test stretch"]] },
+    { k: "calf", he: "שוק (תאומים)", en: "Calf", w: ["שוק", "תאומים", "סובך", "calf", "calves", "икра", "икры"], s: [["מתיחת שוק מול קיר", "Wall calf stretch", "wall calf stretch"], ["מתיחה על מדרגה", "Step calf stretch", "calf stretch on step"], ["גלגול שוק על רולר", "Calf foam roll", "foam roll calves"], ["מתיחת סולאוס מול קיר", "Soleus wall stretch", "soleus stretch"], ["כלב מטה עם עקב לרצפה", "Downward dog calf stretch", "downward dog calf stretch"], ["מתיחת שוק עם מגבת בישיבה", "Seated towel calf stretch", "towel calf stretch"], ["מתיחת שוק בלאנג׳", "Lunge calf stretch", "lunge calf stretch"], ["גלגול שוק על כדור", "Calf ball massage", "lacrosse ball calf release"], ["הרמות עקבים איטיות", "Slow calf raises", "slow eccentric calf raise"], ["מתיחת שוק עם גומייה", "Band calf stretch", "band calf stretch"], ["מעגלי קרסול", "Ankle circles", "ankle circles"], ["מתיחת שוק בעמידה על בהונות קיר", "Toes up wall stretch", "toes against wall calf stretch"], ["הליכה על העקבים", "Heel walks", "heel walks exercise"], ["מתיחת אכילס", "Achilles stretch", "achilles tendon stretch"], ["נקודות לחץ בשוק עם האגודל", "Calf trigger point press", "calf trigger point release"], ["קפיצות קלות במקום לחימום", "Light pogo hops", "pogo hops warm up"], ["מתיחת שוק עם רגל ישרה על מדרגה", "Straight leg step stretch", "straight leg calf stretch step"]] },
+    { k: "glute", he: "ישבן ואגן", en: "Glutes & hip", w: ["ישבן", "עכוז", "אגן", "ירך", "glute", "butt", "hip", "piriformis"], s: [["מתיחת ארבע (Figure 4)", "Figure-4 stretch", "figure 4 stretch"], ["תנוחת יונה", "Pigeon pose", "pigeon pose stretch"], ["מתיחת כופף ירך בלאנג׳", "Hip flexor stretch", "kneeling hip flexor stretch"], ["מתיחת ישבן בישיבה על כיסא", "Seated figure-4 on chair", "seated figure 4 stretch chair"], ["ברך לכתף הנגדית", "Knee to opposite shoulder", "knee to opposite shoulder stretch"], ["מתיחת 90-90", "90/90 hip stretch", "90 90 hip stretch"], ["שחרור ישבן עם כדור", "Glute ball release", "lacrosse ball glute release"], ["גלגול ישבן על רולר", "Glute foam roll", "foam roll glutes"], ["מתיחת כופף ירך בעמידה", "Standing hip flexor stretch", "standing hip flexor stretch"], ["תנוחת תינוק שמח", "Happy baby", "happy baby pose"], ["מתיחת ישבן בעמידה", "Standing figure-4", "standing figure 4 stretch"], ["סיבובי אגן", "Hip circles", "hip circles"], ["מתיחת מותן בשכיבה עם רגל צולבת", "Crossover leg stretch", "supine crossover glute stretch"], ["פתיחת ירך עולם (World's greatest stretch)", "World's greatest stretch", "worlds greatest stretch"], ["מתיחת טנסור (TFL)", "TFL stretch", "tfl stretch"], ["גשר עם החזקה ונשימה", "Bridge hold breathing", "glute bridge hold"], ["יונה בשכיבה על הגב", "Reclined pigeon", "reclined pigeon pose"]] },
+    { k: "groin", he: "מפשעה", en: "Groin", w: ["מפשעה", "מקרבים", "groin", "adductor"], s: [["מתיחת פרפר", "Butterfly stretch", "butterfly stretch groin"], ["מתיחת צפרדע", "Frog stretch", "frog stretch"], ["סקוואט עמוק עם ידיים במרכז", "Deep squat hold", "deep squat hold"], ["מתיחת מקרבים בכריעה (רגל לצד)", "Kneeling adductor stretch", "kneeling adductor stretch"], ["מתיחת מקרבים בעמידה", "Standing groin stretch", "standing groin stretch"], ["פיסוק בישיבה", "Seated straddle", "seated straddle stretch"], ["פרפר בשכיבה", "Reclined butterfly", "reclined butterfly pose"], ["לאנג׳ צידי מתיחה", "Side lunge stretch", "side lunge stretch"], ["פיסוק על הקיר", "Wall straddle", "wall straddle stretch"], ["גלגול מקרבים על רולר", "Adductor foam roll", "foam roll adductors"], ["סקוואט קוזאקי איטי", "Slow cossack squat", "cossack squat stretch"], ["מתיחת מקרבים על ארבע (רוק בק)", "Adductor rock back", "adductor rock back"], ["כיווץ ושחרור עם כדור בין הברכיים", "Ball squeeze", "adductor ball squeeze"], ["פתיחת ירך מתנוחת צפרדע עם נדנוד", "Frog rocking", "frog pose rocking"], ["מתיחת מקרבים בישיבה רגל אחת", "Single leg straddle", "single leg seated adductor stretch"], ["ברכיים נופלות לצדדים בשכיבה", "Supine knee drops", "supine knee drop stretch"]] },
+    { k: "arm", he: "אמה ושורש כף היד", en: "Forearm & wrist", w: ["אמה", "שורש כף", "פרק כף", "זרוע", "יד", "forearm", "wrist", "arm"], s: [["מתיחת כופפי שורש כף היד", "Wrist flexor stretch", "wrist flexor stretch"], ["מתיחת פושטי שורש כף היד", "Wrist extensor stretch", "wrist extensor stretch"], ["מתיחת דו ראשי על קיר", "Wall biceps stretch", "wall biceps stretch"], ["מתיחת אמה עם אצבעות לאחור על הרצפה", "Kneeling forearm stretch", "kneeling wrist flexor stretch"], ["מתיחת תפילה", "Prayer stretch", "prayer stretch wrist"], ["תפילה הפוכה", "Reverse prayer", "reverse prayer stretch"], ["סיבובי שורש כף יד", "Wrist circles", "wrist circles"], ["גלגול אמה על כדור", "Forearm ball release", "forearm lacrosse ball release"], ["חוט דנטלי לעצב המדיאני", "Median nerve glide", "median nerve glide"], ["חוט דנטלי לעצב האולנרי", "Ulnar nerve glide", "ulnar nerve glide"], ["מתיחת אגודל", "Thumb stretch", "de quervain thumb stretch"], ["פתיחה וסגירת אגרוף", "Fist open and close", "hand open close exercise"], ["לחיצת כדור ספוג", "Stress ball squeeze", "stress ball squeeze exercise"], ["מתיחת תלת ראשי לרוחב", "Triceps cross stretch", "triceps stretch"], ["מתיחת אצבעות עם גומייה", "Finger band extension", "rubber band finger extension"], ["מתיחת מרפק טניס", "Tennis elbow stretch", "tennis elbow stretch"]] },
+    { k: "side", he: "צד הגוף ובטן", en: "Side & abs", w: ["צלעות", "מותניים", "צד הגוף", "בטן", "side", "rib", "oblique", "abs"], s: [["מתיחת צד בעמידה", "Standing side stretch", "standing side bend stretch"], ["מתיחת צד בישיבה", "Seated side bend", "seated side bend stretch"], ["תנוחת משולש", "Triangle pose", "triangle pose"], ["מתיחת צד בכריעה", "Gate pose", "gate pose"], ["מתיחת צד על כדור", "Ball side stretch", "stability ball side stretch"], ["מתיחת צד עם תלייה ביד אחת", "One arm hang side stretch", "one arm side hang"], ["סיבוב גוף בעמידה", "Standing torso twist", "standing torso rotation"], ["מתיחת בטן בקוברה", "Cobra ab stretch", "cobra abdominal stretch"], ["מתיחת בטן על כדור", "Ball ab stretch", "stability ball ab stretch"], ["תנוחת קשת עדינה", "Gentle bridge backbend", "bridge pose stretch"], ["מתיחת צד בשכיבה בצורת בננה", "Banana stretch", "banana stretch"], ["נשימה עמוקה לצלעות", "Rib breathing", "lateral rib breathing"], ["מתיחת מותן בעמידה ליד קיר", "Wall side stretch", "wall side stretch"], ["סיבוב גב עם מקל על הכתפיים", "Stick torso twist", "broomstick torso twist"]] },
+    { k: "ankle", he: "קרסול ושוק קדמית", en: "Ankle & shin", w: ["קרסול", "שוק קדמית", "ankle", "shin"], s: [["מתיחת קרסול בכריעה (ברך לקיר)", "Knee to wall ankle stretch", "knee to wall ankle mobility"], ["סיבובי קרסול בישיבה", "Seated ankle circles", "seated ankle circles"], ["כפיפה ופשיטה של כף הרגל", "Ankle pumps", "ankle pumps"], ["מתיחת קרסול עם גומייה", "Band ankle mobility", "banded ankle mobility"], ["עמידה על רגל אחת על כרית", "Pillow balance", "single leg balance pillow"], ["הטיית קרסול פנימה והחוצה", "Ankle inversion eversion", "ankle inversion eversion exercise"], ["הרמות עקבים עם כדור בין העקבים", "Ball heel raise", "calf raise ball between heels"], ["סקוואט עמוק עם עקבים מוגבהים", "Heel-elevated deep squat", "heel elevated deep squat"], ["מתיחת קרסול על מדרגה", "Step ankle stretch", "ankle stretch on step"], ["הליכה על עקבים ובהונות לסירוגין", "Heel-toe walk", "heel toe walk"], ["גלגול קרסול על רולר", "Shin foam roll", "foam roll shins"], ["מתיחת שוק קדמית בישיבה על עקבים", "Shin stretch", "shin stretch kneeling"], ["דילוגים קלים", "Light skipping", "skipping drill"], ["קפיצות קטנות על רגל אחת", "Single leg hops", "single leg hops ankle"]] },
+    { k: "foot", he: "כף רגל ועקב", en: "Foot & heel", w: ["כף רגל", "כף הרגל", "עקב", "foot", "heel", "plantar"], s: [["גלגול כדור מתחת לכף הרגל", "Foot ball roll", "plantar fascia ball roll"], ["מתיחת אצבעות הרגל", "Toe stretch", "plantar fascia stretch"], ["גלגול כף רגל על בקבוק קפוא", "Frozen bottle roll", "frozen bottle plantar fasciitis"], ["הרמת גולות באצבעות", "Marble pickup", "toe marble pickup"], ["כיווץ מגבת באצבעות", "Towel scrunch", "towel scrunch exercise"], ["מתיחת כף רגל עם מגבת", "Towel foot stretch", "towel plantar fascia stretch"], ["עמידה על אצבעות והחזקה", "Toe raise hold", "heel raise hold foot"], ["פיסוק אצבעות רגליים", "Toe spread", "toe spread exercise"], ["כריעה על אצבעות כפופות", "Kneeling toe stretch", "kneeling toe stretch"], ["מתיחת גב כף הרגל", "Top of foot stretch", "top of foot stretch"], ["עיסוי קשת כף הרגל באגודלים", "Arch massage", "foot arch self massage"], ["הליכה על הבהונות", "Toe walks", "toe walks"], ["מתיחת כף רגל על מדרגה", "Step plantar stretch", "step plantar fascia stretch"], ["אלפבית עם כף הרגל", "Ankle alphabet", "ankle alphabet exercise"], ["כיפת כף רגל קצרה", "Short foot exercise", "short foot exercise"], ["עמידה על רגל אחת לאיזון", "Single leg balance", "single leg balance exercise"]] }
   ];
   function tightFind(text) {
     var s = String(text || "").toLowerCase();
@@ -3909,9 +4396,10 @@ footer .wrap { padding-block: 28px 36px; }
   function tightHtml(k) {
     var a = TIGHT.filter(function (x) { return x.k === k; })[0], he = lang === "he";
     if (!a) return '<div class="tight-areas">' + TIGHT.map(function (x) { return '<button type="button" data-tight="' + x.k + '">' + esc(he ? x.he : x.en) + "</button>"; }).join("") + "</div>";
-    return '<div class="tight-ex">' + a.s.map(function (x) {
-      return '<a class="exlink" href="https://www.youtube.com/results?search_query=' + encodeURIComponent(x[2]) + '" target="_blank" rel="noopener noreferrer">' + PLAY + esc(he ? x[0] : x[1]) + "</a>";
-    }).join("") + '</div><p class="tight-doc">' + esc(he
+    function lk(x) { return '<a class="exlink" href="https://www.youtube.com/results?search_query=' + encodeURIComponent(x[2]) + '" target="_blank" rel="noopener noreferrer">' + PLAY + esc(he ? x[0] : x[1]) + "</a>"; }
+    return '<div class="tight-ex">' + a.s.slice(0, 4).map(lk).join("") + "</div>" +
+      (a.s.length > 4 ? '<details class="tight-more"><summary>' + esc((he ? "עוד {n} מתיחות" : "{n} more stretches").replace("{n}", a.s.length - 4)) + '</summary><div class="tight-ex">' + a.s.slice(4).map(lk).join("") + "</div></details>" : "") +
+      '<p class="tight-doc">' + esc(he
       ? "לרופא אם: כאב חזק מאוד, נפיחות או שטף דם, נימול או חולשה, כאב שמקרין ליד או לרגל, או שאין שיפור אחרי שבוע."
       : "See a doctor if: severe pain, swelling or bruising, numbness or weakness, pain spreading down an arm or leg, or no improvement after a week.") + "</p>";
   }
