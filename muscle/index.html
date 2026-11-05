@@ -373,6 +373,9 @@ html.lglass .ac-f input, html.lglass .ac-f textarea, html.lglass .me-form input,
 .sug-fab:hover { transform: scale(1.07); }
 .sug-fab svg { width: 24px; height: 24px; }
 @media (min-width: 821px) { .sug-fab { bottom: 84px; inset-inline-start: auto; inset-inline-end: 24px; } }
+.own-gate summary { cursor: pointer; color: var(--muted); font-size: .9rem; }
+.own h4 { font-size: 1rem; }
+.own-live b { display: flex; align-items: center; gap: 8px; }
 .sug-online { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 1rem; padding: 12px 14px; border-radius: 14px; background: color-mix(in srgb, var(--green) 14%, transparent); }
 .sug-online b { font-family: var(--f-num); font-size: 1.6rem; line-height: 1; }
 .sug-online small { flex-basis: 100%; color: var(--muted); font-size: .82rem; }
@@ -1059,6 +1062,12 @@ html.lglass .pg-card:nth-child(4) { background: linear-gradient(160deg, color-mi
 html.lglass .myeq { background: linear-gradient(160deg, color-mix(in srgb, var(--accent) 12%, var(--gl-bg)), color-mix(in srgb, var(--violet) 10%, var(--gl-bg))); }
 html.lglass .chip[aria-pressed="true"] { background: var(--grad); border-color: transparent; }
 html.lglass .main footer { background: transparent; }
+html.lglass :is(.qcalc, .rir, .calc .in, .gcal, .sched-bar, .wday, .restbox, .scan-in, .scan-out, .dash, .logcard, .sheet, .mrow, .coach, .builder, .vol, .lib-empty, .mistake, .mempty, .tabs) {
+  background: var(--gl-bg); -webkit-backdrop-filter: var(--gl-blur); backdrop-filter: var(--gl-blur); border: 1px solid var(--gl-brd); box-shadow: inset 0 1px 0 var(--gl-hi), 0 10px 30px -14px rgba(20,23,29,.35); }
+html.lglass :is(.tight-areas button, .coach-sug button, .exlink, .step button, .modes button) { background: var(--gl-bg2); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-color: var(--gl-brd); box-shadow: inset 0 1px 0 var(--gl-hi); }
+html.lglass :is(.calc .out, .g-level, .coach-h, .rec, .today) { background: linear-gradient(135deg, rgba(20,23,29,.78), rgba(40,30,70,.72)); -webkit-backdrop-filter: var(--gl-blur); backdrop-filter: var(--gl-blur); border: 1px solid rgba(255,255,255,.12); box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 14px 34px -14px rgba(0,0,0,.5); }
+html.lglass .hero::before { content: ""; position: absolute; inset: auto 6% 18px; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent); z-index: 2; }
+html.lglass .nextbar { border-radius: 0 0 18px 18px; }
 html.lglass .g-opts { background: var(--gl-bg); -webkit-backdrop-filter: var(--gl-blur); backdrop-filter: var(--gl-blur); border: 1px solid var(--gl-brd); box-shadow: inset 0 1px 0 var(--gl-hi), 0 10px 30px -14px rgba(20,23,29,.35); }
 @media (prefers-reduced-motion: reduce) { html.lglass body::after { animation: none; } }
 html.a-still.lglass body::after { animation: none; }
@@ -1117,8 +1126,7 @@ html.a-still.lglass body::after { animation: none; }
         <p class="ac-msg" id="sug-msg" aria-live="polite"></p>
         <button type="submit" class="btn primary wide" id="sug-go" data-t="sugSend"></button>
       </form>
-      <p class="sug-online" id="sug-online" aria-live="polite" hidden></p>
-      <div class="sug-list" id="sug-list" hidden></div>
+
     </div>
   </div>
   <button type="button" class="sug-fab" id="sug-fab" data-ta="sugH" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg></button>
@@ -1794,7 +1802,7 @@ html.a-still.lglass body::after { animation: none; }
       wTeen: "מתחת לגיל 18 מעריכים משקל לפי עקומות גדילה, ולכן התוצאה כאן היא רק הכוונה כללית.",
       wNote: "BMI הוא מדד מהיר לאוכלוסייה, לא אבחנה. אצל מי שמתאמן הרבה הוא עלול להראות עודף משקל בגלל שריר. יחס מותן־גובה מתחת ל־0.5 נחשב תקין.",
       wSync: "העברה למחשבון התזונה", wSynced: "הועבר ✓",
-      brand: "בונים שריר", acLogin: "התחברות", acSignup: "הרשמה", acLoginH: "התחברות לחשבון", acSignupH: "יצירת חשבון חדש", acName: "שם", acEmail: "מייל", acPass: "סיסמה (לפחות 6 תווים)", acForgot: "שכחתי סיסמה", acWait: "רגע…", acCheckMail: "נשלח אליך מייל אישור. פתחו אותו ולחצו על הקישור כדי להשלים את ההרשמה.", acErrLogin: "המייל או הסיסמה לא נכונים.", acErrExists: "המייל הזה כבר רשום. נסו להתחבר.", acErrPass: "הסיסמה צריכה לפחות 6 תווים.", acErrEmail: "כתבו כתובת מייל תקינה.", acErrConfirm: "צריך קודם לאשר את המייל: פתחו את המייל ששלחנו ולחצו על הקישור.", acErrRate: "יותר מדי ניסיונות. נסו שוב בעוד כמה דקות.", acErrNet: "משהו לא עבד. בדקו חיבור לאינטרנט ונסו שוב.", acResetSent: "שלחנו מייל עם קישור לסיסמה חדשה.", v_me: "אזור אישי", meH: "האזור האישי שלי", meOutP: "הירשמו או התחברו כדי לשמור את ההתקדמות, השיאים והמכשירים שלכם בחשבון, ולראות אותם בכל מכשיר.", meOutP2: "עוד אין לך חשבון? ההרשמה לוקחת חצי דקה.", meInP: "הפרטים, המטרות וההתקדמות שלך, שמורים בחשבון ומסונכרנים בין הטלפון למחשב.", meHi: "שלום, {n}!", meSynced: "ההתקדמות, השיאים והמכשירים שלך שמורים בחשבון", meWorkouts: "אימונים בסך הכול", meRecs: "משחקים עם שיא", meProfH: "הפרטים שלי", meGoal: "המטרה שלי", meGoal_muscle: "לבנות שריר", meGoal_fat: "לרדת באחוזי שומן", meGoal_strength: "להתחזק", meGoal_fit: "כושר ובריאות", meHeight: "גובה (ס״מ)", meWeight: "משקל (ק״ג)", meAge: "גיל", meSex: "מין", meSexM: "זכר", meSexF: "נקבה", meSave: "שמור", meSaved: "נשמר ✓", meQuick: "קיצורי דרך", mePassH: "שינוי סיסמה", mePassSave: "עדכן סיסמה", mePassOk: "הסיסמה עודכנה ✓", meLogout: "התנתקות", sugH: "הצעות לאתר", sugP: "יש לך רעיון לשיפור, משהו שחסר או משהו שלא עובד? כתבו כאן, וההצעה תגיע לבעלי האתר.", sugPh: "מה היית רוצה שיהיה באתר?", sugSend: "שליחה", sugThanks: "תודה! ההצעה נשלחה ✓", sugBadCode: "הקוד לא נכון.", onNow: "אנשים באתר עכשיו", onToday: "{n} מכשירים נכנסו היום", sugListH: "ההצעות שנשלחו ({n})", sugNone: "עוד אין הצעות.", v_progress: "התקדמות", tdH: "היום שלך", tdStreak: "ימים ברצף", tdWeek: "ימי אימון השבוע", tdPro: "חלבון היום", tdLvl: "רמה במשחקים", gr: "ג׳", qtScan: "סורק אוכל", qtScanS: "צלמו צלחת", qtGames: "משחקי כושר", qtGamesS: "357 משחקים", qtLib: "תרגילים", qtLibS: "349 תרגילים", qtPlan: "התוכנית שלי", qtPlanS: "תוכנית אישית", qtProg: "התקדמות", qtProgS: "גרפים ושיאים", qtCoach: "מאמן AI", qtCoachS: "שאלו כל דבר", qtWeight: "בדיקת משקל", qtWeightS: "BMI ואחוז שומן", qtFood: "תזונה", qtFoodS: "מחשבון קלוריות", pgH: "ההתקדמות שלי", pgIntro: "כל משחק שמסיימים נרשם כאן אוטומטית. אפשר גם לסמן אימון ולשמור משקל. הנתונים נשמרים במכשיר הזה.", pgActH: "ימי אימון – 4 שבועות אחרונים", pgDone: "סיימתי אימון היום ✓", pgWH: "משקל לאורך זמן", pgWPh: "המשקל היום (ק״ג)", pgWSave: "שמור", pgRecH: "השיאים שלי", pgLogH: "אימונים אחרונים", pgReps: "חזרות השבוע", pgWLast: "משקל אחרון", pgW0: "עוד לא נשמר משקל. כתבו את המשקל של היום ולחצו שמור.", pgW1: "שמרו משקל גם בימים הבאים כדי לראות גרף.", pgRec0: "שחקו משחק כושר כדי לקבוע שיא.", pgLog0: "עוד אין אימונים. שחקו משחק או לחצו \"סיימתי אימון היום\".", pgManual: "אימון", v_home: "בית", v_food: "תזונה", v_scan: "סורק אוכל", v_plan: "התוכנית שלי", v_library: "תרגילים", v_coach: "מאמן AI", v_tips: "טיפים",
+      brand: "בונים שריר", acLogin: "התחברות", acSignup: "הרשמה", acLoginH: "התחברות לחשבון", acSignupH: "יצירת חשבון חדש", acName: "שם", acEmail: "מייל", acPass: "סיסמה (לפחות 6 תווים)", acForgot: "שכחתי סיסמה", acWait: "רגע…", acCheckMail: "נשלח אליך מייל אישור. פתחו אותו ולחצו על הקישור כדי להשלים את ההרשמה.", acErrLogin: "המייל או הסיסמה לא נכונים.", acErrExists: "המייל הזה כבר רשום. נסו להתחבר.", acErrPass: "הסיסמה צריכה לפחות 6 תווים.", acErrEmail: "כתבו כתובת מייל תקינה.", acErrConfirm: "צריך קודם לאשר את המייל: פתחו את המייל ששלחנו ולחצו על הקישור.", acErrRate: "יותר מדי ניסיונות. נסו שוב בעוד כמה דקות.", acErrNet: "משהו לא עבד. בדקו חיבור לאינטרנט ונסו שוב.", acResetSent: "שלחנו מייל עם קישור לסיסמה חדשה.", v_me: "אזור אישי", meH: "האזור האישי שלי", meOutP: "הירשמו או התחברו כדי לשמור את ההתקדמות, השיאים והמכשירים שלכם בחשבון, ולראות אותם בכל מכשיר.", meOutP2: "עוד אין לך חשבון? ההרשמה לוקחת חצי דקה.", meInP: "הפרטים, המטרות וההתקדמות שלך, שמורים בחשבון ומסונכרנים בין הטלפון למחשב.", meHi: "שלום, {n}!", meSynced: "ההתקדמות, השיאים והמכשירים שלך שמורים בחשבון", meWorkouts: "אימונים בסך הכול", meRecs: "משחקים עם שיא", meProfH: "הפרטים שלי", meGoal: "המטרה שלי", meGoal_muscle: "לבנות שריר", meGoal_fat: "לרדת באחוזי שומן", meGoal_strength: "להתחזק", meGoal_fit: "כושר ובריאות", meHeight: "גובה (ס״מ)", meWeight: "משקל (ק״ג)", meAge: "גיל", meSex: "מין", meSexM: "זכר", meSexF: "נקבה", meSave: "שמור", meSaved: "נשמר ✓", meQuick: "קיצורי דרך", mePassH: "שינוי סיסמה", mePassSave: "עדכן סיסמה", mePassOk: "הסיסמה עודכנה ✓", meLogout: "התנתקות", sugH: "הצעות לאתר", sugP: "יש לך רעיון לשיפור, משהו שחסר או משהו שלא עובד? כתבו כאן, וההצעה תגיע לבעלי האתר.", sugPh: "מה היית רוצה שיהיה באתר?", sugSend: "שליחה", sugThanks: "תודה! ההצעה נשלחה ✓", sugBadCode: "הקוד לא נכון.", onNow: "באתר עכשיו", ownToday: "מכשירים היום", ownUsers: "משתמשים רשומים", ownSug: "הצעות", ownH: "ניהול האתר", ownGate: "כניסת מנהל", ownCode: "קוד מנהל", ownEnter: "כניסה", ownNotOwner: "לחשבון הזה אין הרשאת מנהל.", sugListH: "ההצעות שנשלחו ({n})", sugNone: "עוד אין הצעות.", v_progress: "התקדמות", tdH: "היום שלך", tdStreak: "ימים ברצף", tdWeek: "ימי אימון השבוע", tdPro: "חלבון היום", tdLvl: "רמה במשחקים", gr: "ג׳", qtScan: "סורק אוכל", qtScanS: "צלמו צלחת", qtGames: "משחקי כושר", qtGamesS: "357 משחקים", qtLib: "תרגילים", qtLibS: "349 תרגילים", qtPlan: "התוכנית שלי", qtPlanS: "תוכנית אישית", qtProg: "התקדמות", qtProgS: "גרפים ושיאים", qtCoach: "מאמן AI", qtCoachS: "שאלו כל דבר", qtWeight: "בדיקת משקל", qtWeightS: "BMI ואחוז שומן", qtFood: "תזונה", qtFoodS: "מחשבון קלוריות", pgH: "ההתקדמות שלי", pgIntro: "כל משחק שמסיימים נרשם כאן אוטומטית. אפשר גם לסמן אימון ולשמור משקל. הנתונים נשמרים במכשיר הזה.", pgActH: "ימי אימון – 4 שבועות אחרונים", pgDone: "סיימתי אימון היום ✓", pgWH: "משקל לאורך זמן", pgWPh: "המשקל היום (ק״ג)", pgWSave: "שמור", pgRecH: "השיאים שלי", pgLogH: "אימונים אחרונים", pgReps: "חזרות השבוע", pgWLast: "משקל אחרון", pgW0: "עוד לא נשמר משקל. כתבו את המשקל של היום ולחצו שמור.", pgW1: "שמרו משקל גם בימים הבאים כדי לראות גרף.", pgRec0: "שחקו משחק כושר כדי לקבוע שיא.", pgLog0: "עוד אין אימונים. שחקו משחק או לחצו \"סיימתי אימון היום\".", pgManual: "אימון", v_home: "בית", v_food: "תזונה", v_scan: "סורק אוכל", v_plan: "התוכנית שלי", v_library: "תרגילים", v_coach: "מאמן AI", v_tips: "טיפים",
       mBarcode: "ברקוד", bcDrop: "צלמו את הברקוד מקרוב, ישר ובאור טוב", bcPh: "או הקלידו את מספר הברקוד", bcAria: "מספר ברקוד", bcFind: "חיפוש",
       bcReading: "קורא את הברקוד…", bcNoRead: "לא הצלחתי לקרוא את הברקוד. צלמו שוב מקרוב וישר, או הקלידו את המספר.", bcBad: "מספר הברקוד לא תקין.",
       bcUnknown: "מוצר חדש", bcUnknownSub: "הברקוד הזה עוד לא שמור אצלך. צלמו פעם אחת את טבלת הערכים התזונתיים, והאתר יזכור את המוצר בפעם הבאה.",
@@ -1952,7 +1960,7 @@ html.a-still.lglass body::after { animation: none; }
       wTeen: "Under 18, weight is assessed with growth charts, so this result is only a rough guide.",
       wNote: "BMI is a quick population measure, not a diagnosis. In people who train a lot it can show overweight because of muscle. A waist-to-height ratio under 0.5 is considered healthy.",
       wSync: "Send to nutrition calculator", wSynced: "Sent ✓",
-      brand: "Build Muscle", acLogin: "Log in", acSignup: "Sign up", acLoginH: "Log in to your account", acSignupH: "Create a new account", acName: "Name", acEmail: "Email", acPass: "Password (at least 6 characters)", acForgot: "Forgot password", acWait: "One moment…", acCheckMail: "We sent you a confirmation email. Open it and tap the link to finish signing up.", acErrLogin: "Wrong email or password.", acErrExists: "This email is already registered. Try logging in.", acErrPass: "The password needs at least 6 characters.", acErrEmail: "Enter a valid email address.", acErrConfirm: "Confirm your email first: open the email we sent and tap the link.", acErrRate: "Too many attempts. Try again in a few minutes.", acErrNet: "Something went wrong. Check your connection and try again.", acResetSent: "We sent an email with a link to set a new password.", v_me: "My account", meH: "My account", meOutP: "Sign up or log in to keep your progress, records and equipment in your account and see them on every device.", meOutP2: "No account yet? Signing up takes half a minute.", meInP: "Your details, goals and progress, saved in your account and synced between phone and computer.", meHi: "Hi, {n}!", meSynced: "Your progress, records and equipment are saved in your account", meWorkouts: "workouts in total", meRecs: "games with a record", meProfH: "My details", meGoal: "My goal", meGoal_muscle: "Build muscle", meGoal_fat: "Lose body fat", meGoal_strength: "Get stronger", meGoal_fit: "Fitness & health", meHeight: "Height (cm)", meWeight: "Weight (kg)", meAge: "Age", meSex: "Sex", meSexM: "Male", meSexF: "Female", meSave: "Save", meSaved: "Saved ✓", meQuick: "Shortcuts", mePassH: "Change password", mePassSave: "Update password", mePassOk: "Password updated ✓", meLogout: "Log out", sugH: "Suggestions", sugP: "Got an idea, something missing or something broken? Write it here and it goes to the site owners.", sugPh: "What would you like the site to have?", sugSend: "Send", sugThanks: "Thanks! Your suggestion was sent ✓", sugBadCode: "Wrong code.", onNow: "people on the site now", onToday: "{n} devices visited today", sugListH: "Suggestions received ({n})", sugNone: "No suggestions yet.", v_progress: "Progress", tdH: "Your day", tdStreak: "day streak", tdWeek: "training days this week", tdPro: "protein today", tdLvl: "games level", gr: "g", qtScan: "Food scanner", qtScanS: "Snap your plate", qtGames: "Fitness games", qtGamesS: "357 games", qtLib: "Exercises", qtLibS: "349 exercises", qtPlan: "My plan", qtPlanS: "Personal plan", qtProg: "Progress", qtProgS: "Charts & records", qtCoach: "AI coach", qtCoachS: "Ask anything", qtWeight: "Weight check", qtWeightS: "BMI & body fat", qtFood: "Nutrition", qtFoodS: "Calorie calculator", pgH: "My progress", pgIntro: "Every game you finish is logged here automatically. You can also mark a workout and save your weight. Data stays on this device.", pgActH: "Training days – last 4 weeks", pgDone: "I trained today ✓", pgWH: "Weight over time", pgWPh: "Today's weight (kg)", pgWSave: "Save", pgRecH: "My records", pgLogH: "Recent workouts", pgReps: "reps this week", pgWLast: "latest weight", pgW0: "No weight saved yet. Enter today's weight and tap Save.", pgW1: "Save your weight on other days to see a chart.", pgRec0: "Play a fitness game to set a record.", pgLog0: "No workouts yet. Play a game or tap \"I trained today\".", pgManual: "Workout", v_home: "Home", v_food: "Nutrition", v_scan: "Food scanner", v_plan: "My plan", v_library: "Exercises", v_coach: "AI coach", v_tips: "Tips",
+      brand: "Build Muscle", acLogin: "Log in", acSignup: "Sign up", acLoginH: "Log in to your account", acSignupH: "Create a new account", acName: "Name", acEmail: "Email", acPass: "Password (at least 6 characters)", acForgot: "Forgot password", acWait: "One moment…", acCheckMail: "We sent you a confirmation email. Open it and tap the link to finish signing up.", acErrLogin: "Wrong email or password.", acErrExists: "This email is already registered. Try logging in.", acErrPass: "The password needs at least 6 characters.", acErrEmail: "Enter a valid email address.", acErrConfirm: "Confirm your email first: open the email we sent and tap the link.", acErrRate: "Too many attempts. Try again in a few minutes.", acErrNet: "Something went wrong. Check your connection and try again.", acResetSent: "We sent an email with a link to set a new password.", v_me: "My account", meH: "My account", meOutP: "Sign up or log in to keep your progress, records and equipment in your account and see them on every device.", meOutP2: "No account yet? Signing up takes half a minute.", meInP: "Your details, goals and progress, saved in your account and synced between phone and computer.", meHi: "Hi, {n}!", meSynced: "Your progress, records and equipment are saved in your account", meWorkouts: "workouts in total", meRecs: "games with a record", meProfH: "My details", meGoal: "My goal", meGoal_muscle: "Build muscle", meGoal_fat: "Lose body fat", meGoal_strength: "Get stronger", meGoal_fit: "Fitness & health", meHeight: "Height (cm)", meWeight: "Weight (kg)", meAge: "Age", meSex: "Sex", meSexM: "Male", meSexF: "Female", meSave: "Save", meSaved: "Saved ✓", meQuick: "Shortcuts", mePassH: "Change password", mePassSave: "Update password", mePassOk: "Password updated ✓", meLogout: "Log out", sugH: "Suggestions", sugP: "Got an idea, something missing or something broken? Write it here and it goes to the site owners.", sugPh: "What would you like the site to have?", sugSend: "Send", sugThanks: "Thanks! Your suggestion was sent ✓", sugBadCode: "Wrong code.", onNow: "on the site now", ownToday: "devices today", ownUsers: "registered users", ownSug: "suggestions", ownH: "Site admin", ownGate: "Admin login", ownCode: "Admin code", ownEnter: "Enter", ownNotOwner: "This account has no admin access.", sugListH: "Suggestions received ({n})", sugNone: "No suggestions yet.", v_progress: "Progress", tdH: "Your day", tdStreak: "day streak", tdWeek: "training days this week", tdPro: "protein today", tdLvl: "games level", gr: "g", qtScan: "Food scanner", qtScanS: "Snap your plate", qtGames: "Fitness games", qtGamesS: "357 games", qtLib: "Exercises", qtLibS: "349 exercises", qtPlan: "My plan", qtPlanS: "Personal plan", qtProg: "Progress", qtProgS: "Charts & records", qtCoach: "AI coach", qtCoachS: "Ask anything", qtWeight: "Weight check", qtWeightS: "BMI & body fat", qtFood: "Nutrition", qtFoodS: "Calorie calculator", pgH: "My progress", pgIntro: "Every game you finish is logged here automatically. You can also mark a workout and save your weight. Data stays on this device.", pgActH: "Training days – last 4 weeks", pgDone: "I trained today ✓", pgWH: "Weight over time", pgWPh: "Today's weight (kg)", pgWSave: "Save", pgRecH: "My records", pgLogH: "Recent workouts", pgReps: "reps this week", pgWLast: "latest weight", pgW0: "No weight saved yet. Enter today's weight and tap Save.", pgW1: "Save your weight on other days to see a chart.", pgRec0: "Play a fitness game to set a record.", pgLog0: "No workouts yet. Play a game or tap \"I trained today\".", pgManual: "Workout", v_home: "Home", v_food: "Nutrition", v_scan: "Food scanner", v_plan: "My plan", v_library: "Exercises", v_coach: "AI coach", v_tips: "Tips",
       mBarcode: "Barcode", bcDrop: "Take a close, straight photo of the barcode in good light", bcPh: "or type the barcode number", bcAria: "Barcode number", bcFind: "Find",
       bcReading: "Reading the barcode…", bcNoRead: "I couldn't read the barcode. Take a closer, straighter photo, or type the number.", bcBad: "That barcode number isn't valid.",
       bcUnknown: "New product", bcUnknownSub: "This barcode isn't saved yet. Photograph the nutrition facts once and the site will remember the product next time.",
@@ -5411,6 +5419,7 @@ html.a-still.lglass body::after { animation: none; }
       '<p class="ac-msg" id="me-msg" aria-live="polite"></p><button type="submit" class="btn primary">' + esc(t("meSave")) + "</button></form>" +
       '<div class="me-card me-links"><h3>' + esc(t("meQuick")) + '</h3><div class="me-btns"><button type="button" class="btn" data-go="progress">' + esc(t("v_progress")) + '</button><button type="button" class="btn" data-go="plan">' + esc(t("qtPlan")) + '</button><button type="button" class="btn" data-go="games">' + esc(t("qtGames")) + '</button></div></div>' +
       '<form class="me-card me-form" id="me-pw"><h3>' + esc(t("mePassH")) + '</h3><label><span>' + esc(t("acPass")) + '</span><input type="password" id="me-newpass" minlength="6" autocomplete="new-password" dir="ltr"></label><p class="ac-msg" id="me-pwmsg" aria-live="polite"></p><button type="submit" class="btn">' + esc(t("mePassSave")) + "</button></form>" +
+      '<div id="me-owner"></div>' +
       '<button type="button" class="btn me-out-btn" id="me-logout">' + esc(t("meLogout")) + "</button>";
     $("me-f").addEventListener("submit", function (e) {
       e.preventDefault();
@@ -5432,31 +5441,16 @@ html.a-still.lglass body::after { animation: none; }
       sb.auth.updateUser({ password: v }).then(function (r) { if (r.error) throw r.error; m.textContent = t("mePassOk"); m.className = "ac-msg ok"; $("me-newpass").value = ""; })
         .catch(function (err) { m.textContent = t(acErr(err)); m.className = "ac-msg bad"; });
     });
-    $("me-logout").addEventListener("click", function () { sb.auth.signOut().then(function () { me = null; meProf = null; renderAcct(); renderMe(); }); });
+    $("me-logout").addEventListener("click", function () { ownStop(); sb.auth.signOut().then(function () { me = null; meProf = null; renderAcct(); renderMe(); }); });
+    ownCheck();
   }
   // suggestions for the site: saved for the site owner (and Claude) to read
-  $("sug-fab").addEventListener("click", function () { $("sug-msg").textContent = ""; $("sug-list").hidden = true; $("sug-list").innerHTML = ""; $("sug-online").hidden = true; ownerCode = ""; $("sugmodal").hidden = false; setTimeout(function () { $("sug-in").focus(); }, 30); sbLoad().catch(function () {}); });
+  $("sug-fab").addEventListener("click", function () { $("sug-msg").textContent = ""; $("sugmodal").hidden = false; setTimeout(function () { $("sug-in").focus(); }, 30); sbLoad().catch(function () {}); });
   $("sug-x").addEventListener("click", function () { $("sugmodal").hidden = true; });
   $("sugmodal").addEventListener("click", function (e) { if (e.target === $("sugmodal")) $("sugmodal").hidden = true; });
   $("sug-f").addEventListener("submit", function (e) {
     e.preventDefault();
     var v = $("sug-in").value.trim(), m = $("sug-msg"), b = $("sug-go");
-    // owner view: typing only digits is checked as the owner code on the server, never sent as a suggestion
-    if (/^\d{4,10}$/.test(v)) {
-      b.disabled = true; m.textContent = t("acWait"); m.className = "ac-msg ok";
-      sbLoad().then(function (c) { return c.rpc("bs_read_suggestions", { code: v }); }).then(function (r) {
-        if (r.error) { m.textContent = t(/bad code/.test(r.error.message || "") ? "sugBadCode" : "acErrNet"); m.className = "ac-msg bad"; return; }
-        $("sug-in").value = ""; m.textContent = "";
-        ownerCode = v; renderOnline(); clearInterval(onT); onT = setInterval(renderOnline, 10000);
-        var rows = r.data || [], box = $("sug-list");
-        box.hidden = false;
-        box.innerHTML = '<h4>' + esc(t("sugListH").replace("{n}", rows.length)) + "</h4>" + (rows.length ? rows.map(function (x) {
-          var d = new Date(x.created_at);
-          return '<div class="sug-item"><small>' + esc(d.toLocaleDateString(lang === "he" ? "he-IL" : "en-GB") + " " + d.toLocaleTimeString(lang === "he" ? "he-IL" : "en-GB", { hour: "2-digit", minute: "2-digit" })) + "</small><p>" + esc(x.text) + "</p></div>";
-        }).join("") : "<p>" + esc(t("sugNone")) + "</p>");
-      }, function () { m.textContent = t("acErrNet"); m.className = "ac-msg bad"; }).then(function () { b.disabled = false; });
-      return;
-    }
     if (v.length < 3) return;
     b.disabled = true; m.textContent = t("acWait"); m.className = "ac-msg ok";
     sbLoad().then(function (c) { return c.from("bs_suggestions").insert({ text: v.slice(0, 1000), user_id: me ? me.id : null, lang: lang }); })
@@ -5464,6 +5458,42 @@ html.a-still.lglass body::after { animation: none; }
       .catch(function () { m.textContent = t("acErrNet"); m.className = "ac-msg bad"; })
       .then(function () { b.disabled = false; });
   });
+  // owner area: the server decides who the owner is (account + code); others never see the numbers
+  var ownT = 0;
+  function ownStop() { clearInterval(ownT); ownT = 0; }
+  function ownCheck() {
+    var box = $("me-owner"); if (!box || !sb || !me) return;
+    sb.rpc("bs_is_owner").then(function (r) {
+      if (r.data === true) { ownPanel(); return; }
+      box.innerHTML = '<details class="me-card own-gate"><summary>' + esc(t("ownGate")) + '</summary><form id="own-f" class="me-form"><label><span>' + esc(t("ownCode")) + '</span><input type="password" id="own-code" inputmode="numeric" autocomplete="off" dir="ltr"></label><p class="ac-msg" id="own-msg" aria-live="polite"></p><button type="submit" class="btn">' + esc(t("ownEnter")) + "</button></form></details>";
+      $("own-f").addEventListener("submit", function (e) {
+        e.preventDefault();
+        var m = $("own-msg"); m.textContent = t("acWait"); m.className = "ac-msg ok";
+        sb.rpc("bs_owner_login", { code: $("own-code").value.trim() }).then(function (x) {
+          if (x.error) { m.textContent = t(/not owner/.test(x.error.message || "") ? "ownNotOwner" : /bad code/.test(x.error.message || "") ? "sugBadCode" : "acErrNet"); m.className = "ac-msg bad"; return; }
+          ownPanel();
+        });
+      });
+    });
+  }
+  function ownPanel() {
+    var box = $("me-owner"); if (!box) return;
+    box.innerHTML = '<section class="me-card own"><h3>' + esc(t("ownH")) + '</h3><div class="td-stats" id="own-stats"><p>' + esc(t("acWait")) + '</p></div><h4 id="own-lh"></h4><div class="sug-list" id="own-list"></div></section>';
+    ownLoad(); ownStop(); ownT = setInterval(function () { if (curView !== "me" || !$("own-stats")) { ownStop(); return; } ownLoad(); }, 10000);
+  }
+  function ownLoad() {
+    sb.rpc("bs_owner_stats").then(function (r) {
+      var s = $("own-stats"); if (!s || r.error || !r.data) return;
+      var d = r.data;
+      s.innerHTML = '<div class="td-stat own-live" style="--c:var(--green)"><b><span class="on-dot" aria-hidden="true"></span>' + esc(String(d.online)) + "</b><span>" + esc(t("onNow")) + "</span></div>" +
+        pStat(d.today, "ownToday", "var(--accent)") + pStat(d.users, "ownUsers", "var(--violet)") + pStat(d.suggestions, "ownSug", "var(--yellow)");
+      $("own-lh").textContent = t("sugListH").replace("{n}", d.list.length);
+      $("own-list").innerHTML = d.list.length ? d.list.map(function (x) {
+        var dt = new Date(x.created_at), L = lang === "he" ? "he-IL" : "en-GB";
+        return '<div class="sug-item"><small>' + esc(dt.toLocaleDateString(L) + " " + dt.toLocaleTimeString(L, { hour: "2-digit", minute: "2-digit" })) + "</small><p>" + esc(x.text) + "</p></div>";
+      }).join("") : "<p>" + esc(t("sugNone")) + "</p>";
+    });
+  }
   renderAcct();
   acctBoot();
   function sbRpc(fn, args) {
@@ -5478,15 +5508,7 @@ html.a-still.lglass body::after { animation: none; }
   function hbStart() { clearInterval(hbT); hbBeat(); hbT = setInterval(hbBeat, 30000); }
   document.addEventListener("visibilitychange", function () { if (document.visibilityState === "visible") hbStart(); else clearInterval(hbT); });
   if (/github\.io$|^localhost$|^127\./.test(location.hostname)) hbStart();
-  var ownerCode = "", onT = 0;
-  function renderOnline() {
-    if (!ownerCode || $("sugmodal").hidden) { clearInterval(onT); return; }
-    sbRpc("bs_online", { code: ownerCode }).then(function (r) {
-      var el = $("sug-online"); if (!el || !r) return;
-      el.hidden = false;
-      el.innerHTML = '<span class="on-dot" aria-hidden="true"></span><b>' + esc(String(r.online)) + "</b> " + esc(t("onNow")) + '<small>' + esc(t("onToday").replace("{n}", r.today)) + "</small>";
-    }).catch(function () {});
-  }
+
 
   var VIEWS = ["home", "food", "weight", "scan", "plan", "me", "progress", "sched", "library", "games", "coach", "tips"];
   var curView = "home";
