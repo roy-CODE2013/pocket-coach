@@ -428,6 +428,10 @@ html.lglass .me-top { background: linear-gradient(135deg, color-mix(in srgb, var
 html.vc-live .vc-glow { opacity: 1; }
 .vc-glow { position: fixed; inset: 0; z-index: 74; pointer-events: none; opacity: 0; transition: opacity .4s; box-shadow: inset 0 0 0 4px rgba(169,139,255,.55), inset 0 0 60px 10px rgba(106,63,200,.45), inset 0 0 120px 30px rgba(47,94,224,.25); animation: vcedge 3s ease-in-out infinite alternate; }
 @keyframes vcedge { 0% { box-shadow: inset 0 0 0 4px rgba(229,72,77,.5), inset 0 0 70px 12px rgba(106,63,200,.45), inset 0 0 130px 30px rgba(47,94,224,.25); } 50% { box-shadow: inset 0 0 0 4px rgba(76,194,126,.5), inset 0 0 80px 14px rgba(47,94,224,.45), inset 0 0 140px 34px rgba(240,194,58,.2); } 100% { box-shadow: inset 0 0 0 4px rgba(169,139,255,.6), inset 0 0 70px 12px rgba(229,72,77,.35), inset 0 0 130px 30px rgba(106,63,200,.3); } }
+.vc-stage { background: none !important; border: 0 !important; box-shadow: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+.vc-stage .vc-cap b { display: none; }
+.vc-stage .vc-cap p { color: #fff; text-shadow: 0 2px 12px rgba(0,0,0,.85), 0 0 2px rgba(0,0,0,.9); font-weight: 600; }
+.vc-stage .qrx { background: rgba(255,255,255,.2); color: #fff; }
 .vc-stage { top: 50%; bottom: auto !important; transform: translate(-50%, -50%); grid-template-columns: minmax(0, 1fr) !important; justify-items: center; text-align: center; gap: 10px !important; width: min(460px, calc(100vw - 32px)) !important; padding: 26px 20px 22px !important; animation: vcfly .55s cubic-bezier(.2,.9,.25,1.1) !important; }
 @keyframes vcfly { from { opacity: .2; transform: translate(-50%, -50%) translate(-34vw, 32vh) scale(.25); } to { opacity: 1; transform: translate(-50%, -50%); } }
 .vc-stage .masc { height: 150px !important; width: auto; filter: drop-shadow(0 0 18px rgba(169,139,255,.9)) drop-shadow(0 0 40px rgba(47,94,224,.55)); animation: vcorb 2.4s ease-in-out infinite; }
@@ -4854,19 +4858,27 @@ html.a-still.lglass body::after { animation: none; }
   }
   function vCap(who, text) { $("vc-who").textContent = who; $("vc-text").textContent = vClean(text).slice(0, 400); }
   try { if (window.speechSynthesis) { speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = function () { speechSynthesis.getVoices(); }; } } catch (e) {}
+  var vUtter = null, vSayT = 0;
   function vSay(text, then) {
     text = vClean(text).slice(0, 900);
     if (!text || !window.speechSynthesis) { if (then) then(); return; }
-    vSpeaking = true; try { vRec && vRec.abort(); } catch (e) {}
+    // the microphone stays on; what it hears while the coach talks is ignored (no stop/start races)
+    vSpeaking = true;
     vCap(t("vcCoach"), text); vPill("vcTalking");
+    var done = false;
+    function finish() { if (done) return; done = true; clearTimeout(vSayT); vSpeaking = false; $("vc-stage").classList.remove("talk"); setTimeout(function () { if (then) then(); else vListen(); }, 250); }
     var u = new SpeechSynthesisUtterance(text), L = lang === "he" ? "he" : "en";
     u.lang = lang === "he" ? "he-IL" : "en-US";
     var all = speechSynthesis.getVoices(), vs = all.filter(function (v) { return v.lang && v.lang.toLowerCase().indexOf(L) === 0; });
-    if (vs.length) u.voice = vs[0];
-    u.rate = 1.02;
+    if (vs.length) u.voice = vs.filter(function (v) { return /enhanced|premium/i.test(v.name); })[0] || vs[0];
+    u.rate = 1; u.volume = 1;
     u.onboundary = function () { var s = $("vc-stage"); s.classList.remove("beat"); void s.offsetWidth; s.classList.add("beat"); };
-    u.onend = u.onerror = function () { vSpeaking = false; $("vc-stage").classList.remove("talk"); if (then) then(); else vListen(); };
-    speechSynthesis.cancel(); speechSynthesis.speak(u);
+    u.onend = u.onerror = finish;
+    vUtter = u; // keep a reference so the browser does not drop it mid-sentence
+    // never get stuck if the browser forgets to say it finished
+    vSayT = setTimeout(finish, 2500 + text.length * 110);
+    var go = function () { try { speechSynthesis.resume(); speechSynthesis.speak(u); } catch (e) { finish(); } };
+    if (speechSynthesis.speaking || speechSynthesis.pending) { speechSynthesis.cancel(); setTimeout(go, 120); } else go();
   }
   // simple spoken commands that work everywhere, also without the AI
   function vIntent(s) {
@@ -4906,12 +4918,12 @@ html.a-still.lglass body::after { animation: none; }
     vSay(text, function () { vMode = "follow"; vListen(); });
   }
   function vListen() {
-    if (!vWant || vSpeaking || !VSR) return;
+    if (!vWant || !VSR) return;
     if (!vRec) {
       vRec = new VSR(); vRec.continuous = true; vRec.interimResults = true;
       vRec.onresult = function (ev) {
         for (var i = ev.resultIndex; i < ev.results.length; i++) {
-          var s = ev.results[i][0].transcript.trim(); if (!s) continue;
+          var s = ev.results[i][0].transcript.trim(); if (!s || vSpeaking) continue;
           // show what the microphone hears, so it is clear it is working
           if (!ev.results[i].isFinal) { if (vMode !== "wake" && vMode !== "wait") vCap(t("vcYou"), s); continue; }
           if (vMode === "wake") { if (WAKE_RE.test(s) || WAKE_LOOSE.test(s)) { clearTimeout(vT); vHandle(s); } }
@@ -4919,7 +4931,7 @@ html.a-still.lglass body::after { animation: none; }
         }
       };
       vRec.onstart = function () { $("vc-hint").hidden = true; };
-      vRec.onend = function () { vOn = false; if (vWant && !vSpeaking) setTimeout(vListen, 300); };
+      vRec.onend = function () { vOn = false; if (vWant) setTimeout(vListen, 300); };
       vRec.onerror = function (e) { if (e.error === "not-allowed" || e.error === "service-not-allowed") { vWant = false; vPill(""); $("vc-hint").hidden = false; } };
     }
     vRec.lang = lang === "he" ? "he-IL" : "en-US";
@@ -4962,10 +4974,10 @@ html.a-still.lglass body::after { animation: none; }
     // the character on every page: tap to turn "hey coach" on or off
     $("vc-fab").hidden = false;
     $("vc-fab").addEventListener("click", function () {
+      // tapping the coach works like holding the Siri button: it starts a conversation right away
       $("vc-hint").hidden = true;
-      if (vWant) { vStop(); vPaused = true; try { sessionStorage.setItem("vcPause", "1"); } catch (e) {} coachNote("vcPaused"); return; }
       vPaused = false; try { sessionStorage.removeItem("vcPause"); } catch (e) {}
-      vWant = true; vMode = "ask"; vListen(); vSay(t("vcHello"));
+      vWant = true; vMode = "ask"; vListen(); vSay(t("vcYes"));
     });
     // "hey coach" is on by default: it starts by itself whenever the microphone is allowed, unless it was turned off
     var vPaused = false; try { vPaused = sessionStorage.getItem("vcPause") === "1"; } catch (e) {}
