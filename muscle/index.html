@@ -5501,7 +5501,7 @@ html.a-still.lglass body::after { animation: none; }
       sb.auth.updateUser({ password: v }).then(function (r) { if (r.error) throw r.error; m.textContent = t("mePassOk"); m.className = "ac-msg ok"; $("me-newpass").value = ""; })
         .catch(function (err) { m.textContent = t(acErr(err)); m.className = "ac-msg bad"; });
     });
-    $("me-logout").addEventListener("click", function () { ownStop(); sb.auth.signOut().then(function () { me = null; meProf = null; renderAcct(); renderMe(); }); });
+    $("me-logout").addEventListener("click", function () { ownStop(); try { sessionStorage.removeItem("bsOwn"); } catch (e) {} sb.auth.signOut().then(function () { me = null; meProf = null; renderAcct(); renderMe(); }); });
     ownCheck();
   }
   // suggestions for the site: saved for the site owner (and Claude) to read
@@ -5529,13 +5529,17 @@ html.a-still.lglass body::after { animation: none; }
   function ownCheck() {
     var box = $("me-owner"); if (!box || !sb || !me) return;
     sb.rpc("bs_is_owner").then(function (r) {
-      if (r.data === true) { ownPanel(); return; }
+      // other accounts see nothing at all; the owner unlocks once per visit with the code
+      if (r.data !== true) { box.innerHTML = ""; return; }
+      var open = false; try { open = sessionStorage.getItem("bsOwn") === me.id; } catch (e) {}
+      if (open) { ownPanel(); return; }
       box.innerHTML = '<details class="me-card own-gate"><summary>' + esc(t("ownGate")) + '</summary><form id="own-f" class="me-form"><label><span>' + esc(t("ownCode")) + '</span><input type="password" id="own-code" inputmode="numeric" autocomplete="off" dir="ltr"></label><p class="ac-msg" id="own-msg" aria-live="polite"></p><button type="submit" class="btn">' + esc(t("ownEnter")) + "</button></form></details>";
       $("own-f").addEventListener("submit", function (e) {
         e.preventDefault();
         var m = $("own-msg"); m.textContent = t("acWait"); m.className = "ac-msg ok";
         sb.rpc("bs_owner_login", { code: $("own-code").value.trim() }).then(function (x) {
           if (x.error) { m.textContent = t(/not owner/.test(x.error.message || "") ? "ownNotOwner" : /bad code/.test(x.error.message || "") ? "sugBadCode" : "acErrNet"); m.className = "ac-msg bad"; return; }
+          try { sessionStorage.setItem("bsOwn", me.id); } catch (e) {}
           ownPanel();
         });
       });
