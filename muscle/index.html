@@ -3094,8 +3094,15 @@ html.a-still.lglass body::after { animation: none; }
   function T3(a, b, c) { return [a, b, c][gTol]; }
   // cheat check for push-ups and planks: bent knees (knees on the floor) or legs kept out of view
   function legCheat(j) {
-    if (j.K.v >= 0.35 && j.A.v >= 0.35) return ang(j.H, j.K, j.A) < T3(140, 150, 158) ? "gCheatKnees" : "";
-    if (gTol === 2 && j.K.v < 0.35) return "gShowLegs";
+    // 1) bent knees, when the ankle is in view
+    if (j.K.v >= 0.35 && j.A.v >= 0.35 && ang(j.H, j.K, j.A) < T3(140, 150, 158)) return "gCheatKnees";
+    // 2) knee resting on the floor: as low as the hands, with the arms holding the body up (works even if the feet are cut off)
+    // (checked with the arms straight, at the top, where the gap is clearest)
+    if (j.K.v >= 0.35 && j.S.v >= 0.4 && (j.W.v >= 0.35 || j.E.v >= 0.35) && !(j.W.v >= 0.35 && j.E.v >= 0.35 && ang(j.S, j.E, j.W) < 140)) {
+      var floor = Math.max(j.W.v >= 0.35 ? j.W.y : 0, j.E.v >= 0.35 ? j.E.y : 0), up = floor - j.S.y;
+      if (up > 0.04 && (floor - j.K.y) / up < T3(0.1, 0.15, 0.2)) return "gCheatKnees";
+    }
+    if (gTol >= 1 && j.K.v < 0.35) return "gShowLegs";
     return "";
   }
   // each read returns { seen, ok, why, phase: "up" (start) | "down" (the work) | "mid", miss: message for a half rep }
